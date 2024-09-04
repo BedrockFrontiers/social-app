@@ -12,7 +12,7 @@ Welcome to **Tidal**, a new wave in social networking that combines simplicity w
 - **Customizable Profiles**: Express yourself with profile options that suit your personality.
 - **Open Source**: Tidal is open to the community. You can contribute to its growth and development.
 - **API**: The API of Tidal is easily to use, with SDK support.
-- **Creating Bots**: You're free to create botd using the Tidal API with the same facility of Discord.
+- **Creating Bots**: You're free to create bots using the Tidal API with the same facility of Discord.
 
 Here’s an enhanced and more professional version of the contribution section, including detailed rules and guidelines:
 
