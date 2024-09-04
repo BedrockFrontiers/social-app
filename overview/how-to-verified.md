@@ -8,6 +8,8 @@ Verification on Tidal is a way to confirm the authenticity of notable accounts a
 
 ### 1. **Blue Check Verification**
 
+<img src="../assets/verified-badge.png" alt="Verified Badge" width="30" height="30" />
+
 **Who is it for?** 
 
 - Public figures, influencers, celebrities, and brands.
@@ -28,6 +30,8 @@ Verification on Tidal is a way to confirm the authenticity of notable accounts a
 
 ### 2. **Gold Check Verification**
 
+<img src="../assets/gold-verified-badge.png" alt="Gold Verified Badge" width="30" height="30" />
+
 **Who is it for?** 
 
 - Business accounts, organizations, and official entities that operate on a larger scale.
@@ -46,6 +50,8 @@ Verification on Tidal is a way to confirm the authenticity of notable accounts a
 - Access to business-specific tools, including targeted ads and advanced customer support.
 
 ### 3. **Silver Check Verification**
+
+<img src="../assets/silver-verified-badge.png" alt="Silver Verified Badge" width="30" height="30" />
 
 **Who is it for?** 
 
