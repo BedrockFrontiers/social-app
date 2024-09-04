@@ -12,9 +12,36 @@ Welcome to **Tidal**, a new wave in social networking that combines simplicity w
 - **API**: The API of Tidal is easily to use, with SDK support.
 - **Creating Bots**: You're free to create botd using the Tidal API with the same facility of Discord.
 
+Here’s an enhanced and more professional version of the contribution section, including detailed rules and guidelines:
+
 ## Contributing
 
-We welcome contributions to Tidal! Whether you're fixing a bug, adding a new feature, or improving documentation, your help is appreciated.
+Thank you for considering contributing to **Tidal**! We appreciate any help in improving our project, whether through fixing bugs, adding new features, or enhancing documentation. Your contributions help us build a better product for everyone.
+
+### Contribution Guidelines
+
+To ensure that your contributions are of high quality and can be reviewed in a timely manner, please adhere to the following guidelines:
+
+1. **Scope and Quality**:
+    - **High-Impact Contributions**: Focus on submitting issues and pull requests that significantly improve the project. Minor tweaks or superficial changes should be grouped together or combined with larger contributions.
+    - **Code Quality**: Write clean, maintainable, and well-documented code. Follow the existing coding conventions and structure your commits logically.
+
+2. **Issue Reporting**:
+    - **Clear Descriptions**: Provide detailed and clear descriptions of the issue. Include steps to reproduce the problem, expected behavior, and screenshots if applicable.
+    - **Check for Duplicates**: Before submitting an issue, search the existing issues to ensure it hasn’t already been reported.
+
+3. **Pull Requests**:
+    - **Branching**: Create a new branch for each contribution. Use descriptive branch names that reflect the feature or fix (e.g., `fix/issue-123` or `feature/user-auth`).
+    - **Comprehensive Testing**: Ensure that your code is fully tested. Write new tests for any new functionality and ensure all existing tests pass.
+    - **Commit Messages**: Write clear and descriptive commit messages. Use the imperative mood (e.g., “Fix bug in user authentication”).
+    - **Documentation**: Update any relevant documentation to reflect your changes. If your contribution adds new features, include examples and instructions for use.
+
+4. **Code Review Process**:
+    - **Responsiveness**: Be prepared to address feedback from the maintainers. This may involve making changes to your code, adding more tests, or improving documentation.
+    - **Collaboration**: Engage with reviewers and other contributors in a constructive and professional manner. If there are any disagreements, discuss them openly and seek consensus.
+
+5. **Communication**:
+    - **Engagement**: Join discussions in the [Discussions](https://github.com/BedrockFrontiers/social-app/discussions) section to share ideas, seek feedback, or ask questions before starting significant work.
 
 ## License
 
