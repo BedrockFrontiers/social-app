@@ -1,3 +1,5 @@
+<img src="../assets/verified-illustration.webp" alt="Verified Illustration" width="150" height="150" />
+
 # Guide: How to be Verified
 
 Verification on Tidal is a way to confirm the authenticity of notable accounts and to help users easily find and engage with these accounts. We offer three levels of verification, each with its own set of criteria and benefits.
