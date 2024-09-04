@@ -6,7 +6,7 @@ This document provides guidelines to help you get started.
 
 ## Code of Conduct
 
-Please note that this project adheres to a [Code of Conduct](/CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code.
+Please note that this project adheres to a [Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code.
 
 ## Getting Started
 
@@ -88,7 +88,7 @@ Please follow the project's style guide to maintain consistency in the codebase:
 
 If you find a bug or have a suggestion for improvement, please open an issue:
 
-- Go to the [Issues](/issues) section of the repository.
+- Go to the [Issues](issues) section of the repository.
 - Click on "New Issue".
 - Provide a descriptive title and detailed information about the issue.
 
