@@ -1,36 +1,25 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Tidal Social App
 
-## Getting Started
+Welcome to **Tidal**, a new wave in social networking that combines simplicity with subtlety. Tidal is designed to offer a seamless, elegant experience, bringing people together in an environment that feels natural and fluid. Our platform emphasizes ease of use, meaningful interactions, and a community-driven approach.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Intuitive Interface**: A clean, minimalist design that prioritizes user experience.
+- **Real-Time Updates**: Stay connected with your friends and followers with instant updates.
+- **Privacy-Focused**: Your data is yours. We value and protect your privacy.
+- **Customizable Profiles**: Express yourself with profile options that suit your personality.
+- **Open Source**: Tidal is open to the community. You can contribute to its growth and development.
+- **API**: The API of Tidal is easily to use, with SDK support.
+- **Creating Bots**: You're free to create botd using the Tidal API with the same facility of Discord.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Contributing
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+We welcome contributions to Tidal! Whether you're fixing a bug, adding a new feature, or improving documentation, your help is appreciated.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## License
 
-## Learn More
+Tidal is licensed under the MIT License. See the [LICENSE](/LICENSE) file for more details.
 
-To learn more about Next.js, take a look at the following resources:
+## Forking Guidelines
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Ensure your fork is up to date with the original repository.Test your changes thoroughly before submitting a pull request.Follow the coding standards and guidelines outlined in the [CONTRIBUTING.md](/docs/CONTRIBUTING.md) file.
