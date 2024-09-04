@@ -20,7 +20,11 @@ Welcome to **Tidal**, a new wave in social networking that combines simplicity w
 - **API**: The API of Tidal is easily to use, with SDK support.
 - **Creating Bots**: You're free to create bots using the Tidal API with the same facility of Discord.
 
-Here’s an enhanced and more professional version of the contribution section, including detailed rules and guidelines:
+## Resources
+
+- [Overview](/overview): A Overview on Social App, explaining everything about functions and algorithm.
+- [Repository Assets](/assets): All assets used on main [`README.md`](/README.md).
+- [Scripts](/scripts): Scripts Tools used for development of The Social App.
 
 ## Contributing
 
