@@ -16,9 +16,9 @@ Here’s an enhanced and more professional version of the contribution section, 
 
 ## Contributing
 
-Thank you for considering contributing to **Tidal**! We appreciate any help in improving our project, whether through fixing bugs, adding new features, or enhancing documentation. Your contributions help us build a better product for everyone.
+Thank you for considering contributing to **Tidal**! We appreciate any help in improving our project, whether through fixing bugs, adding new features, or enhancing documentation. Your contributions help us build a better product for everyone. Check the [CONTRIBUTING.md](/docs/CONTRIBUTING.md) file for more details.
 
-### Contribution Guidelines
+### Guidelines
 
 To ensure that your contributions are of high quality and can be reviewed in a timely manner, please adhere to the following guidelines:
 
@@ -49,4 +49,4 @@ Tidal is licensed under the MIT License. See the [LICENSE](/LICENSE) file for mo
 
 ## Forking Guidelines
 
-Ensure your fork is up to date with the original repository.Test your changes thoroughly before submitting a pull request.Follow the coding standards and guidelines outlined in the [CONTRIBUTING.md](/docs/CONTRIBUTING.md) file.
+Ensure your fork is up to date with the original repository. Test your changes thoroughly before submitting a pull request.
