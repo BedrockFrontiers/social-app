@@ -4,10 +4,6 @@ Thank you for your interest in contributing to **Tidal**! We welcome all kinds o
 
 This document provides guidelines to help you get started.
 
-## Code of Conduct
-
-Please note that this project adheres to a [Code of Conduct](../CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code.
-
 ## Getting Started
 
 ### Fork the Repository
