@@ -88,7 +88,7 @@ Please follow the project's style guide to maintain consistency in the codebase:
 
 If you find a bug or have a suggestion for improvement, please open an issue:
 
-- Go to the [Issues](../issues) section of the repository.
+- Go to the [Issues](../../../issues) section of the repository.
 - Click on "New Issue".
 - Provide a descriptive title and detailed information about the issue.
 
