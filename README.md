@@ -5,7 +5,7 @@
 ![Vercel](https://img.shields.io/badge/cloud:%20vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white)
 ![Next.js](https://img.shields.io/badge/built:%20next.js-%23000000.svg?style=for-the-badge&logo=next.js&logoColor=white)
 ![PostgreSQL](https://img.shields.io/badge/database:%20postgresql-%23000000.svg?style=for-the-badge&logo=postgresql&logoColor=white)
-![Tidal Connection Protocol](https://img.shields.io/badge/protocol:%20tcproto-%23000000.svg?style=for-the-badge&logo=curl&logoColor=white)
+![Protocol](https://img.shields.io/badge/protocol:%20protobuf-%23000000.svg?style=for-the-badge&logo=curl&logoColor=white)
 
 Welcome to **Tidal**, a new wave in social networking that combines simplicity with subtlety. Tidal is designed to offer a seamless, elegant experience, bringing people together in an environment that feels natural and fluid. Our platform emphasizes ease of use, meaningful interactions, and a community-driven approach.
 
