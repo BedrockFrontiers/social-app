@@ -1,0 +1,8 @@
+# Welcome!
+# If you're considering bulk or automated crawling, please review our protocol (API) for updates. See: https://github.com/BedrockFrontiers/social-app
+
+# By default, crawling is permitted across this domain. HTTP 429 ("backoff") status codes are used for rate-limiting.
+# A few concurrent requests should be acceptable.
+
+User-Agent: *
+Allow: /
