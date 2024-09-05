@@ -1,11 +1,13 @@
 import { Montserrat } from "next/font/google";
-import LeftSideBar from "@/components/LeftSideBar";
-import RightSideBar from "@/components/RightSideBar";
+import LoadingScreen from "@/components/Screens/LoadingScreen";
+import LeftSideBar from "@/components/Sidebars/LeftSideBar";
+import RightSideBar from "@/components/Sidebars/RightSideBar";
 import "./globals.css";
 
 const font = Montserrat({ subsets: ["latin"] });
 
 export const metadata = {
+  metadataBase: new URL("https://tidal-social.vercel.app/"),
   title: "Tidal — A Social App",
   description: "Connect and share with the world on Tidal, the next-generation social network.",
   icons: {
@@ -61,10 +63,15 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={font.className}>
+      <body className={`${font.className} bg-gray-100`}>
+        <LoadingScreen />
         <LeftSideBar />
-        {children}
-        <RightSideBar />
+        <div className="bg-transparent flex-1 pt-4 max-[1000px]:pl-4 h-full overflow-y-auto">
+          {children}
+        </div>
+        <div className="pr-4 pt-4">
+          <RightSideBar />
+        </div>
       </body>
     </html>
   );
