@@ -28,7 +28,7 @@ export default function LeftSideBar() {
         </div>
 
         <div className="mt-auto">
-          <button className="p-3 w-full rounded-full font-bold bg-blue-500 text-white transition duration-200 hover:opacity-90 flex items-center gap-2">
+          <button className="p-3 w-full rounded-full font-bold bg-blue-500 text-white transition duration-200 hover:opacity-90 flex items-center justify-center gap-2">
             <Image src="/icons/post.svg" width={25} height={25} alt="Post" />
             New Tide
           </button>
