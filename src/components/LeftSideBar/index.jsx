@@ -12,33 +12,37 @@
 import Image from "next/image";
 
 export default function LeftSideBar() {
-	return (
-		<aside className="w-[300px] max-w-4xl bg-white border-r border-gray-300 h-[100vh] overflow-y-auto p-4">
-		  <div className="pt-4 ml-auto pr-[7%] flex flex-col gap-4">
-		    <div className="flex items-center gap-2 cursor-pointer transition delay-50 hover:bg-gray-200 p-2 rounded-lg">
-		      <Image src="/icons/home.svg" width={25} height={25} alt="Home" />
-		      <h3 className="text-lg font-semibold select-none">Home</h3>
-		    </div>
-		    <div className="flex items-center gap-2 cursor-pointer transition delay-50 hover:bg-gray-200 p-2 rounded-lg">
-		      <Image src="/icons/notifications.svg" width={25} height={25} alt="Notifications" />
-		      <h3 className="text-lg text-right font-semibold select-none">Notifications</h3>
-		    </div>
-		    <div className="flex items-center gap-2 cursor-pointer transition delay-50 hover:bg-gray-200 p-2 rounded-lg">
-		      <Image src="/icons/feeds.svg" width={25} height={25} alt="Feeds" />
-		      <h3 className="text-lg text-right font-semibold select-none">Feeds</h3>
-		    </div>
-		    <div className="flex items-center gap-2 cursor-pointer transition delay-50 hover:bg-gray-200 p-2 rounded-lg">
-		      <Image src="/icons/profile.svg" width={25} height={25} alt="Profile" />
-		      <h3 className="text-lg text-right font-semibold select-none">Profile</h3>
-		    </div>
-		    <div className="flex items-center gap-2 cursor-pointer transition delay-50 hover:bg-gray-200 p-2 rounded-lg">
-		      <Image src="/icons/settings.svg" width={25} height={25} alt="Settings" />
-		      <h3 className="text-lg text-right font-semibold select-none">Settings</h3>
-		    </div>
-		    <div>
-		    	<button className="p-2 w-full bg-blue-500 text-white rounded-full font-bold transition duration-200 hover:bg-blue-600">Create New Post</button>
-		    </div>
-		  </div>
-		</aside>
-	);
+  return (
+    <aside className="w-[250px] h-[100vh] overflow-y-auto p-4 bg-white text-black border-r border-gray-300">
+      <div className="pt-4 flex flex-col gap-6">
+        {/* Social App Logo */}
+        <div className="flex justify-center mb-8">
+          <Image src="/icon.png" width={40} height={40} alt="Social App Logo" />
+        </div>
+
+        {/* Navigation Items */}
+        <div className="flex flex-col gap-2">
+          <SidebarItem src="/icons/home.svg" text="Home" />
+          <SidebarItem src="/icons/notifications.svg" text="Notifications" />
+          <SidebarItem src="/icons/profile.svg" text="Profile" />
+        </div>
+
+        {/* Tweet Button */}
+        <div className="mt-auto">
+          <button className="p-3 w-full rounded-full font-bold bg-blue-500 text-white transition duration-200 hover:opacity-90">
+            New Tide
+          </button>
+        </div>
+      </div>
+    </aside>
+  );
+}
+
+function SidebarItem({ src, text }) {
+  return (
+    <div className="flex items-center gap-3 cursor-pointer p-2 rounded-full transition duration-200 hover:bg-gray-100">
+      <Image src={src} width={25} height={25} alt={text} />
+      <h3 className="text-xl font-semibold">{text}</h3>
+    </div>
+  );
 }
