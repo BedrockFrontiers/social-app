@@ -6,50 +6,56 @@ import "./globals.css";
 const font = Montserrat({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Tidal",
-  description: "A Social App.",
+  title: "Tidal — A Social App",
+  description: "Connect and share with the world on Tidal, the next-generation social network.",
   icons: {
     icon: "/icon.png",
-    apple: "/apple-touch-icon.png"
+    apple: "/apple-touch-icon.png",
   },
   openGraph: {
-    title: "Tidal",
-    description: "A Social App.",
+    type: "website",
+    locale: "en_US",
+    title: "Tidal — A Social App",
+    description: "Connect and share with the world on Tidal, the next-generation social network.",
+    url: "https://tidal-social.vercel.app/",
     siteName: "Tidal",
     images: [
       {
-        url: "/icon.png",
+        url: "/card.jpg",
         width: 1200,
         height: 630,
-        alt: "Tidal - A Social App",
+        alt: "Tidal — A Social App",
+        type: "image/jpg",
       },
     ],
   },
   twitter: {
-    title: "Tidal",
-    description: "A Social App.",
+    card: "summary_large_image",
+    site: "@tidal",
+    title: "Tidal — A Social App",
+    description: "Join Tidal, a dynamic social network to connect with friends, share updates, and more.",
     images: [
       {
-        url: "/icon.png",
+        url: "/card.jpg",
         width: 1200,
         height: 630,
-        alt: "Tidal - A Social App",
+        alt: "Tidal — A Social App",
       },
     ],
   },
   robots: {
-    index: false,
+    index: true,
     follow: true,
     nocache: true,
     googleBot: {
       index: true,
-      follow: false,
-      noimageindex: true,
+      follow: true,
+      noimageindex: false,
       "max-video-preview": -1,
       "max-image-preview": "large",
       "max-snippet": -1,
     },
-  },
+  }
 };
 
 export default function RootLayout({ children }) {
