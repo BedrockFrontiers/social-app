@@ -13,7 +13,7 @@ import Image from "next/image";
 
 export default function RightSideBar() {
 	return (
-		<aside className="w-[250px] h-[100vh] overflow-y-auto p-4 bg-white text-black border-r border-gray-300">
+		<aside className="w-[250px] h-[100vh] overflow-y-auto p-4 bg-white text-black border-l border-gray-300">
 			<div>
 				<div className="bg-zinc-100 w-full p-2 rounded-full flex items-center gap-2">
 					<Image src="/icons/search.svg" width={25} height={25} alt="Search" />
