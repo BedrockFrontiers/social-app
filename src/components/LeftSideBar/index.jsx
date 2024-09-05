@@ -22,6 +22,7 @@ export default function LeftSideBar() {
         <div className="flex flex-col gap-2">
           <SidebarItem src="/icons/home.svg" text="Home" />
           <SidebarItem src="/icons/notifications.svg" text="Notifications" />
+          <SidebarItem src="/icons/feeds.svg" text="Feeds" />
           <SidebarItem src="/icons/profile.svg" text="Profile" />
           <SidebarItem src="/icons/settings.svg" text="Settings" />
         </div>
