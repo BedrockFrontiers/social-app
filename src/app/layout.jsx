@@ -1,4 +1,6 @@
 import { Montserrat } from "next/font/google";
+import { ThemeProvider } from "next-themes";
+import NextTopLoader from "nextjs-toploader";
 import LoadingScreen from "@/components/Screens/LoadingScreen";
 import LeftSideBar from "@/components/Sidebars/LeftSideBar";
 import RightSideBar from "@/components/Sidebars/RightSideBar";
@@ -62,12 +64,15 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={`${font.className} bg-gray-100`}>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${font.className} bg-gray-100 dark:bg-black`}>
+        <NextTopLoader showSpinner={false} zIndex="9999" />
         <LoadingScreen />
         <LeftSideBar />
         <div className="bg-transparent flex-1 pt-4 max-[1000px]:pl-4 h-full overflow-y-auto">
-          {children}
+          <ThemeProvider defaultTheme="light" attribute="class">
+            {children}
+          </ThemeProvider>
         </div>
         <div className="pr-4 pt-4">
           <RightSideBar />

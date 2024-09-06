@@ -17,14 +17,13 @@ import listSidebarItems from "@/data/listSidebarItems";
 
 export default function BottomSideBar() {
 	return (
-		<div className="absolute z-50 bottom-0 left-0 w-full bg-white border-t py-3 min-h-[50px]">
+		<div className="absolute z-50 bottom-0 left-0 w-full bg-white dark:bg-black border-t py-3 min-h-[50px]">
 			<div className="flex gap-4 justify-center h-full overflow-x-auto items-center">
 				{listSidebarItems.map((item) => (
           <SidebarItem
             key={item.url}
             url={item.url}
-            svg={item.svg}
-            svgFilled={item.svgFilled}
+            icon={item.icon}
             text={item.text}
           />
         ))}

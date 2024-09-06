@@ -15,7 +15,7 @@ import Image from "next/image";
 import Link from "next/link";
 import SidebarItem from "@/components/Sidebars/SidebarItem";
 import listSidebarItems from "@/data/listSidebarItems";
-import PostIcon from "/public/icons/post.svg";
+import { FaPaperPlane } from "react-icons/fa6";
 
 export default function LeftSideBar() {
   return (
@@ -26,7 +26,7 @@ export default function LeftSideBar() {
             <SidebarItem
               key={item.url}
               url={item.url}
-              svg={item.svg}
+              icon={item.icon}
               svgFilled={item.svgFilled}
               text={item.text}
             />
@@ -39,25 +39,25 @@ export default function LeftSideBar() {
             	New Tide
             </span>
             <div className="lg:hidden max-[1000px]:visible">
-            	<PostIcon width={20} height={20} />
+            	<FaPaperPlane />
             </div>
           </button>
         </div>
       </div>
       <div className="relative mt-auto px-4 w-full max-[1000px]:hidden">
-      	<Link href="/profile/@filipotop.tidal.social" className="flex items-center gap-2 justify-center">
+      	<Link href="/profile/@filipotop" className="w-[max-content] flex items-center gap-2 justify-start">
 	      	<div>
 	      		<Image className="rounded-full object-cover select-none" src="https://cdn.bsky.app/img/avatar/plain/did:plc:75khwetbovmfeylwszpvobu6/bafkreid5xynwkoazg4rres5wxd3fhcw2nbrmv7i3mychx4tni5lv62yovq@jpeg" width={30} height={30} quality={100} alt="Profile Picture" />
 	      	</div>
 	      	<div>
 	      		<div className="flex items-center gap-2">
-	      			<p className="text-sm font-semibold truncate max-w-[130px]">filipotop</p>
+	      			<p className="text-sm dark:text-white font-semibold truncate max-w-[130px]">filipotop</p>
 	      			<Image className="select-none" src="/badges/hallow-verified.png" width={15} height={15} alt="Verified" />
 	      		</div>
-	      		<p className="text-xs font-semibold text-zinc-500 max-w-[130px] truncate">@filipotop.tidal.social</p>
+	      		<p className="text-xs font-semibold text-zinc-500 max-w-[130px] truncate">@filipotop</p>
 	      	</div>
       	</Link>
-      	<div className="flex border-t flex-wrap mt-5 pt-5 gap-2 items-center justify-center">
+      	<div className="flex border-t dark:border-zinc-800 flex-wrap mt-5 pt-5 gap-2 items-center justify-center">
       		<Link className="text-sm font-semibold text-blue-500 transition duration-200 hover:text-blue-400 hover:underline" href="/support/tos">Terms of Service</Link>
       		·
       		<Link className="text-sm font-semibold text-blue-500 transition duration-200 hover:text-blue-400 hover:underline" href="/support/privacy">Privacy</Link>
