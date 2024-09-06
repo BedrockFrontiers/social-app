@@ -1,0 +1,28 @@
+{
+  "recommended": "Recommended",
+  "following": "Following",
+  "search": "Search",
+  "home": "Home",
+  "explore": "Explore",
+  "notifications": "Notifications",
+  "feeds": "Feeds",
+  "profile": "Profile",
+  "settings": {
+    "settings": "Settings",
+    "basics": "Basics",
+    "appearance": "Appearance"
+  },
+  "newTide": "New Tide",
+  "terms": {
+    "termsOfService": "Terms of Service",
+    "privacy": "Privacy",
+    "useOfCookies": "Use of Cookies"
+  },
+  "follow": "Follow",
+  "directMessage": "Direct Message",
+  "replies": "Replies",
+  "tides": "Tides",
+  "followers": "Followers",
+  "following": "Following",
+  "posts": "Posts"
+}

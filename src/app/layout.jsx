@@ -64,7 +64,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html suppressHydrationWarning>
       <body className={`${font.className} bg-gray-100 dark:bg-black`}>
         <NextTopLoader showSpinner={false} zIndex="9999" />
         <LoadingScreen />

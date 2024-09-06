@@ -1,0 +1,28 @@
+{
+  "recommended": "Recomendado",
+  "following": "Seguindo",
+  "search": "Pesquisar",
+  "home": "Início",
+  "explore": "Explorar",
+  "notifications": "Notificações",
+  "feeds": "Feeds",
+  "profile": "Perfil",
+  "settings": {
+    "settings": "Configurações",
+    "basics": "Básico",
+    "appearance": "Aparência"
+  },
+  "newTide": "Novo Tide",
+  "terms": {
+    "termsOfService": "Termos de Serviço",
+    "privacy": "Privacidade",
+    "useOfCookies": "Uso de Cookies"
+  },
+  "follow": "Seguir",
+  "directMessage": "Mensagem Direta",
+  "replies": "Respostas",
+  "tides": "Tides",
+  "followers": "Seguidores",
+  "following": "Seguindo",
+  "posts": "Posts"
+}

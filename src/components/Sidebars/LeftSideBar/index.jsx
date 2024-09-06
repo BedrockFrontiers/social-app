@@ -45,7 +45,7 @@ export default function LeftSideBar() {
         </div>
       </div>
       <div className="relative mt-auto px-4 w-full max-[1000px]:hidden">
-      	<Link href="/profile/@filipotop" className="w-[max-content] flex items-center gap-2 justify-start">
+      	<Link href="/profile/@filipotop" className="flex items-center gap-2 justify-center">
 	      	<div>
 	      		<Image className="rounded-full object-cover select-none" src="https://cdn.bsky.app/img/avatar/plain/did:plc:75khwetbovmfeylwszpvobu6/bafkreid5xynwkoazg4rres5wxd3fhcw2nbrmv7i3mychx4tni5lv62yovq@jpeg" width={30} height={30} quality={100} alt="Profile Picture" />
 	      	</div>
