@@ -30,9 +30,10 @@
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import ProfileCard from "@/components/Profile/ProfileCard";
-import Attachments from "@/components/Attachments";
+import Attachments from "@/components/Media/Attachments";
 import { FaRegComment, FaHeart, FaRegHeart, FaArrowsRotate } from "react-icons/fa6";
-
+import { GiTakeMyMoney } from "react-icons/gi";
+import { BsPrinter } from "react-icons/bs";
 export default function Post({ post }) {
 	const [liked, setLiked] = useState(false);
 	const [showProfileCard, setShowProfileCard] = useState(false);
@@ -134,6 +135,14 @@ export default function Post({ post }) {
 						<div id="post:repost:action" className="transition duration-200 rounded-full p-1 hover:bg-zinc-700 hover:bg-opacity-20 flex items-center gap-2 cursor-pointer">
 							<FaArrowsRotate className="text-zinc-500" />
 							<p id="post:reposts:count" className="text-sm text-zinc-500 font-semibold text-zinc-500 select-none">{post.reposts}</p>
+						</div>
+						<div id="post:donate:action" className="transition duration-200 rounded-full p-1 hover:bg-zinc-700 hover:bg-opacity-20 flex items-center gap-2 cursor-pointer">
+							<GiTakeMyMoney className="text-zinc-500" />
+							<p id="post:reposts:count" className="text-sm text-zinc-500 font-semibold text-zinc-500 select-none">R$ 7694,13</p>
+						</div>
+						<div id="post:print:action" className="transition duration-200 rounded-full p-1 hover:bg-zinc-700 hover:bg-opacity-20 flex items-center gap-2 cursor-pointer">
+							<BsPrinter className="text-zinc-500" />
+							<p id="post:reposts:count" className="text-sm text-zinc-500 font-semibold text-zinc-500 select-none">5B</p>
 						</div>
 						<div onClick={() => setLiked(prev => !prev)} id="post:like:action" className="transition duration-200 rounded-full p-1 hover:bg-zinc-700 hover:bg-opacity-20 flex items-center gap-2 cursor-pointer">
 							{liked ? (

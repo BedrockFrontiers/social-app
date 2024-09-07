@@ -2,6 +2,8 @@ import Image from "next/image";
 import Post from "@/components/Post";
 import ViewProfileActions from "@/components/Profile/ViewProfileActions";
 import MainStructure from "@/components/MainStructure";
+import MediaModal from "@/components/Media/MediaModal";
+import { BsFillPrinterFill } from "react-icons/bs";
 
 export default function Profile({ params }) {
 	const posts = {
@@ -56,7 +58,7 @@ export default function Profile({ params }) {
 						<div className="flex max-[1000px]:flex-col gap-3">
 							<div className="z-10 -mt-10 flex justify-between">
 								<div>
-									<Image className="relative rounded-full object-cover select-none" src="https://cdn.bsky.app/img/avatar/plain/did:plc:75khwetbovmfeylwszpvobu6/bafkreid5xynwkoazg4rres5wxd3fhcw2nbrmv7i3mychx4tni5lv62yovq@jpeg" width={150} height={150} quality={100} alt="Profile Picture" />
+									<MediaModal className="relative rounded-full object-cover select-none" src="https://cdn.bsky.app/img/avatar/plain/did:plc:75khwetbovmfeylwszpvobu6/bafkreid5xynwkoazg4rres5wxd3fhcw2nbrmv7i3mychx4tni5lv62yovq@jpeg" width={150} height={150} quality={100} alt="Profile Picture" />
 								</div>
 								<div className="sm:hidden mt-[60px]">
 									<ViewProfileActions />

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import ViewProfileActions from "@/components/Profile/ViewProfileActions";
+import MediaModal from "../Media/MediaModal";
 
 export default function ProfileCard({ className }) {
 	return (
@@ -11,7 +12,7 @@ export default function ProfileCard({ className }) {
 				<div className="flex justify-between p-4">
 					<div>
 						<Image
-							className="rounded-full select-none -mt-10"
+							className="rounded-full -mt-10 select-none"
 							src="https://cdn.bsky.app/img/avatar_thumbnail/plain/did:plc:bokcpbnh774esg2ufsuv5pll/bafkreib77mjbyizqewnkoyjgyhrg42l2zhr2vw4x2spxp6nr6mrvcrlpmi@jpeg"
 							width={80}
 							height={80}
