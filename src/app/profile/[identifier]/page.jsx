@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Post from "@/components/Post";
+import ViewProfileActions from "@/components/Profile/ViewProfileActions";
 import MainStructure from "@/components/MainStructure";
 
 export default function Profile({ params }) {
@@ -53,11 +54,16 @@ export default function Profile({ params }) {
 				<div className="relative border-b dark:border-zinc-800 bg-white dark:bg-black">
 					<div className="px-4">
 						<div className="flex max-[1000px]:flex-col gap-3">
-							<div className="z-10 -mt-10 ">
-								<Image className="relative rounded-full object-cover select-none border-4 border-white dark:border-black" src="https://cdn.bsky.app/img/avatar/plain/did:plc:75khwetbovmfeylwszpvobu6/bafkreid5xynwkoazg4rres5wxd3fhcw2nbrmv7i3mychx4tni5lv62yovq@jpeg" width={150} height={150} quality={100} alt="Profile Picture" />
+							<div className="z-10 -mt-10 flex justify-between">
+								<div>
+									<Image className="relative rounded-full object-cover select-none" src="https://cdn.bsky.app/img/avatar/plain/did:plc:75khwetbovmfeylwszpvobu6/bafkreid5xynwkoazg4rres5wxd3fhcw2nbrmv7i3mychx4tni5lv62yovq@jpeg" width={150} height={150} quality={100} alt="Profile Picture" />
+								</div>
+								<div className="sm:hidden mt-[60px]">
+									<ViewProfileActions />
+								</div>
 							</div>
 							<div className="mt-2 w-full">
-								<div className="flex gap-4 max-[1000px]:flex-col w-full items-center max-[1000px]:items-start justify-between">
+								<div className="flex gap-4 w-full items-center max-[1000px]:items-start justify-between">
 									<div>
 										<div className="flex items-center gap-4">
 											<h3 className="font-bold text-gray-800 dark:text-white text-2xl">filipotop</h3>
@@ -65,17 +71,8 @@ export default function Profile({ params }) {
 										</div>
 										<p className="text-sm font-semibold text-zinc-500">@filipotop</p>
 									</div>
-									<div className="flex items-center gap-2">
-										<button className="py-1 px-5 rounded-full font-bold bg-gray-100 dark:bg-zinc-700 transition duration-200 hover:bg-gray-200 dark:hover:bg-zinc-800">
-										  <span className="select-none text-xs text-gray-800 dark:text-white text-center">
-										  	Direct Message
-										  </span>
-										</button>
-										<button className="py-1 px-5 rounded-full font-bold text-white bg-blue-500 transition duration-200 hover:opacity-90">
-										  <span className="select-none text-xs text-center">
-										  	Follow
-										  </span>
-										</button>
+									<div className="invisible sm:visible">
+										<ViewProfileActions />
 									</div>
 								</div>
 								<div className="flex mt-3 max-[1000px]:mt-10 gap-4">

@@ -1,3 +1,25 @@
+/**
+ * SidebarItem Component
+ * 
+ * This component renders an individual item for the sidebar navigation, including
+ * an icon and a text label. It highlights the active item based on the current
+ * URL path and applies different styles when hovered or active, with support for
+ * light and dark themes.
+ * 
+ * Props:
+ * - url (string): The target URL for the navigation item.
+ * - icon (React.Component): The icon to be displayed next to the text.
+ * - text (string): The label text to be displayed next to the icon.
+ * 
+ * Features:
+ * - Highlights the current item if the `url` matches the current path (`pathname`).
+ * - Responsive styles: hides the text label on smaller screens, showing only the icon.
+ * - Adjusts styles for light/dark themes and applies hover effects.
+ * 
+ * Usage:
+ * <SidebarItem url="/home" icon={HomeIcon} text="Home" />
+ */
+
 "use client";
 
 import { usePathname } from "next/navigation";

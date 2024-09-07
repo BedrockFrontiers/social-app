@@ -19,7 +19,7 @@ import { FaPaperPlane } from "react-icons/fa6";
 
 export default function LeftSideBar() {
   return (
-    <aside className="relative w-[300px] max-[1000px]:w-[75px] h-[95vh] overflow-y-auto flex flex-col items-center bg-transparent text-black max-[640px]:w-0 max-[640px]:hidden">
+    <aside className="relative w-[300px] max-[1000px]:w-[75px] h-[95vh] overflow-y-hidden flex flex-col items-center bg-transparent text-black max-[640px]:w-0 max-[640px]:hidden">
       <div className="pt-4 flex flex-col gap-6">
         <div className="flex flex-col gap-2">
           {listSidebarItems.map((item) => (

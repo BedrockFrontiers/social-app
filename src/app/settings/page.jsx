@@ -12,7 +12,7 @@ export default function ProfileSettings() {
 				<p className="font-semibold text-md select-none">Basics</p>
 				<div className="mt-5" >
 					<Link className="flex items-center gap-2 w-[max-content]" href="/settings/appearance">
-						<div className="bg-black bg-opacity-15 p-3 rounded-full">
+						<div className="bg-zinc-700 bg-opacity-50 p-3 rounded-full">
 							<FaBrush />
 						</div>
 						appearance

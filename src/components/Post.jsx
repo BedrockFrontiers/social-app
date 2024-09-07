@@ -1,35 +1,105 @@
+/**
+ * Post Component
+ * 
+ * This component displays a social media post, including the user's profile
+ * information, post content, and interactions (comments, reposts, and likes).
+ * It dynamically renders the verified badge based on the user's verification level
+ * and includes an option for liking a post.
+ * 
+ * Props:
+ * - post: Object containing the following post data:
+ *   - profileImage (string): URL of the user's profile picture.
+ *   - username (string): Name of the user who posted.
+ *   - identifier (string): User's unique handle or identifier.
+ *   - verified (number): Verification level of the user (0: none, 1: verified, 2: gold, 3: hallow).
+ *   - uploadedAt (string): Date or time the post was uploaded.
+ *   - content (string): Text content of the post.
+ *   - reposted (boolean): Indicates if the post is a repost.
+ *   - attachments (array): List of URLs for any images attached to the post.
+ *   - comments (number): Count of comments on the post.
+ *   - reposts (number): Count of reposts.
+ *   - likes (number): Count of likes.
+ * 
+ * Usage:
+ * <Post post={postData} />
+ */
+
+
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
+import ProfileCard from "@/components/Profile/ProfileCard";
+import Attachments from "@/components/Attachments";
 import { FaRegComment, FaHeart, FaRegHeart, FaArrowsRotate } from "react-icons/fa6";
 
 export default function Post({ post }) {
 	const [liked, setLiked] = useState(false);
+	const [showProfileCard, setShowProfileCard] = useState(false);
+	const [fadeTimeout, setFadeTimeout] = useState(null);
 	const verifiedLevel = ['', "/badges/verified.png", "/badges/gold-verified.png", "/badges/hallow-verified.png"];
+
+	const handleMouseEnter = (event) => {
+		if (fadeTimeout) {
+			clearTimeout(fadeTimeout);
+			setFadeTimeout(null);
+		}
+
+		setShowProfileCard(true);
+	};
+
+	const handleMouseLeave = () => {
+		setFadeTimeout(setTimeout(() => {
+			setShowProfileCard(false);
+		}, 300));
+	};
+
+	const handleProfileCardMouseEnter = () => {
+		if (fadeTimeout) {
+			clearTimeout(fadeTimeout);
+			setFadeTimeout(null);
+		}
+		setShowProfileCard(true);
+	};
+
+	const handleProfileCardMouseLeave = () => {
+		setFadeTimeout(setTimeout(() => {
+			setShowProfileCard(false);
+		}, 300));
+	};
 
 	return (
 		<div className="relative p-4">
 			<div id="post:content" className="flex gap-4">
-				<div>
+				<div className="relative">
 					<Image
 						className="rounded-full select-none"
+						onMouseEnter={handleMouseEnter} 
+						onMouseLeave={handleMouseLeave}
 						src={post.profileImage}
 						width={60}
 						height={60}
 						quality={100}
 						alt="Profile Picture"
 					/>
+					{showProfileCard && (
+						<div
+							onMouseEnter={handleProfileCardMouseEnter} 
+							onMouseLeave={handleProfileCardMouseLeave}
+						>
+							<ProfileCard className="top-0 left-0 sm:left-[70px]" />
+						</div>
+					)}
 				</div>
-				<div className="sm:w-[500px]">
+				<div className="w-[88vw] sm:w-[500px]">
 					{post.reposted && (
 						<div className="flex items-center gap-1 text-xs text-zinc-500">
 							<FaArrowsRotate />
 							<p id="user:identifier" className="font-bold max-w-[130px] truncate">Reposted</p>
 						</div>
 					)}
-					<div className="flex items-center gap-1">
-						<div id="user:information" className="flex items-center gap-1">
+					<div className="flex items-center gap-1 flex-wrap">
+						<div id="user:information" className="flex items-center  gap-1">
 							<p id="user:name" className="text-sm font-bold cursor-pointer transition duration-200 hover:underline">{post.username}</p>
 							{verifiedLevel[post.verified].length > 0 && (
 								<Image
@@ -46,34 +116,26 @@ export default function Post({ post }) {
 						<span className="text-zinc-500">·</span>
 						<p id="uploaded:at" className="text-xs font-semibold text-zinc-500">{post.uploadedAt}</p>
 					</div>
-					<div className="mt-2">
+					<div className="mt-1">
 						<p className="text-sm">
 							{post.content}
 						</p>
 					</div>
 					{post.attachments.length > 0 && (
 						<div className="mt-2">
-							<div className="relative w-full h-auto rounded-xl">
-								<Image
-									className="rounded-xl select-none"
-									src={post.attachments[0]}
-									alt="Post Image"
-									width={500}
-									height={300}
-								/>
-							</div>
+							<Attachments items={post.attachments} />
 						</div>
 					)}
 					<div id="post:actions" className="sm:w-[500px] flex justify-between mt-2 items-center flex-wrap">
-						<div id="post:comment:action" className="transition duration-200 rounded-full p-1 hover:bg-black hover:bg-opacity-20 flex items-center gap-2 cursor-pointer">
+						<div id="post:comment:action" className="transition duration-200 rounded-full p-1 hover:bg-zinc-700 hover:bg-opacity-20 flex items-center gap-2 cursor-pointer">
 							<FaRegComment className="text-zinc-500" />
 							<p id="post:comment:count" className="text-sm text-zinc-500 font-semibold text-zinc-500 select-none">{post.comments}</p>
 						</div>
-						<div id="post:repost:action" className="transition duration-200 rounded-full p-1 hover:bg-black hover:bg-opacity-20 flex items-center gap-2 cursor-pointer">
+						<div id="post:repost:action" className="transition duration-200 rounded-full p-1 hover:bg-zinc-700 hover:bg-opacity-20 flex items-center gap-2 cursor-pointer">
 							<FaArrowsRotate className="text-zinc-500" />
 							<p id="post:reposts:count" className="text-sm text-zinc-500 font-semibold text-zinc-500 select-none">{post.reposts}</p>
 						</div>
-						<div onClick={() => setLiked(prev => !prev)} id="post:like:action" className="transition duration-200 rounded-full p-1 hover:bg-black hover:bg-opacity-20 flex items-center gap-2 cursor-pointer">
+						<div onClick={() => setLiked(prev => !prev)} id="post:like:action" className="transition duration-200 rounded-full p-1 hover:bg-zinc-700 hover:bg-opacity-20 flex items-center gap-2 cursor-pointer">
 							{liked ? (
 								<FaHeart className="text-pink-500" />
 							) : (
