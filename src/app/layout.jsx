@@ -65,11 +65,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html suppressHydrationWarning>
-      <body className={`${font.className} bg-gray-100 dark:bg-black`}>
+      <body className={`${font.className} h-full bg-gray-100 dark:bg-black`}>
         <NextTopLoader showSpinner={false} zIndex="9999" />
         <LoadingScreen />
         <LeftSideBar />
-        <div className="bg-transparent flex-1 pt-4 max-[1000px]:pl-4 h-full overflow-y-auto">
+        <div className="bg-transparent flex-1 pt-4 max-[1000px]:pl-4 h-full">
           <ThemeProvider defaultTheme="light" attribute="class">
             {children}
           </ThemeProvider>

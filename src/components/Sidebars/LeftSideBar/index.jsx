@@ -19,7 +19,7 @@ import { FaPaperPlane } from "react-icons/fa6";
 
 export default function LeftSideBar() {
   return (
-    <aside className="relative w-[250px] max-[1000px]:w-[75px] h-[95vh] overflow-y-auto flex flex-col items-center bg-transparent text-black max-[640px]:hidden">
+    <aside className="relative w-[300px] max-[1000px]:w-[75px] h-[95vh] overflow-y-auto flex flex-col items-center bg-transparent text-black max-[640px]:w-0 max-[640px]:hidden">
       <div className="pt-4 flex flex-col gap-6">
         <div className="flex flex-col gap-2">
           {listSidebarItems.map((item) => (
@@ -35,10 +35,10 @@ export default function LeftSideBar() {
 
         <div className="mt-auto">
           <button className="p-2 max-[1000px]:p-3 w-full rounded-full font-bold bg-blue-500 text-white transition duration-200 hover:opacity-90">
-            <span className="max-[1000px]:hidden select-none text-sm text-center">
+            <span className="lg:visible max-[900px]:hidden select-none text-sm text-center">
             	New Tide
             </span>
-            <div className="lg:hidden max-[1000px]:visible">
+            <div className="lg:hidden max-[900px]:visible">
             	<FaPaperPlane />
             </div>
           </button>
