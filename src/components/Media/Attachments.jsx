@@ -34,7 +34,7 @@
 
 
 import Image from "next/image";
-import MediaModal from "./MediaModal";
+import MediaModal from "@/components/Media/MediaModal";
 
 export default function Attachments({ items }) {
 	return (
