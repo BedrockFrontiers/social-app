@@ -27,7 +27,7 @@ export function UnloggedInLeftSideBar() {
         <div className="mt-auto text-align-center mr-10 ml-4 mt-15">
         <Image  src="/icon.png" width={65} height={65} className="select-none" alt="Social App Logo" />
         <p className="dark:text-white font-semibold w-22 text-align-center mt-2">
-            Log in to join the conversation and enjoy Tidal. It's free!
+            Log in to join the conversation and enjoy Tidal. It&apos;s free!
         </p>
           <button className="p-2 max-[1000px]:p-3 w-full rounded-full font-bold bg-blue-500 text-white transition duration-200 hover:opacity-90 mt-3">
             <span className="visible max-[1000px]:hidden select-none text-sm text-center">
