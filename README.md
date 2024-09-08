@@ -22,6 +22,7 @@ Welcome to **Tidal**, a new wave in social networking that combines simplicity w
 ## Resources
 
 - [Overview](/overview): A Overview on Social App, explaining everything about functions and algorithm.
+- [Algorithms](/algorithms): All algorithms used on Social App.
 - [Repository Assets](/assets): All assets used on main [`README.md`](/README.md).
 - [Scripts](/scripts): Scripts Tools used for development of The Social App.
 
