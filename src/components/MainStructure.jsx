@@ -26,7 +26,7 @@ import BottomSideBar from "@/components/Sidebars/BottomSideBar";
 
 export default function MainStructure({ children, className }) {
 	return (
-		<main className={`bg-gray-50 dark:bg-zinc-900 sm:rounded-tl-xl max-[1089px]:border-l border-gray-200 max-[1089px]:border-r dark:border-zinc-800 h-full ${className}`}>
+		<main className={`bg-gray-50 dark:bg-zinc-900 lg:border-l max-lg:border-l-0 border-gray-200 dark:border-zinc-800 h-full ${className}`}>
 			{children}
 			<div className="lg:hidden min-h-[50px] mt-10 max-[1089px]:visible">
 				<BottomSideBar />
