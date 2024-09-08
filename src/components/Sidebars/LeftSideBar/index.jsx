@@ -27,7 +27,6 @@ export default function LeftSideBar() {
               key={item.url}
               url={item.url}
               icon={item.icon}
-              svgFilled={item.svgFilled}
               text={item.text}
             />
           ))}
