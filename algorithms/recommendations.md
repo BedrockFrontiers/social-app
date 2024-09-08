@@ -1,10 +1,16 @@
-# Tidal Recommendation Algorithm
+![Recommender System 1](../assets/recommender-system.png)
+
+# Recommendation Algorithm
+
+[`@Inspired`](https://towardsdatascience.com/introduction-to-recommender-systems-6c66cf15ada)
 
 ## Introduction
 
 The Tidal recommendation algorithm is inspired by similar systems used in modern social media platforms, such as Twitter. It is designed to provide a personalized and relevant feed of content to each user by analyzing a variety of signals based on their behavior, network interactions, and overall platform trends. This document provides a detailed explanation of the inner workings of the algorithm and the logic that drives content recommendation in Tidal.
 
 ## Key Principles
+
+![Recommender System 2](../assets/recommender-system-2.jpeg)
 
 The Tidal recommendation algorithm operates on several core principles:
 
@@ -23,8 +29,8 @@ The Tidal recommendation algorithm operates on several core principles:
 To ensure high-quality recommendations, the algorithm evaluates a set of signals. Each signal is assigned a specific weight, which contributes to the final recommendation score of each post. Below is a breakdown of the key signals:
 
 ### 1. **Direct User Engagement (50%)**
-   - Tweets that the user has directly interacted with receive the highest priority.
-   - Engagement types include likes, retweets, replies, and shares.
+   - Posts that the user has directly interacted with receive the highest priority.
+   - Engagement types include likes, reposts, replies, and shares.
    - **Formula:**
      $Direct Engagement Score$ = $InteractionType$ $\times 0.5$
      
@@ -124,12 +130,3 @@ The algorithm is designed to scale as the number of users and posts grows. Some 
 - **Batch Processing:** Evaluate posts in batches rather than in real-time to save on computational resources.
 - **Caching Popular Content:** Frequently engaged posts can be cached and reused in recommendations, reducing computation time.
 - **Distributed Systems:** As user interaction grows, the system can distribute the recommendation workload across multiple servers or nodes.
-
-## Future Enhancements
-
-- **Machine Learning Integration:** Over time, machine learning models can be integrated to automatically adjust weights based on user behavior, improving the accuracy of recommendations.
-- **Real-Time Feedback:** Implement real-time adjustments based on the user’s immediate actions (e.g., scrolling past a post without engaging might decrease its relevance score).
-
-## Conclusion
-
-The Tidal recommendation algorithm uses a combination of engagement signals, social network interactions, platform-wide trends, and post recency to curate a highly personalized feed for each user. By continuously refining these signals and introducing advanced techniques like machine learning, the system can adapt to the evolving needs of the user base, delivering a dynamic and engaging social media experience.
