@@ -50,22 +50,22 @@ export default function Profile({ params }) {
 	return (
 		<MainStructure>
 			<div>
-				<div className="relative z-0 min-h-[200px]">
-					<Image className="rounded-l-t-xl object-cover select-none" src="https://cdn.bsky.app/img/banner/plain/did:plc:75khwetbovmfeylwszpvobu6/bafkreiezxt4btxty5r32zkqczs3jarjmtkhillgijvaoi6rm6gyn3ey3zi@jpeg" fill={true} alt="Profile Banner" />
+				<div className="relative min-h-[200px]">
+					<MediaModal className="rounded-l-t-xl object-cover select-none cursor-pointer" src="https://cdn.bsky.app/img/banner/plain/did:plc:75khwetbovmfeylwszpvobu6/bafkreiezxt4btxty5r32zkqczs3jarjmtkhillgijvaoi6rm6gyn3ey3zi@jpeg" fill={true} alt="Profile Banner" />
 				</div>
 				<div className="relative border-b dark:border-zinc-800 bg-white dark:bg-black">
 					<div className="px-4">
-						<div className="flex max-[1000px]:flex-col gap-3">
+						<div className="flex max-lg:flex-col gap-3">
 							<div className="z-10 -mt-10 flex justify-between">
 								<div>
-									<MediaModal className="relative rounded-full object-cover select-none" src="https://cdn.bsky.app/img/avatar/plain/did:plc:75khwetbovmfeylwszpvobu6/bafkreid5xynwkoazg4rres5wxd3fhcw2nbrmv7i3mychx4tni5lv62yovq@jpeg" width={150} height={150} quality={100} alt="Profile Picture" />
+									<MediaModal className="relative rounded-full object-cover select-none cursor-pointer" src="https://cdn.bsky.app/img/avatar/plain/did:plc:75khwetbovmfeylwszpvobu6/bafkreid5xynwkoazg4rres5wxd3fhcw2nbrmv7i3mychx4tni5lv62yovq@jpeg" width={150} height={150} quality={100} alt="Profile Picture" />
 								</div>
 								<div className="sm:hidden mt-[60px]">
 									<ViewProfileActions />
 								</div>
 							</div>
 							<div className="mt-2 w-full">
-								<div className="flex gap-4 w-full items-center max-[1000px]:items-start justify-between">
+								<div className="flex gap-4 w-full items-center max-lg:items-start justify-between">
 									<div>
 										<div className="flex items-center gap-4">
 											<h3 className="font-bold text-gray-800 dark:text-white text-2xl">filipotop</h3>
@@ -77,7 +77,7 @@ export default function Profile({ params }) {
 										<ViewProfileActions />
 									</div>
 								</div>
-								<div className="flex mt-3 max-[1000px]:mt-2 gap-4">
+								<div className="flex mt-3 max-lg:mt-2 gap-4">
 									<span className="text-gray-700 transition duration-200 hover:underline cursor-pointer dark:text-white text-sm"><strong>224M</strong> followers</span>
 									<span className="text-gray-700 transition duration-200 hover:underline cursor-pointer dark:text-white text-sm"><strong>1.805</strong> following</span>
 									<span className="text-gray-700 dark:text-white text-sm"><strong>5.664</strong> posts</span>

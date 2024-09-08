@@ -20,7 +20,8 @@ import { FaPaperPlane } from "react-icons/fa6";
 
 export function UnloggedInLeftSideBar() {
   return (
-    <aside className="relative w-[300px] max-[1000px]:w-[75px] h-[95vh] overflow-y-hidden flex flex-col items-center bg-transparent text-black max-[640px]:w-0 max-[640px]:hidden">
+    <div className="w-[300px] max-lg:w-0 max-lg:hidden h-[95vh] z-10">
+    <aside className="fixed top-0 left-0 w-[300px] max-lg:w-0 max-lg:hidden h-[95vh] overflow-y-hidden flex flex-col items-center bg-transparent text-black">
       <div className="pt-4 flex flex-col gap-6">
 
         <div className="mt-auto text-align-center mr-10 ml-4 mt-15">
@@ -49,5 +50,6 @@ export function UnloggedInLeftSideBar() {
       	</div>
       </div>
     </aside>
+    </div>
   );
 }
