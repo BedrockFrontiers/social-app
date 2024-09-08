@@ -73,11 +73,11 @@ export default function Profile({ params }) {
 										</div>
 										<p className="text-sm font-semibold text-zinc-500">@filipotop</p>
 									</div>
-									<div className="invisible sm:visible">
+									<div className="hidden sm:visible">
 										<ViewProfileActions />
 									</div>
 								</div>
-								<div className="flex mt-3 max-[1000px]:mt-10 gap-4">
+								<div className="flex mt-3 max-[1000px]:mt-2 gap-4">
 									<span className="text-gray-700 transition duration-200 hover:underline cursor-pointer dark:text-white text-sm"><strong>224M</strong> followers</span>
 									<span className="text-gray-700 transition duration-200 hover:underline cursor-pointer dark:text-white text-sm"><strong>1.805</strong> following</span>
 									<span className="text-gray-700 dark:text-white text-sm"><strong>5.664</strong> posts</span>
