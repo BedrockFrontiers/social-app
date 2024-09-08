@@ -35,7 +35,7 @@ export default function LeftSideBar() {
 
         <div className="mt-auto">
           <button className="p-2 max-[1000px]:p-3 w-full rounded-full font-bold bg-blue-500 text-white transition duration-200 hover:opacity-90">
-            <span className="lg:visible max-[900px]:hidden select-none text-sm text-center">
+            <span className="lg:visible max-[1000px]:hidden select-none text-sm text-center">
             	New Tide
             </span>
             <div className="lg:hidden max-[900px]:visible">
