@@ -20,17 +20,29 @@
  *   <YourContent />
  * </MainStructure>
  */
+"use client"
 
 
-import BottomSideBar from "@/components/Sidebars/BottomSideBar";
+import { useEffect, useState } from "react";
+import { getCookieFromDOM } from "@/utils/getCookieFromDOM";
+import LoggedInBottomSideBar from "./Sidebars/BottomSideBar/LoggedInBottomSideBar";
+import UnloggedInBottomSideBar from "./Sidebars/BottomSideBar/UnloggedInBottomSideBar";
 
 export default function MainStructure({ children, className }) {
-	return (
-		<main className={`bg-gray-50 dark:bg-zinc-900 sm:border-b sm:border-l border-gray-200 sm:max-[1000px]:border-r sm:border-t dark:border-zinc-800 sm:max-h-[100vh] sm:min-h-[100vh] max-[1000px]:min-h-[90vh] max-[1000px]:max-h-[90vh] overflow-y-auto ${className}`}>
-			{children}
-			<div className="sm:hidden mt-10 max-[640px]:visible">
-				<BottomSideBar />
-			</div>
-		</main>
-	);
+    const [isLoggedIn, setIsLoggedIn] = useState(null); 
+
+    useEffect(() => {
+        const loggedInCookie = getCookieFromDOM(document, "LoggedIn"); //this is a initial temporary test implementation until we finish the authentication system.
+        setIsLoggedIn(loggedInCookie === "true");
+    }, []);
+
+    return (
+        <main className={`bg-gray-50 dark:bg-zinc-900 sm:border-b sm:border-l border-gray-200 sm:max-[1000px]:border-r sm:border-t dark:border-zinc-800 sm:max-h-[100vh] sm:min-h-[100vh] max-[1000px]:min-h-[90vh] max-[1000px]:max-h-[90vh] overflow-y-auto ${className}`}>
+            {children}
+            <div className="sm:hidden mt-10 max-[640px]:visible">
+                {isLoggedIn === null ? null : (isLoggedIn ? <LoggedInBottomSideBar /> : <UnloggedInBottomSideBar />)}
+            </div>
+        </main>
+    );
 }
+
