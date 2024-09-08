@@ -21,7 +21,7 @@
  * </MainStructure>
  */
 
-import BottomSideBar from "@/components/Sidebars/BottomSideBar/BottomSideBar";
+import BottomSideBar from "@/components/Sidebars/BottomSideBar";
 
 export default function MainStructure({ children, className }) {
 
