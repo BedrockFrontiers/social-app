@@ -26,7 +26,7 @@ import BottomSideBar from "@/components/Sidebars/BottomSideBar";
 
 export default function MainStructure({ children, className }) {
 	return (
-		<main className={`bg-gray-50 dark:bg-zinc-900 sm:border-b sm:border-l border-gray-200 sm:max-[1000px]:border-r sm:max-[1000px]:rounded-r-xl sm:border-t dark:border-zinc-800 sm:max-h-[100vh] sm:min-h-[100vh] max-[1000px]:min-h-[90vh] max-[1000px]:max-h-[90vh] overflow-y-auto ${className}`}>
+		<main className={`bg-gray-50 dark:bg-zinc-900 sm:border-b sm:border-l border-gray-200 sm:max-[1000px]:border-r sm:border-t dark:border-zinc-800 sm:max-h-[100vh] sm:min-h-[100vh] max-[1000px]:min-h-[90vh] max-[1000px]:max-h-[90vh] overflow-y-auto ${className}`}>
 			{children}
 			<div className="sm:hidden mt-10 max-[640px]:visible">
 				<BottomSideBar />
