@@ -30,9 +30,9 @@ export default function SidebarItem({ url, icon: Icon, text }) {
   const isActive = pathname === url;
 
   return (
-    <Link href={url} className={`flex items-center gap-3 cursor-pointer p-2 rounded-full transition duration-200 ${isActive ? "sm:bg-white dark:sm:bg-zinc-700 sm:shadow-sm max-[640px]:bg-gray-200 dark:max-[640px]:bg-zinc-800" : "sm:hover:bg-gray-200 dark:sm:hover:bg-zinc-800 max-[640px]:hover:bg-white dark:max-[640px]:hover:bg-zinc-800"}`}>
+    <Link href={url} className={`flex items-center gap-3 cursor-pointer p-2 rounded-full transition duration-200 ${isActive ? "lg:bg-white dark:lg:bg-zinc-700 lg:shadow-sm max-lg:bg-gray-200 dark:max-lg:bg-zinc-800" : "lg:hover:bg-gray-200 dark:lg:hover:bg-zinc-800"}`}>
       <Icon className="text-black dark:text-white" />
-      <h3 className={`text-md text-gray-800 dark:text-white font-semibold select-none max-[1000px]:hidden max-[1000px]:w-0`}>{text}</h3>
+      <h3 className={`text-md text-gray-800 dark:text-white font-semibold select-none max-lg:hidden max-lg:w-0`}>{text}</h3>
     </Link>
   );
 }

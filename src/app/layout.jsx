@@ -69,12 +69,12 @@ export default function RootLayout({ children }) {
         <NextTopLoader showSpinner={false} zIndex="9999" />
         <LoadingScreen />
         <LeftSideBar />
-        <div className="bg-transparent flex-1 sm:pt-4 sm:max-[1000px]:pl-4 h-full">
+        <div className="bg-transparent flex-1 lg:pl-4 max-lg:pl-0 min-h-screen">
           <ThemeProvider defaultTheme="light" attribute="class">
             {children}
           </ThemeProvider>
         </div>
-        <div className="sm:pr-4 sm:pt-4">
+        <div className="lg:pr-4 max-lg:pr-0 pt-4 max-lg:pt-4">
           <RightSideBar />
         </div>
       </body>

@@ -45,7 +45,7 @@ export default function Attachments({ items }) {
           width={1000}
           height={1000}
           alt="Main attachment"
-          className="w-full h-full object-cover select-none"
+          className="w-full h-full object-cover select-none cursor-pointer"
         />
       </div>
       {items.length > 1 && (
@@ -57,7 +57,7 @@ export default function Attachments({ items }) {
                 alt={`Attachment ${index + 2}`}
                 width={1000}
                 height={1000}
-                className="w-full h-full object-cover select-none"
+                className="w-full h-full object-cover select-none cursor-pointer"
               />
             </div>
           ))}
