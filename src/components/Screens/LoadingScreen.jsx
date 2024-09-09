@@ -38,7 +38,7 @@ export default function LoadingScreen() {
 	return (
 		<div>
 			{!loaded && (
-				<div className="z-[9999] absolute top-0 left-0 w-full h-full bg-gray-100 dark:bg-black flex items-center justify-center">
+				<div className="z-[9999] fixed top-0 left-0 w-full h-full bg-gray-100 dark:bg-black flex items-center justify-center">
 					<Image className="select-none" src="/icon.png" width={100} height={100} alt="Social App Logo" />
 				</div>
 			)}

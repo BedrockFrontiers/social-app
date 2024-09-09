@@ -11,15 +11,22 @@ import Link from "next/link";
 
 export default function UnloggedItems() {
 	return (
-		<div>
-      <p className="dark:text-white w-full text-center">
-        Log in to join the conversation and enjoy Tidal. It&apos;s free!
-      </p>
-      <button className="p-2 mt-2 w-full rounded-full font-bold bg-blue-500 text-white transition duration-200 hover:opacity-90">
-        <Link href="/auth/login" className="visible select-none text-sm text-center">
-          Log In
-        </Link>
-      </button>
+    <div>
+      <div className="mb-4 text-black dark:text-white">
+        <p className="font-semibold">Sign up or sign in to join the conversation</p>
+      </div>
+      <div className="flex items-center gap-4">
+        <button className="py-2 px-4 max-lg:p-3 w-full rounded-full font-bold bg-blue-500 text-white transition duration-200 hover:opacity-90">
+          <Link href="/auth/signin" className="select-none text-sm text-center">
+            Log In
+          </Link>
+        </button>
+        <button className="py-2 px-4 max-lg:p-3 w-full rounded-full font-bold bg-zinc-400 dark:bg-zinc-700 text-white transition duration-200 hover:opacity-90">
+          <Link href="/auth/signup" className="select-none text-sm text-center">
+            Sign Up
+          </Link>
+        </button>
+      </div>
     </div>
 	);
 }

@@ -1,9 +1,5 @@
 import { Montserrat } from "next/font/google";
-import { ThemeProvider } from "next-themes";
-import NextTopLoader from "nextjs-toploader";
-import LoadingScreen from "@/components/Screens/LoadingScreen";
-import LeftSideBar from "@/components/Sidebars/LeftSideBar";
-import RightSideBar from "@/components/Sidebars/RightSideBar";
+import LayoutStructure from "@/components/LayoutStructure";
 import "./globals.css";
 
 const font = Montserrat({ subsets: ["latin"] });
@@ -66,17 +62,9 @@ export default function RootLayout({ children }) {
   return (
     <html suppressHydrationWarning>
       <body className={`${font.className} h-full bg-gray-100 dark:bg-black`}>
-        <NextTopLoader showSpinner={false} zIndex="9999" />
-        <LoadingScreen />
-        <LeftSideBar />
-        <div className="bg-transparent flex-1 lg:pl-4 max-lg:pl-0 min-h-screen">
-          <ThemeProvider defaultTheme="light" attribute="class">
-            {children}
-          </ThemeProvider>
-        </div>
-        <div className="lg:pr-4 max-lg:pr-0 pt-4 max-lg:pt-4">
-          <RightSideBar />
-        </div>
+        <LayoutStructure>
+          {children}
+        </LayoutStructure>
       </body>
     </html>
   );
