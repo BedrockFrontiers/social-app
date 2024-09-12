@@ -1,0 +1,92 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider  = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// The User model represents a user in the social media platform.
+// Each user has a unique identifier (username), an email, and other optional
+// profile details such as bio, avatar, and banner. The verification status
+// is represented by the `verified` field, which ranges from 0 to 3.
+model User {
+  id Int @id @default(autoincrement()) // Unique identifier for the user (auto-incrementing integer).
+  identifier String @unique // Unique username identifier for the user (e.g., @username).
+  email String @unique // Unique email address associated with the user.
+  name String? // Full name of the user (optional).
+  bio String? // Bio or description about the user (optional).
+  avatarUrl String? // URL of the user's avatar image (optional).
+  bannerUrl String? // URL of the user's banner image (optional).
+  createdAt DateTime @default(now()) // The date when the user account was created. Defaults to the current timestamp.
+  updatedAt DateTime @updatedAt // The date when the user account was last updated. Automatically updated on modifications.
+  verified Int @default(0) // Verification level of the user account. Ranges from 0 (unverified) to 3 (highest verification level).
+  website String? // Personal website URL associated with the user (optional).
+  location String? // Location or address of the user (optional).
+
+  // Relations
+  posts Post[] // List of posts created by the user.
+  followers Follower[] @relation("UserFollowers") // List of followers who follow the user.
+  following Follower[] @relation("UserFollowing") // List of users that this user is following.
+  likes Like[] // List of likes by the user
+  reposts Repost[] // List of reposts by the user
+}
+
+// The Post model represents individual posts (or tweets) created by users.
+// A post contains content, optional attachments, and is associated with its author.
+model Post {
+  id Int @id @default(autoincrement()) // Unique identifier for the post (auto-incrementing integer).
+  content String // The textual content of the post.
+  attachments String[] // An array of URLs representing attachments (images, videos, etc.) related to the post.
+  createdAt DateTime  @default(now()) // The date when the post was created. Defaults to the current timestamp.
+  updatedAt DateTime  @updatedAt // The date when the post was last updated. Automatically updated on modifications.
+  authorId Int // Foreign key linking the post to its author (User model).
+
+  // Relations
+  author User @relation(fields: [authorId], references: [id]) // The user who authored the post. Establishes a relation to the User model.
+  likes Like[] // List of likes that the post has received.
+  reposts Repost[] // List of reposts (retweets or shares) of the post.
+}
+
+// The Follower model represents the relationship between users where one user follows another.
+model Follower {
+  id Int @id @default(autoincrement()) // Unique identifier for the follower relationship (auto-incrementing integer).
+  followingId Int // Foreign key linking to the user being followed.
+  followerId Int // Foreign key linking to the user who is following.
+
+  // Relations
+  following User @relation("UserFollowing", fields: [followingId], references: [id]) // The user being followed.
+  follower User @relation("UserFollowers", fields: [followerId], references: [id]) // The user who is following.
+  followedAt DateTime @default(now()) // The date when the following relationship was established.
+}
+
+// The Like model represents a like on a post by a user.
+model Like {
+  id Int @id @default(autoincrement()) // Unique identifier for the like (auto-incrementing integer).
+  userId Int // Foreign key linking to the user who liked the post.
+  postId Int // Foreign key linking to the liked post.
+
+  // Relations
+  user User @relation(fields: [userId], references: [id]) // The user who liked the post. Establishes a relation to the User model.
+  post Post @relation(fields: [postId], references: [id]) // The post that was liked. Establishes a relation to the Post model.
+}
+
+// The Repost model represents a repost (retweet or share) of a post by a user.
+model Repost {
+  id Int @id @default(autoincrement()) // Unique identifier for the repost (auto-incrementing integer).
+  userId Int // Foreign key linking to the user who reposted the post.
+  postId Int // Foreign key linking to the reposted post.
+
+  // Relations
+  user User @relation(fields: [userId], references: [id]) // The user who reposted the post. Establishes a relation to the User model.
+  post Post @relation(fields: [postId], references: [id]) // The post that was reposted. Establishes a relation to the Post model.
+  createdAt DateTime @default(now()) // The date when the post was reposted. Defaults to the current timestamp.
+}
