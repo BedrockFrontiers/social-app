@@ -68,7 +68,7 @@ export default function SignUp() {
 						<h1 className="font-bold text-3xl text-gray-900 dark:text-white">Sign Up</h1>
 					</div>
 					<div>
-						<p className={`text-center text-${success ? "green" : "red"}-500 font-semibold text-xs select-none`}>{ error || success }</p>
+						<p className={`text-center text-${success ? "blue" : "red"}-500 font-semibold text-xs select-none`}>{ error || success }</p>
 					</div>
 					<hr className="my-4 border-gray-200 dark:border-zinc-800" />
 					<div>
