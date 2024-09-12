@@ -13,7 +13,7 @@ export async function GET(request) {
         return Response.json({ error: "Failed to fetch user data." }, { status: 500 });
       }
 
-      return new Response.redirect('/');
+      redirect('/');
     }
 
   } catch (error) {
