@@ -33,7 +33,7 @@ export default function SignUp() {
       return;
     }
 
-		const req = await fetch("/api/auth/createAccount", {
+		const req = await fetch("/api/account/create", {
 			method: "post",
 			body: JSON.stringify({
 				username,
@@ -58,7 +58,7 @@ export default function SignUp() {
 				<path fill="currentColor" fillOpacity="0.2" d="M0,256L30,245.3C60,235,120,213,180,181.3C240,149,300,107,360,96C420,85,480,107,540,133.3C600,160,660,181,720,186.7C780,192,840,181,900,149.3C960,117,1020,64,1080,64C1140,64,1200,117,1260,160C1320,203,1380,235,1410,245.3L1440,256L1440,320L1410,320C1380,320,1320,320,1260,320C1200,320,1140,320,1080,320C1020,320,960,320,900,320C840,320,780,320,720,320C660,320,600,320,540,320C480,320,420,320,360,320C300,320,240,320,180,320C120,320,60,320,30,320L0,320Z" />
 	    </svg>
 
-	    <div className="flex items-stretch w-full justify-center">
+	    <div className="flex items-stretch w-full max-lg:h-full justify-center">
 				<div className="z-10 bg-white dark:bg-zinc-900 lg:rounded-l-xl lg:border-l lg:border-t lg:border-b lg:border-gray-200 lg:dark:border-zinc-800 lg:min-h-[500px] max-lg:h-full lg:w-[500px] max-lg:w-full lg:p-6 max-lg:p-10 shadow-lg flex flex-col">
 					<div className="mb-6">
 						<Image className="select-none mx-auto" src="/icon.png" width={50} height={50} alt="Social App Logo" />

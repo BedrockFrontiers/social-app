@@ -35,7 +35,6 @@ export default function LayoutStructure({ children }) {
 	return (
 		<>
 			<NextTopLoader showSpinner={false} zIndex="9999" />
-			{!hideSidebars && <LoadingScreen />}
 			{!hideSidebars && <LeftSideBar />}
 			
 			<div className="bg-transparent flex-1 lg:pl-4 max-lg:pl-0 min-h-screen">

@@ -11,25 +11,32 @@
 
 "use client";
 
+import { useState, useEffect } from "react";
+import { createClient } from "@/lib/supabase/client";
 import LoggedItems from "@/components/Sidebars/LeftSideBar/LoggedItems";
 import UnloggedItems from "@/components/Sidebars/LeftSideBar/UnloggedItems";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { getCookieFromDOM } from "@/utils/getCookieFromDOM";
 
 export default function LeftSideBar() {
   const [isLogged, setIsLogged] = useState(false);
+  const supabase = createClient();
+  
   useEffect(() => {
-    setIsLogged(getCookieFromDOM(document, "LoggedIn"));
-  }, []);
+    async function checkIsLogged() {
+      const { error } = await supabase.auth.getUser();
+      setIsLogged(!error);
+    }
+
+    checkIsLogged();
+  }, [supabase]);
 
   return (
     <div className="w-[300px] max-lg:w-0 max-lg:hidden h-[95vh] z-10">
       <aside className="fixed top-0 left-0 w-[300px] max-lg:w-0 max-lg:hidden h-[95vh] overflow-y-hidden flex flex-col items-center bg-transparent text-black">
         <div className="pt-4 flex flex-col gap-6">
           <div className="flex flex-col gap-2">
-            {(isLogged == "true") ? <LoggedItems /> : <UnloggedItems />}
+            {(isLogged) ? <LoggedItems /> : <UnloggedItems />}
           </div>
         </div>
         {isLogged && (
