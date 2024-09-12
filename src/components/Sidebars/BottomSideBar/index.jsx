@@ -8,18 +8,26 @@
  * Usage:
  * <LoggedInBottomSideBar />
  */
+
 "use client";
 
+import { useEffect, useState } from "react";
+import { createClient } from "@/lib/supabase/client";
 import LoggedItems from "@/components/Sidebars/BottomSideBar/LoggedItems";
 import UnloggedItems from "@/components/Sidebars/BottomSideBar/UnloggedItems";
-import { useEffect, useState } from "react";
-import { getCookieFromDOM } from "@/utils/getCookieFromDOM";
 
 export default function BottomSideBar() {
   const [isLogged, setIsLogged] = useState(false);
+  const supabase = createClient();
+  
   useEffect(() => {
-    setIsLogged(getCookieFromDOM(document, "LoggedIn"));
-  }, []);
+    async function checkIsLogged() {
+      const { error } = await supabase.auth.getUser();
+      setIsLogged(!error);
+    }
+
+    checkIsLogged();
+  }, [supabase]);
 
 	return (
 		<div className="fixed z-50 bottom-0 left-0 w-full bg-white dark:bg-black border-t dark:border-zinc-700 py-3 min-h-[50px]">
