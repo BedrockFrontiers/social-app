@@ -32,7 +32,7 @@ export default function BottomSideBar() {
 	return (
 		<div className="fixed z-50 bottom-0 left-0 w-full bg-white dark:bg-black border-t dark:border-zinc-700 py-3 min-h-[50px]">
 			<div className="flex gap-4 justify-center h-full overflow-x-auto items-center">
-				{(isLogged == "true") ? <LoggedItems /> : <UnloggedItems />}
+				{(isLogged) ? <LoggedItems /> : <UnloggedItems />}
 			</div>
 		</div>
 	);
