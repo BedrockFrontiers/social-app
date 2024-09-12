@@ -30,7 +30,7 @@ import { usePathname } from "next/navigation";
 
 export default function LayoutStructure({ children }) {
   const pathname = usePathname();
-  const hideSidebars = pathname === "/auth/signin" || pathname === "/auth/signup";
+  const hideSidebars = pathname === "/auth/signin" || pathname === "/auth/signup"; //we will implement this in a better way in the very near future (probably we'll not, but I just want to let you know that we know this isnt the best way!!)
 
 	return (
 		<>
