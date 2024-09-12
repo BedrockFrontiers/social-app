@@ -1,4 +1,5 @@
 import supabase from "@/lib/supabaseClient";
+import { redirect } from "next/navigation";
 
 export async function GET(request) {
   try {
