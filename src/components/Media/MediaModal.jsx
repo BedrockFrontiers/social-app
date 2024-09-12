@@ -50,7 +50,7 @@ export default function MediaModal({ ...props }) {
           className="fixed top-0 left-0 z-50 bg-black bg-opacity-70 w-full h-full flex items-center justify-center p-4"
         >
           <div onClick={(e) => e.stopPropagation()} className="relative">
-            <div className="relative p-2 rounded-lg shadow-lg">
+            <div className="relative p-2">
               <Image
                 src={props.src}
                 onClick={() => setIsOpenModal(false)}

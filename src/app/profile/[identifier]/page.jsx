@@ -3,9 +3,29 @@ import Post from "@/components/Post";
 import ViewProfileActions from "@/components/Profile/ViewProfileActions";
 import MainStructure from "@/components/MainStructure";
 import MediaModal from "@/components/Media/MediaModal";
+import getUserAccount from "@/utils/getUserAccount";
+import getVerifiedLevelName from "@/utils/getVerifiedLevelName";
 import { BsFillPrinterFill } from "react-icons/bs";
 
-export default function Profile({ params }) {
+export default async function Profile({ params }) {
+	const identifier = decodeURIComponent(params.identifier);
+	const me = await getUserAccount("@me");
+
+	let user = await getUserAccount(identifier);
+
+	if (!user)
+		return (
+			<MainStructure className="p-4">
+				<p className="text-sm">Account <strong>{identifier}</strong> doesn&apos;t exist.</p>
+				<p className="text-sm">Probably the format of identifier is wrong, e.g. (@fulano)</p>
+				<p className="text-sm">Or really this account is deleted, inactive or not created yet.</p>
+			</MainStructure>
+		);
+
+	if (identifier === "@me")
+		user = user.prisma;
+	const verifiedName = getVerifiedLevelName(user.verified);
+
 	const posts = {
 	  post1: {
 	    "username": "datcravat クラバット🍷",
@@ -50,42 +70,49 @@ export default function Profile({ params }) {
 	return (
 		<MainStructure>
 			<div>
-				<div className="relative min-h-[200px]">
-					<MediaModal className="rounded-l-t-xl object-cover select-none cursor-pointer" src="https://cdn.bsky.app/img/banner/plain/did:plc:75khwetbovmfeylwszpvobu6/bafkreiezxt4btxty5r32zkqczs3jarjmtkhillgijvaoi6rm6gyn3ey3zi@jpeg" fill={true} alt="Profile Banner" />
+				<div className={`relative min-h-[200px] ${!user.bannerUrl && "bg-blue-500"}`}>
+					{user.bannerUrl && (<MediaModal className="rounded-l-t-xl object-cover select-none cursor-pointer" quality={100} src={user.bannerUrl} fill={true} alt="Profile Banner" />)}				
 				</div>
-				<div className="relative border-b dark:border-zinc-800 bg-white dark:bg-black">
+				<div className="relative border-b border-gray-200 dark:border-zinc-800 bg-white dark:bg-black">
 					<div className="px-4">
 						<div className="flex max-lg:flex-col gap-3">
 							<div className="z-10 -mt-10 flex justify-between">
 								<div>
-									<MediaModal className="relative rounded-full object-cover select-none cursor-pointer" src="https://cdn.bsky.app/img/avatar/plain/did:plc:75khwetbovmfeylwszpvobu6/bafkreid5xynwkoazg4rres5wxd3fhcw2nbrmv7i3mychx4tni5lv62yovq@jpeg" width={150} height={150} quality={100} alt="Profile Picture" />
+									<MediaModal className="relative rounded-full object-cover select-none cursor-pointer" src={user.avatarUrl} width={150} height={150} quality={100} alt="Profile Picture" />
 								</div>
-								<div className="sm:hidden mt-[60px]">
-									<ViewProfileActions />
-								</div>
+								{ user.identifier !== me.prisma.identifier && (
+									<div className="lg:hidden mt-[60px]">
+										<ViewProfileActions />
+									</div>
+								)}
 							</div>
 							<div className="mt-2 w-full">
 								<div className="flex gap-4 w-full items-center max-lg:items-start justify-between">
 									<div>
 										<div className="flex items-center gap-4">
-											<h3 className="font-bold text-gray-800 dark:text-white text-2xl">filipotop</h3>
-											<Image className="select-none" src="/badges/hallow-verified.png" width={25} height={25} alt="Verified" />
+											<h3 className="font-bold text-gray-800 dark:text-white text-2xl">{user.name}</h3>
+											{verifiedName.length > 0 && (<Image className="select-none" src={`/badges/${verifiedName}.png`} width={25} height={25} alt={verifiedName} />)}
 										</div>
-										<p className="text-sm font-semibold text-zinc-500">@filipotop</p>
+										<p className="text-sm font-semibold text-zinc-500">{user.identifier}</p>
 									</div>
-									<div className="hidden sm:visible">
-										<ViewProfileActions />
-									</div>
+									{ user.identifier !== me.prisma.identifier && (
+										<div className="lg:visible max-lg:hidden">
+											<ViewProfileActions />
+										</div>
+									)}
 								</div>
 								<div className="flex mt-3 max-lg:mt-2 gap-4">
-									<span className="text-gray-700 transition duration-200 hover:underline cursor-pointer dark:text-white text-sm"><strong>224M</strong> followers</span>
-									<span className="text-gray-700 transition duration-200 hover:underline cursor-pointer dark:text-white text-sm"><strong>1.805</strong> following</span>
-									<span className="text-gray-700 dark:text-white text-sm"><strong>5.664</strong> posts</span>
+									<span className="text-gray-700 transition duration-200 hover:underline cursor-pointer dark:text-white text-sm"><strong>{user.followers.length}</strong> followers</span>
+									<span className="text-gray-700 transition duration-200 hover:underline cursor-pointer dark:text-white text-sm"><strong>{user.following.length}</strong> following</span>
+									<span className="text-gray-700 dark:text-white text-sm"><strong>{user.posts.length}</strong> posts</span>
 								</div>
-								<div className="mt-3">
-									<p className="text-gray-800 dark:text-white text-sm">
-										oi meu nome é filipo, curto rpg, jogos de luta e zelda! as vezes desenho tb
-									</p>
+							</div>
+						</div>
+						<div className="mt-3">
+							<div className="p-4 rounded-xl border border-gray-200 dark:border-zinc-800 w-full">
+								<h3 className="text-xs text-zinc-600 font-bold select-none border-b border-gray-200 dark:border-zinc-800">About Me</h3>
+								<div className="mt-5">
+									<p className="text-sm">{user.bio || "Nothing about me."}</p>
 								</div>
 							</div>
 						</div>
@@ -96,11 +123,7 @@ export default function Profile({ params }) {
 					</div>
 				</div>
 				<div>
-					<Post post={posts.post1} />
-					<hr className="border-gray-200 dark:border-zinc-700" />
-        	<Post post={posts.post2} />
-        	<hr className="border-gray-200 dark:border-zinc-700" />
-        	<Post post={posts.post3} />
+					
 				</div>
 			</div>
 		</MainStructure>

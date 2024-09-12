@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import supabase from "@/lib/supabaseClient";
+import { createClient } from "@/lib/supabase/server";
 
 const prisma = new PrismaClient();
 
@@ -17,21 +17,21 @@ export async function POST(request) {
   if (existingEmail || existingIdentifier)
   	return Response.json({ error: "Email or identifier already in use." }, { status: 400 });
 
-  /*const newUser = await prisma.user.create({
+  const supabase = createClient();
+
+  const newUser = await prisma.user.create({
   	data: {
   		name: username,
   		identifier,
   		avatarUrl: "https://avatar.iran.liara.run/public/48",
   		email
   	}
-  });*/
+  });
 
   const { error: signupError } = await supabase.auth.signUp({
     email,
     password
   });
-
-  console.log(signupError);
 
   if (signupError)
   	return Response.json({ error: "An error occurred while creating the account." }, { status: 500 });

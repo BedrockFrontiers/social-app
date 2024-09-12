@@ -5,7 +5,7 @@ const listSidebarItems = [
   { url: "/explore", icon: FaCompass, text: "Explore" },
   { url: "/notifications", icon: FaBell, text: "Notifications" },
   { url: "/feeds", icon: FaHashtag, text: "Feeds" },
-  { url: "/profile/@filipotop", icon: FaUser, text: "Profile" },
+  { url: "/profile/@me", icon: FaUser, text: "Profile" },
   { url: "/settings", icon: FaGear, text: "Settings" },
 ];
 

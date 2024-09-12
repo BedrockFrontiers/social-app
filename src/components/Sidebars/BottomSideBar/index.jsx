@@ -6,25 +6,19 @@
  * relevant content specific to the bottom side of the page.
  * 
  * Usage:
- * <LoggedInBottomSideBar />
+ * <BottomSideBar />
  */
-"use client";
 
 import LoggedItems from "@/components/Sidebars/BottomSideBar/LoggedItems";
 import UnloggedItems from "@/components/Sidebars/BottomSideBar/UnloggedItems";
-import { useEffect, useState } from "react";
-import { getCookieFromDOM } from "@/utils/getCookieFromDOM";
 
-export default function BottomSideBar() {
-  const [isLogged, setIsLogged] = useState(false);
-  useEffect(() => {
-    setIsLogged(getCookieFromDOM(document, "LoggedIn"));
-  }, []);
+export default function BottomSideBar({ user }) {
+	const isLogged = Object.keys(user || {}).length > 0;
 
 	return (
 		<div className="fixed z-50 bottom-0 left-0 w-full bg-white dark:bg-black border-t dark:border-zinc-700 py-3 min-h-[50px]">
 			<div className="flex gap-4 justify-center h-full overflow-x-auto items-center">
-				{(isLogged == "true") ? <LoggedItems /> : <UnloggedItems />}
+				{(isLogged) ? <LoggedItems /> : <UnloggedItems />}
 			</div>
 		</div>
 	);
