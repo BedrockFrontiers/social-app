@@ -18,7 +18,6 @@ export async function POST(request) {
   	return Response.json({ error: "Email or identifier already in use." }, { status: 400 });
 
   const supabase = createClient();
-
   const newUser = await prisma.user.create({
   	data: {
   		name: username,

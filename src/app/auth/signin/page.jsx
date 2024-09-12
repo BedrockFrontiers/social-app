@@ -43,6 +43,7 @@ export default function Login() {
 			const res = await req.json();
 			setSuccess(res.message);
 			router.push('/');
+			router.refresh();
 		}
 	}
 

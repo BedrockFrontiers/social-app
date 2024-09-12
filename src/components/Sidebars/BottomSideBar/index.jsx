@@ -9,6 +9,7 @@
  * <BottomSideBar />
  */
 
+import { createClient } from "@/lib/supabase/client";
 import LoggedItems from "@/components/Sidebars/BottomSideBar/LoggedItems";
 import UnloggedItems from "@/components/Sidebars/BottomSideBar/UnloggedItems";
 
