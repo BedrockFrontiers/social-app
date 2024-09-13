@@ -18,7 +18,7 @@ import getVerifiedLevelName from "@/utils/getVerifiedLevelName";
 
 export default function LeftSideBar({ user }) {
   const isLogged = Object.keys(user || {}).length > 0;
-  const verifiedName = getVerifiedLevelName(user.prisma.verified);
+  const verifiedName = getVerifiedLevelName(user?.prisma.verified);
 
   return (
     <>

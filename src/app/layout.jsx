@@ -1,5 +1,5 @@
 import { Montserrat } from "next/font/google";
-import getUserAccount from "@/utils/getUserAccount";
+import accountCache from "@/utils/accountCache";
 import LayoutStructure from "@/components/LayoutStructure";
 import "./globals.css";
 
@@ -60,12 +60,12 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }) {
-  const user = await getUserAccount("@me");
+  const me = await accountCache();
 
   return (
     <html suppressHydrationWarning>
       <body className={`${font.className} h-full bg-gray-100 dark:bg-black`}>
-        <LayoutStructure user={user}>
+        <LayoutStructure user={me}>
           {children}
         </LayoutStructure>
       </body>

@@ -4,13 +4,13 @@ import ViewProfileActions from "@/components/Profile/ViewProfileActions";
 import MainStructure from "@/components/MainStructure";
 import MediaModal from "@/components/Media/MediaModal";
 import getUserAccount from "@/utils/getUserAccount";
+import accountCache from "@/utils/accountCache";
 import getVerifiedLevelName from "@/utils/getVerifiedLevelName";
 import { BsFillPrinterFill } from "react-icons/bs";
 
 export default async function Profile({ params }) {
 	const identifier = decodeURIComponent(params.identifier);
-	const me = await getUserAccount("@me");
-
+	const me = await accountCache();
 	let user = await getUserAccount(identifier);
 
 	if (!user)
@@ -24,6 +24,7 @@ export default async function Profile({ params }) {
 
 	if (identifier === "@me")
 		user = user.prisma;
+
 	const verifiedName = getVerifiedLevelName(user.verified);
 
 	const posts = {
@@ -80,11 +81,9 @@ export default async function Profile({ params }) {
 								<div>
 									<MediaModal className="relative rounded-full object-cover select-none cursor-pointer" src={user.avatarUrl} width={150} height={150} quality={100} alt="Profile Picture" />
 								</div>
-								{ user.identifier !== me.prisma.identifier && (
-									<div className="lg:hidden mt-[60px]">
-										<ViewProfileActions />
-									</div>
-								)}
+								<div className="lg:hidden mt-[60px]">
+									<ViewProfileActions user={user} me={me} />
+								</div>
 							</div>
 							<div className="mt-2 w-full">
 								<div className="flex gap-4 w-full items-center max-lg:items-start justify-between">
@@ -95,11 +94,9 @@ export default async function Profile({ params }) {
 										</div>
 										<p className="text-sm font-semibold text-zinc-500">{user.identifier}</p>
 									</div>
-									{ user.identifier !== me.prisma.identifier && (
-										<div className="lg:visible max-lg:hidden">
-											<ViewProfileActions />
-										</div>
-									)}
+									<div className="lg:visible max-lg:hidden">
+										<ViewProfileActions user={user} me={me} />
+									</div>
 								</div>
 								<div className="flex mt-3 max-lg:mt-2 gap-4">
 									<span className="text-gray-700 transition duration-200 hover:underline cursor-pointer dark:text-white text-sm"><strong>{user.followers.length}</strong> followers</span>
