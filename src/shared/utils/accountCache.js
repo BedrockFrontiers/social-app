@@ -1,12 +1,14 @@
-import getUserAccount from "@/shared/utils/getUserAccount";
+import getUserAccount from "@/shared/utils/getUserAccount"; 
 
 let cachedUsers = {};
 
 export default async function accountCache() {
-  let userObj = null;
-  userObj = await getUserAccount("@me");
+  let userObj = await getUserAccount("@me");
 
-  if (!cachedUsers[userObj?.prisma.identifier])
-    cachedUsers[userObj?.prisma.identifier] = userObj;
-  return cachedUsers[userObj?.prisma.identifier];
+  const identifier = userObj?.prisma?.identifier;
+
+  if (identifier && !cachedUsers[identifier])
+    cachedUsers[identifier] = userObj;
+
+  return cachedUsers[identifier] || null;
 }
