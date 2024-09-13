@@ -31,6 +31,10 @@ Welcome to **Tidal**, a new wave in social networking that combines simplicity w
 
 Thank you for considering contributing to **Tidal**! We appreciate any help in improving our project, whether through fixing bugs, adding new features, or enhancing documentation. Your contributions help us build a better product for everyone. Check the [CONTRIBUTING.md](/docs/CONTRIBUTING.md) file for more details.
 
+## Environment Setup
+
+To begin developing your social application, you will first need to set up the `.env` file. You can find an example configuration in the [`.env.example`](/.env.example) file.
+
 ### Guidelines
 
 To ensure that your contributions are of high quality and can be reviewed in a timely manner, please adhere to the following guidelines:
