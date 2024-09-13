@@ -1,12 +1,3 @@
-/**
- * UnloggedItems Component
- * 
- * This component show items when user is unlogged.
- * 
- * Usage:
- * <UnloggedItems />
- */
-
 import Link from "next/link";
 
 export default function UnloggedItems() {

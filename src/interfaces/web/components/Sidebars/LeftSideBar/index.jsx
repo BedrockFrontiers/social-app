@@ -1,20 +1,9 @@
-/**
- * LeftSideBar Component
- * 
- * This component represents the sidebar located on the left side of the layout when the user is logged in.
- * It is used to display navigation links, user information, or any other
- * relevant content specific to the left side of the page.
- * 
- * Usage:
- * <LeftSideBar />
- */
-
 import { createClient } from "@/lib/supabase/client";
-import LoggedItems from "@/components/Sidebars/LeftSideBar/LoggedItems";
-import UnloggedItems from "@/components/Sidebars/LeftSideBar/UnloggedItems";
+import LoggedItems from "@/interfaces/web/components/Sidebars/LeftSideBar/LoggedItems";
+import UnloggedItems from "@/interfaces/web/components/Sidebars/LeftSideBar/UnloggedItems";
 import Image from "next/image";
 import Link from "next/link";
-import getVerifiedLevelName from "@/utils/getVerifiedLevelName";
+import getVerifiedLevelName from "@/shared/utils/getVerifiedLevelName";
 
 export default function LeftSideBar({ user }) {
   const isLogged = Object.keys(user || {}).length > 0;

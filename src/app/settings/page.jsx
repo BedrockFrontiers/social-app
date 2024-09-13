@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
-import MainStructure from "@/components/MainStructure";
-import accountCache from "@/utils/accountCache";
+import MainStructure from "@/interfaces/web/components/MainStructure";
+import accountCache from "@/shared/utils/accountCache";
 import { FaBrush, FaDoorOpen } from "react-icons/fa6";
 
 export default async function ProfileSettings() {

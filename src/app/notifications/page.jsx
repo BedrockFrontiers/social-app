@@ -1,4 +1,4 @@
-import MainStructure from "@/components/MainStructure";
+import MainStructure from "@/interfaces/web/components/MainStructure";
 
 export default function Notifications() {
 	return (

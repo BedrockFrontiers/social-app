@@ -1,13 +1,4 @@
-/**
- * LoggedItems Component
- * 
- * This component show items when user is logged.
- * 
- * Usage:
- * <LoggedItems />
- */
-
-import SidebarItem from "@/components/Sidebars/SidebarItem";
+import SidebarItem from "@/interfaces/web/components/Sidebars/SidebarItem";
 import listSidebarItems from "@/data/listSidebarItems";
 
 export default function LoggedItems() {

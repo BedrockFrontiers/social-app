@@ -1,36 +1,9 @@
-/**
- * Post Component
- * 
- * This component displays a social media post, including the user's profile
- * information, post content, and interactions (comments, reposts, and likes).
- * It dynamically renders the verified badge based on the user's verification level
- * and includes an option for liking a post.
- * 
- * Props:
- * - post: Object containing the following post data:
- *   - profileImage (string): URL of the user's profile picture.
- *   - username (string): Name of the user who posted.
- *   - identifier (string): User's unique handle or identifier.
- *   - verified (number): Verification level of the user (0: none, 1: verified, 2: gold, 3: hallow).
- *   - uploadedAt (string): Date or time the post was uploaded.
- *   - content (string): Text content of the post.
- *   - reposted (boolean): Indicates if the post is a repost.
- *   - attachments (array): List of URLs for any images attached to the post.
- *   - comments (number): Count of comments on the post.
- *   - reposts (number): Count of reposts.
- *   - likes (number): Count of likes.
- * 
- * Usage:
- * <Post post={postData} />
- */
-
-
 "use client";
 
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import ProfileCard from "@/components/Profile/ProfileCard";
-import Attachments from "@/components/Media/Attachments";
+import ProfileCard from "@/interfaces/web/components/Profile/ProfileCard";
+import Attachments from "@/interfaces/web/components/Media/Attachments";
 import { FaRegComment, FaHeart, FaRegHeart, FaArrowsRotate } from "react-icons/fa6";
 import { BsPrinter, BsFeather } from "react-icons/bs";
 export default function Post({ post }) {

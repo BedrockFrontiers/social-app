@@ -1,20 +1,3 @@
-/**
- * ViewProfileActions Component
- * 
- * This component renders action buttons for interacting with a user's profile, such as
- * sending a direct message or following the user. It provides two buttons styled for 
- * different themes (light and dark mode), with hover effects for a smoother user experience.
- * 
- * Features:
- * - The "Direct Message" button uses a light/dark theme depending on the user's settings.
- * - The "Follow" button is styled with a blue background and reduces opacity on hover.
- * - Both buttons have rounded corners and are responsive to user interaction with smooth
- *   transitions on hover.
- * 
- * Usage:
- * <ViewProfileActions />
- */
-
 "use client";
 
 import { useState } from "react";

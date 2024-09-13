@@ -1,6 +1,6 @@
 import { Montserrat } from "next/font/google";
-import accountCache from "@/utils/accountCache";
-import LayoutStructure from "@/components/LayoutStructure";
+import accountCache from "@/shared/utils/accountCache";
+import LayoutStructure from "@/interfaces/web/components/LayoutStructure";
 import "./globals.css";
 
 const font = Montserrat({ subsets: ["latin"] });

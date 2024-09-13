@@ -1,14 +1,3 @@
-/**
- * RightSidebar Component
- * 
- * This component represents the sidebar located on the right side of the layout.
- * It is used to display navigation links, user information, or any other
- * relevant content specific to the right side of the page.
- * 
- * Usage:
- * <RightSidebar />
- */
-
 import Image from "next/image";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 

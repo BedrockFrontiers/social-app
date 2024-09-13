@@ -1,17 +1,6 @@
-/**
- * BottomSidebar Component
- * 
- * This component represents the sidebar located on the bottom side of the layout.
- * It is used to display navigation links, user information, or any other
- * relevant content specific to the bottom side of the page.
- * 
- * Usage:
- * <BottomSideBar />
- */
-
 import { createClient } from "@/lib/supabase/client";
-import LoggedItems from "@/components/Sidebars/BottomSideBar/LoggedItems";
-import UnloggedItems from "@/components/Sidebars/BottomSideBar/UnloggedItems";
+import LoggedItems from "@/interfaces/web/components/Sidebars/BottomSideBar/LoggedItems";
+import UnloggedItems from "@/interfaces/web/components/Sidebars/BottomSideBar/UnloggedItems";
 
 export default function BottomSideBar({ user }) {
 	const isLogged = Object.keys(user || {}).length > 0;

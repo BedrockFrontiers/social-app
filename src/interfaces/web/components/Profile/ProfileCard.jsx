@@ -1,6 +1,6 @@
 import Image from "next/image";
-import ViewProfileActions from "@/components/Profile/ViewProfileActions";
-import MediaModal from "../Media/MediaModal";
+import ViewProfileActions from "@/interfaces/web/components/Profile/ViewProfileActions";
+import MediaModal from "@/interfaces/web/components/Media/MediaModal";
 
 export default function ProfileCard({ className }) {
 	return (

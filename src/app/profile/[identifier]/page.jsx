@@ -1,11 +1,11 @@
 import Image from "next/image";
-import Post from "@/components/Post";
-import ViewProfileActions from "@/components/Profile/ViewProfileActions";
-import MainStructure from "@/components/MainStructure";
-import MediaModal from "@/components/Media/MediaModal";
-import getUserAccount from "@/utils/getUserAccount";
-import accountCache from "@/utils/accountCache";
-import getVerifiedLevelName from "@/utils/getVerifiedLevelName";
+import Post from "@/interfaces/web/components/Post";
+import ViewProfileActions from "@/interfaces/web/components/Profile/ViewProfileActions";
+import MainStructure from "@/interfaces/web/components/MainStructure";
+import MediaModal from "@/interfaces/web/components/Media/MediaModal";
+import getUserAccount from "@/shared/utils/getUserAccount";
+import accountCache from "@/shared/utils/accountCache";
+import getVerifiedLevelName from "@/shared/utils/getVerifiedLevelName";
 import { BsFillPrinterFill } from "react-icons/bs";
 
 export default async function Profile({ params }) {

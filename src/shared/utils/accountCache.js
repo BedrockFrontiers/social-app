@@ -1,4 +1,4 @@
-import getUserAccount from "@/utils/getUserAccount";
+import getUserAccount from "@/shared/utils/getUserAccount";
 
 let cachedUser = null;
 

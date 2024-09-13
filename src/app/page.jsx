@@ -1,5 +1,5 @@
-import Post from "@/components/Post";
-import MainStructure from "@/components/MainStructure";
+import Post from "@/interfaces/web/components/Post";
+import MainStructure from "@/interfaces/web/components/MainStructure";
 
 export default function Home() {
   const posts = {

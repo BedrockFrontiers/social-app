@@ -10,7 +10,7 @@ const nextConfig = {
       test: /\.svg$/,
       use: [
         {
-          loader: '@svgr/webpack',
+          loader: "@svgr/webpack",
           options: {
             icon: true,
           },
@@ -28,7 +28,7 @@ const nextConfig = {
       }
     ],
     unoptimized: true
-	}
+	},
 };
 
 export default withPlugins([], nextConfig);
