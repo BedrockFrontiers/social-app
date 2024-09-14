@@ -16,3 +16,13 @@ body {
   display: flex;
   flex: 1;
 }
+
+.themed-border {
+  border-color: #e5e7eb;
+}
+
+@media (prefers-color-scheme: dark) {
+  .themed-border {
+    border-color: #1f2937;
+  }
+}

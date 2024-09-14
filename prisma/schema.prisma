@@ -20,6 +20,7 @@ datasource db {
 // is represented by the `verified` field, which ranges from 0 to 3.
 model User {
   id Int @id @default(autoincrement()) // Unique identifier for the user (auto-incrementing integer).
+  gid String? @unique // Unique G-ID.
   identifier String @unique // Unique username identifier for the user (e.g., @username).
   email String @unique // Unique email address associated with the user.
   name String? // Full name of the user (optional).

@@ -3,10 +3,9 @@
 import { useState } from "react";
 import { MdOutlineAlternateEmail, MdLockOutline, MdOutlineArrowRight } from "react-icons/md";
 import { useRouter } from "next/navigation";
+import { isValidEmail, isValidPassword, PASSWORD_MIN_LENGTH } from "@/shared/utils/validation-utils";
+import Input from "@/presentation/components/UI/Input";
 import Image from "next/image";
-
-const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const passwordMinLength = 6;
 
 export default function Login() {
 	const router = useRouter();
@@ -18,17 +17,17 @@ export default function Login() {
 	async function handleSignIn() {
 		setError('');
 
-		if (!emailRegex.test(email)) {
+		if (!isValidEmail(email)) {
       setError("Please enter a valid email address.");
       return;
     }
 
-    if (password.length < passwordMinLength) {
-      setError(`Password must be at least ${passwordMinLength} characters long.`);
+    if (!isValidPassword(password)) {
+      setError(`Password must be at least ${PASSWORD_MIN_LENGTH} characters long.`);
       return;
     }
 
-		const req = await fetch("/api/auth/signin", {
+		const req = await fetch("/api/account/connect", {
 			method: "post",
 			body: JSON.stringify({
 				email,
@@ -69,26 +68,20 @@ export default function Login() {
 					<div>
 						<h3 className="font-semibold text-lg text-gray-900 dark:text-white mb-4">Account</h3>
 						<div className="flex flex-col gap-4">
-							<div className="bg-gray-100 dark:bg-zinc-800 py-3 px-4 rounded-lg flex items-center gap-3 border border-transparent focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500">
-								<MdOutlineAlternateEmail className="text-gray-600 dark:text-gray-400" />
-								<input
-									className="bg-transparent dark:text-white placeholder-gray-500 outline-none w-full text-sm focus:outline-none focus:ring-0"
-									type="text"
-									value={email}
-									onChange={(e) => setEmail(e.target.value)}
-									placeholder="Email address"
-								/>
-							</div>
-							<div className="bg-gray-100 dark:bg-zinc-800 py-3 px-4 rounded-lg flex items-center gap-3 border border-transparent focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500">
-								<MdLockOutline className="text-gray-600 dark:text-gray-400" />
-								<input
-									className="bg-transparent dark:text-white placeholder-gray-500 outline-none w-full text-sm focus:outline-none focus:ring-0"
-									type="password"
-									value={password}
-									onChange={(e) => setPassword(e.target.value)}
-									placeholder="Password"
-								/>
-							</div>
+							<Input 
+								icon={<MdOutlineAlternateEmail className="text-gray-600 dark:text-gray-400" />} 
+								type="text" 
+								value={email}
+								onChange={(e) => setEmail(e.target.value)}
+								placeholder="Email address" 
+							/>
+							<Input 
+								icon={<MdLockOutline className="text-gray-600 dark:text-gray-400" />} 
+								type="password" 
+								value={password}
+								onChange={(e) => setPassword(e.target.value)}
+								placeholder="Password" 
+							/>
 						</div>
 					</div>
 					<div className="mt-6 flex justify-center">

@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import { FaCircleCheck } from "react-icons/fa6";
-import MainStructure from "@/interfaces/web/components/MainStructure";
+import MainStructure from "@/presentation/components/MainStructure";
 
 export default function AppearanceSettings() {
 	const { theme, setTheme } = useTheme();

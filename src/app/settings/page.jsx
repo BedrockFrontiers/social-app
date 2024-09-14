@@ -1,11 +1,11 @@
 import Link from "next/link";
 import Image from "next/image";
-import MainStructure from "@/interfaces/web/components/MainStructure";
-import accountCache from "@/shared/utils/accountCache";
+import MainStructure from "@/presentation/components/MainStructure";
+import getAccount from "@/shared/utils/get-account-utils";
 import { FaBrush, FaDoorOpen } from "react-icons/fa6";
 
 export default async function ProfileSettings() {
-	const me = await accountCache();
+	const me = await getAccount("@me");
 
 	return (
 		<MainStructure>

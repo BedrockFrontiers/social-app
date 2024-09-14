@@ -3,22 +3,27 @@
 import { useState } from "react";
 import { MdOutlineAlternateEmail, MdLockOutline, MdOutlineArrowRight } from "react-icons/md";
 import { IoTicketOutline } from "react-icons/io5";
+import { TbAlertTriangleFilled } from "react-icons/tb";
+import { isValidEmail, isValidPassword, PASSWORD_MIN_LENGTH } from "@/shared/utils/validation-utils";
+import Input from "@/presentation/components/UI/Input";
 import Image from "next/image";
 
-const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-const passwordMinLength = 6;
-
 export default function SignUp() {
+	const [invalidIdentifier, setInvalidIdentifier] = useState(false);
 	const [error, setError] = useState('');
 	const [success, setSuccess] = useState('');
 	const [username, setUsername] = useState('');
+	const [identifier, setIdentifier] = useState('');
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 
 	async function handleSignUp() {
+		if (invalidIdentifier)
+			return;
+
 		setError('');
 
-		if (!emailRegex.test(email)) {
+		if (!isValidEmail(email)) {
       setError("Please enter a valid email address.");
       return;
     }
@@ -28,8 +33,8 @@ export default function SignUp() {
       return;
     }
 
-    if (password.length < passwordMinLength) {
-      setError(`Password must be at least ${passwordMinLength} characters long.`);
+    if (!isValidPassword(password)) {
+      setError(`Password must be at least ${PASSWORD_MIN_LENGTH} characters long.`);
       return;
     }
 
@@ -37,7 +42,7 @@ export default function SignUp() {
 			method: "post",
 			body: JSON.stringify({
 				username,
-				identifier: `@${username.replaceAll(' ', '_').toLowerCase()}`,
+				identifier,
 				email,
 				password
 			})
@@ -50,6 +55,18 @@ export default function SignUp() {
 			const res = await req.json();
 			setSuccess(res.message);
 		}
+	}
+
+	function handleChangeUsername(value) {
+		const PRE_IDENTIFIER = `@${value.trim().replaceAll(' ', '_').toLowerCase()}`;
+		setIdentifier(PRE_IDENTIFIER);
+
+		if (PRE_IDENTIFIER === "@me")
+			setInvalidIdentifier(true);
+		else
+			setInvalidIdentifier(false);
+
+		setUsername(value);
 	}
 
 	return (
@@ -69,42 +86,39 @@ export default function SignUp() {
 					</div>
 					<div>
 						<p className={`text-center text-${success ? "blue" : "red"}-500 font-semibold text-xs select-none`}>{ error || success }</p>
+						{invalidIdentifier && (
+							<div className="rounded-xl bg-amber-100 border border-amber-300 p-4 mt-5">
+								<TbAlertTriangleFilled className="text-amber-600 mx-auto" size={20} />
+								<p className="text-xs text-center text-amber-600 font-bold select-none">Alert: You can&apos;t use "@me" as a user identifier.</p>
+							</div>
+						)}
 					</div>
 					<hr className="my-4 border-gray-200 dark:border-zinc-800" />
 					<div>
 						<h3 className="font-semibold text-lg text-gray-900 dark:text-white mb-4">Account</h3>
 						<div className="flex flex-col gap-4">
-							<div className="bg-gray-100 dark:bg-zinc-800 py-3 px-4 rounded-lg flex items-center gap-3 border border-transparent focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500">
-								<MdOutlineAlternateEmail className="text-gray-600 dark:text-gray-400" />
-								<input
-									className="bg-transparent dark:text-white placeholder-gray-500 outline-none w-full text-sm focus:outline-none focus:ring-0"
-									type="email"
-									value={email}
-									onChange={(e) => setEmail(e.target.value)}
-									placeholder="Email address"
-								/>
-							</div>
-							<div className="bg-gray-100 dark:bg-zinc-800 py-3 px-4 rounded-lg flex items-center gap-3 border border-transparent focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500">
-								<IoTicketOutline className="text-gray-600 dark:text-gray-400" />
-								<input
-									className="bg-transparent dark:text-white placeholder-gray-500 outline-none w-full text-sm focus:outline-none focus:ring-0"
-									type="text"
-									value={username}
-									onChange={(e) => setUsername(e.target.value)}
-									placeholder="Username"
-								/>
-							</div>
-							{username.trim().length > 0 && (<p className="text-zinc-600 font-semibold text-xs -mt-3 select-none">@{username.replaceAll(' ', '_').toLowerCase()}</p>)}
-							<div className="bg-gray-100 dark:bg-zinc-800 py-3 px-4 rounded-lg flex items-center gap-3 border border-transparent focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500">
-								<MdLockOutline className="text-gray-600 dark:text-gray-400" />
-								<input
-									className="bg-transparent dark:text-white placeholder-gray-500 outline-none w-full text-sm focus:outline-none focus:ring-0"
-									type="password"
-									value={password}
-									onChange={(e) => setPassword(e.target.value)}
-									placeholder="Password"
-								/>
-							</div>
+							<Input 
+								icon={<MdOutlineAlternateEmail className="text-gray-600 dark:text-gray-400" />} 
+								type="text" 
+								value={email}
+								onChange={(e) => setEmail(e.target.value)}
+								placeholder="Email address" 
+							/>
+							<Input 
+								icon={<IoTicketOutline className="text-gray-600 dark:text-gray-400" />} 
+								type="text" 
+								value={username}
+								onChange={(e) => handleChangeUsername(e.target.value)}
+								placeholder="Username" 
+							/>
+							{identifier.trim().length > 1 && (<p className="text-zinc-600 font-semibold text-xs -mt-3 select-none">{identifier}</p>)}
+							<Input 
+								icon={<MdLockOutline className="text-gray-600 dark:text-gray-400" />} 
+								type="password" 
+								value={password}
+								onChange={(e) => setPassword(e.target.value)}
+								placeholder="Password" 
+							/>
 						</div>
 					</div>
 					<div className="mt-6 flex justify-center">

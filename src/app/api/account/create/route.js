@@ -1,39 +1,22 @@
 import { PrismaClient } from "@prisma/client";
-import { createClient } from "@/lib/supabase/server";
+import { createClient } from "@/infrastructure/libraries/supabase/server";
+import UserRepository from "@/infrastructure/repositories/user-repository";
+import CreateUserUseCase from "@/domain/usecases/user/create-user-usecase";
 
 const prisma = new PrismaClient();
 
 export async function POST(request) {
-	const { username, identifier, email, password } = await request.json();
+  try {
+    const { username, identifier, email, password } = await request.json();
 
-	const existingEmail = await prisma.user.findUnique({
-    where: { email },
-  });
+    const supabaseClient = createClient();
+    const userRepository = new UserRepository(prisma);
+    const createUser = new CreateUserUseCase(userRepository, supabaseClient);
 
-  const existingIdentifier = await prisma.user.findUnique({
-    where: { identifier },
-  });
+    const newUser = await createUser.execute({ username, identifier, email, password });
 
-  if (existingEmail || existingIdentifier)
-  	return Response.json({ error: "Email or identifier already in use." }, { status: 400 });
-
-  const supabase = createClient();
-  const newUser = await prisma.user.create({
-  	data: {
-  		name: username,
-  		identifier,
-  		avatarUrl: "https://avatar.iran.liara.run/public/48",
-  		email
-  	}
-  });
-
-  const { error: signupError } = await supabase.auth.signUp({
-    email,
-    password
-  });
-
-  if (signupError)
-  	return Response.json({ error: "An error occurred while creating the account." }, { status: 500 });
-
-  return Response.json({ message: "Account created successfully, check your email to verify your account." }, { status: 200 })
+    return new Response(JSON.stringify({ message: "Account created successfully.", user: newUser }), { status: 200 });
+  } catch (error) {
+    return new Response(JSON.stringify({ error: error.message }), { status: 400 });
+  }
 }

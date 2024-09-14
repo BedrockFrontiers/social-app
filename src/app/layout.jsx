@@ -1,6 +1,6 @@
 import { Montserrat } from "next/font/google";
-import accountCache from "@/shared/utils/accountCache";
-import LayoutStructure from "@/interfaces/web/components/LayoutStructure";
+import getAccount from "@/shared/utils/get-account-utils";
+import LayoutStructure from "@/presentation/components/LayoutStructure";
 import "./globals.css";
 
 const font = Montserrat({ subsets: ["latin"] });
@@ -60,7 +60,7 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }) {
-  const me = await accountCache();
+  const me = await getAccount("@me");
 
   return (
     <html suppressHydrationWarning>

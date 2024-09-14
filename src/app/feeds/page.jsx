@@ -1,4 +1,4 @@
-import MainStructure from "@/interfaces/web/components/MainStructure";
+import MainStructure from "@/presentation/components/MainStructure";
 
 export default function Feeds() {
 	return (

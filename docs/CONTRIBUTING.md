@@ -47,7 +47,7 @@ Please follow these guidelines when making changes:
 
 ### Running Tests
 
-If applicable, ensure that all tests pass before submitting a pull request. You can run the tests using:
+Ensure that all tests pass before submitting a pull request. You can run the tests using:
 
 ```bash
 npm run test
