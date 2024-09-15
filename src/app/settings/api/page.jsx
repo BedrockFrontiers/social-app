@@ -3,14 +3,15 @@ import getAccount from "@/shared/utils/get-account-util";
 
 export default async function APISettings() {
 	const me = await getAccount("@me");
-	const isLogged = Object.keys(me || {}).length > 0;
+	const isLogged = me && Object.keys(me).length > 0;
 
-	if (!isLogged)
+	if (!isLogged) {
 		return (
 			<MainStructure className="p-4">
 			  <p className="font-semibold text-sm">You need to be logged.</p>
 			</MainStructure>
 		);
+	}
 
 	return (
 		<MainStructure>
