@@ -4,9 +4,40 @@ import { useState } from "react";
 import EditProfile from "@/presentation/components/Profile/EditProfile";
 import Link from "next/link";
 
-export default function ViewProfileActions({ me, user }) {
+export default function ViewProfileActions({ me, user, isFollowing = false }) {
 	const [isOpenEditProfile, setIsOpenEditProfile] = useState(false);
-	const [following, setFollowing] = useState(false);
+	const [following, setFollowing] = useState(isFollowing);
+
+	async function followUser() {
+		const req = await fetch("/api/account/follow", {
+			method: "POST",
+			headers: {
+				"Authorization": `G-ID ${me.prisma.gid}`,
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify({
+				identifier: me.prisma.identifier,
+				toFollowIdentifier: user.identifier
+			})
+		});
+
+		setFollowing(true);
+	}
+
+	async function unfollowUser() {
+		const req = await fetch("/api/account/unfollow", {
+			method: "POST",
+			headers: {
+				"Authorization": `G-ID ${me.prisma.gid}`,
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify({
+				identifier: me.prisma.identifier,
+				toFollowIdentifier: user.identifier
+			})
+		});
+		setFollowing(false);
+	}
 
 	return (
 		<div className="flex max-[640px]:flex-col sm:items-center gap-4">
@@ -17,7 +48,7 @@ export default function ViewProfileActions({ me, user }) {
 					  	Direct Message
 					  </span>
 					</button>
-					<button onClick={() => setFollowing(prev => !prev)} className={`py-1 px-5 rounded-full font-bold transition duration-200 ${!following ? "bg-blue-500 hover:opacity-90 text-white dark:text-black" : "text-black dark:text-white bg-transparent border-2 border-blue-500 hover:border-transparent hover:bg-blue-500 hover:text-white dark:hover:text-black"}`}>
+					<button onClick={following ? unfollowUser : followUser} className={`py-1 px-5 rounded-full font-bold transition duration-200 ${!following ? "bg-blue-500 hover:opacity-90 text-white dark:text-black" : "text-black dark:text-white bg-transparent border-2 border-blue-500 hover:border-transparent hover:bg-blue-500 hover:text-white dark:hover:text-black"}`}>
 					  <span className="select-none text-[11px] sm:text-xs text-center">
 					  	{ following ? "Unfollow" : "Follow" }
 					  </span>

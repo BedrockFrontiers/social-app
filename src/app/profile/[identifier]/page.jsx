@@ -27,7 +27,7 @@ export default async function Profile({ params }) {
 
   const verifiedName = getVerifiedLevelName(user.verified);
 
-  const posts = {
+  /*const posts = {
     post1: {
       username: "datcravat クラバット🍷",
       identifier: "@datcravat",
@@ -67,13 +67,12 @@ export default async function Profile({ params }) {
       verified: 2,
       reposted: true
     }
-  };
+  };*/
 
   return (
     <MainStructure>
     	<div>
 	      <ProfileHeader user={user} verifiedName={verifiedName} me={me} />
-	      <ProfilePosts posts={posts} />
       </div>
     </MainStructure>
   );

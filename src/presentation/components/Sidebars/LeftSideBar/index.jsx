@@ -2,6 +2,7 @@ import LoggedItems from "@/presentation/components/Sidebars/LeftSideBar/LoggedIt
 import UnloggedItems from "@/presentation/components/Sidebars/LeftSideBar/UnloggedItems";
 import Image from "next/image";
 import Link from "next/link";
+import UserBox from "@/presentation/components/User/UserBox";
 import isLogged from "@/shared/utils/account/is-logged-util";
 import getVerifiedLevelName from "@/shared/utils/user/get-verified-level-name-util";
 

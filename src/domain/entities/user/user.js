@@ -1,6 +1,7 @@
 export default class User {
   constructor(userObject) {
     this.gid = userObject.gid;
+    this.id = userObject.id;
     this.email = userObject.email;
     this.name = userObject.name;
     this.identifier = userObject.identifier;
@@ -19,6 +20,7 @@ export default class User {
   toJSON() {
     return {
       gid: this.gid,
+      id: this.id,
       email: this.email,
       name: this.name,
       identifier: this.identifier,

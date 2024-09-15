@@ -35,8 +35,16 @@ export default class UserRepository {
       where: { email },
       include: {
         posts: true,
-        followers: true,
-        following: true,
+        followers: {
+          include: {
+            following: true,
+          },
+        },
+        following: {
+          include: {
+            follower: true,
+          },
+        },
         likes: true,
         reposts: true
       }
@@ -49,8 +57,16 @@ export default class UserRepository {
       where: { identifier },
       include: {
         posts: true,
-        followers: true,
-        following: true,
+        followers: {
+          include: {
+            following: true,
+          },
+        },
+        following: {
+          include: {
+            follower: true,
+          },
+        },
         likes: true,
         reposts: true
       }
@@ -63,8 +79,16 @@ export default class UserRepository {
       where: { gid },
       include: {
         posts: true,
-        followers: true,
-        following: true,
+        followers: {
+          include: {
+            following: true,
+          },
+        },
+        following: {
+          include: {
+            follower: true,
+          },
+        },
         likes: true,
         reposts: true
       }
