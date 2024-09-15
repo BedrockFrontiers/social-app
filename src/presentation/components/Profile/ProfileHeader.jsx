@@ -1,8 +1,11 @@
+import moment from "moment";
 import Image from "next/image";
 import ViewProfileActions from "@/presentation/components/Profile/ViewProfileActions";
 import MediaModal from "@/presentation/components/Media/MediaModal";
 
 export default function ProfileHeader({ user, verifiedName, me }) {
+  const sinceDate = moment(user.createdAt);
+  const sinceRelativeDate = sinceDate.fromNow();
   return (
     <div>
       <div className={`relative min-h-[200px] ${!user.bannerUrl && "bg-blue-500"}`}>
@@ -49,6 +52,9 @@ export default function ProfileHeader({ user, verifiedName, me }) {
               </div>
             </div>
           </div>
+        </div>
+        <div className="my-2">
+          <p className="text-xs font-semibold">Since: {sinceRelativeDate}</p>
         </div>
         <div className="flex px-4 mt-[15px] flex-wrap gap-2 items-center mt-auto">
           <p className="font-semibold select-none text-sm p-2 transition duration-200 hover:bg-gray-200 dark:hover:bg-zinc-700 cursor-pointer border-b-4 border-blue-500">Tides</p>
