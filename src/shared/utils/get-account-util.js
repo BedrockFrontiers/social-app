@@ -26,9 +26,8 @@ export default async function getAccount(identifier) {
   } else {
     const user = await userRepository.findByIdentifier(identifier);
 
-    if (!user) {
-      throw new Error("User not found");
-    }
+    if (!user)
+      return null;
 
     return user;
   }
