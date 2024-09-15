@@ -65,7 +65,7 @@ export default function EditProfile({ user, onClose }) {
 
 	return (
 		<div className="fixed top-0 left-0 z-50 bg-black bg-opacity-70 w-full h-full flex items-center justify-center p-4">
-			<div className="rounded-xl bg-white dark:bg-black border themed-border p-4 lg:w-[550px] max-lg:w-full lg:max-h-[500px] max-lg:h-full overflow-y-auto">
+			<div className="lg:rounded-xl bg-white dark:bg-zinc-900 themed-border p-4 lg:w-[550px] max-lg:w-full lg:max-h-[500px] max-lg:h-full overflow-y-auto">
 				<div>
 					<h3 className="text-xl font-semibold">Edit Profile</h3>
 					<hr className="themed-border" />
