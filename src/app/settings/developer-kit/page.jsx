@@ -1,7 +1,7 @@
 import MainStructure from "@/presentation/components/MainStructure";
 import getAccount from "@/shared/utils/get-account-util";
 
-export default async function APISettings() {
+export default async function DeveloperSettings() {
 	const me = await getAccount("@me");
 	const isLogged = me && Object.keys(me).length > 0;
 
