@@ -12,5 +12,5 @@ export async function POST(request) {
 	if (error)
 		return Response.json({ error: "An error occurred while connecting on account." }, { status: 500 });
 
-	return Response.json({ message: "Account connected with successfully.", session });
+	return Response.json({ message: "Account connected successfully.", session });
 }

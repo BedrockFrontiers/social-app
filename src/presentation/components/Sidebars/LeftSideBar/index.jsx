@@ -2,7 +2,7 @@ import LoggedItems from "@/presentation/components/Sidebars/LeftSideBar/LoggedIt
 import UnloggedItems from "@/presentation/components/Sidebars/LeftSideBar/UnloggedItems";
 import Image from "next/image";
 import Link from "next/link";
-import getVerifiedLevelName from "@/shared/utils/get-verified-level-name-utils";
+import getVerifiedLevelName from "@/shared/utils/get-verified-level-name-util";
 
 export default function LeftSideBar({ user }) {
   const isLogged = Object.keys(user || {}).length > 0;
@@ -20,8 +20,8 @@ export default function LeftSideBar({ user }) {
           {isLogged && (
             <div className="relative mt-auto w-full max-lg:hidden pt-5">
               <Link href="/profile/@me" className="flex items-center gap-2 justify-center">
-                <div>
-                  <Image className="rounded-full object-cover select-none" src={user.prisma.avatarUrl} width={30} height={30} quality={100} alt="Profile Picture" />
+                <div className="w-[30px] h-[30px]">
+                  <Image className="rounded-full object-cover select-none w-[30px] h-[30px]" src={user.prisma.avatarUrl} width={30} height={30} quality={100} alt="Profile Picture" />
                 </div>
                 <div>
                   <div className="flex items-center gap-2">

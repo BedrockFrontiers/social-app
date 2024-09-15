@@ -1,9 +1,7 @@
-import { PrismaClient } from "@prisma/client";
+import prisma from "@/db.js";
 import { createClient } from "@/infrastructure/libraries/supabase/server";
 import UserRepository from "@/infrastructure/repositories/user-repository";
 import CreateUserUseCase from "@/domain/usecases/user/create-user-usecase";
-
-const prisma = new PrismaClient();
 
 export async function POST(request) {
   try {

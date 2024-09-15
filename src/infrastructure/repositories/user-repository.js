@@ -1,7 +1,5 @@
-import { PrismaClient } from "@prisma/client";
+import prisma from "@/db.js";
 import User from "@/domain/entities/user/user";
-
-const prisma = new PrismaClient();
 
 export default class UserRepository {
   async create(user) {
@@ -21,6 +19,20 @@ export default class UserRepository {
     });
     
     return new User(newUser);
+  }
+
+  async update(gid, user) {
+    const updatedUser = await prisma.user.update({
+      where: { gid },
+      data: {
+        name: user.name,
+        avatarUrl: user.avatarUrl,
+        bannerUrl: user.bannerUrl,
+        bio: user.bio
+      }
+    });
+
+    return new User(updatedUser);
   }
 
   async findByEmail(email) {

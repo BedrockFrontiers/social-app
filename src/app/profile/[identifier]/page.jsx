@@ -1,8 +1,8 @@
 import ProfileHeader from "@/presentation/components/Profile/ProfileHeader";
 import ProfilePosts from "@/presentation/components/Profile/ProfilePosts";
 import MainStructure from "@/presentation/components/MainStructure";
-import getVerifiedLevelName from "@/shared/utils/get-verified-level-name-utils";
-import getAccount from "@/shared/utils/get-account-utils";
+import getVerifiedLevelName from "@/shared/utils/get-verified-level-name-util";
+import getAccount from "@/shared/utils/get-account-util";
 
 export default async function Profile({ params }) {
   const identifier = decodeURIComponent(params.identifier);

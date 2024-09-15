@@ -1,5 +1,5 @@
 import { Montserrat } from "next/font/google";
-import getAccount from "@/shared/utils/get-account-utils";
+import getAccount from "@/shared/utils/get-account-util";
 import LayoutStructure from "@/presentation/components/LayoutStructure";
 import "./globals.css";
 

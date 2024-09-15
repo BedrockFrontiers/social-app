@@ -9,9 +9,9 @@ export default function ProfileCard({ className }) {
 			</div>
 			<div className="relative">
 				<div className="flex justify-between p-4">
-					<div>
+					<div className="w-[80px] h-[80px]">
 						<Image
-							className="rounded-full -mt-10 select-none"
+							className="rounded-full -mt-10 select-none w-[80px] h-[80px]"
 							src="https://cdn.bsky.app/img/avatar_thumbnail/plain/did:plc:bokcpbnh774esg2ufsuv5pll/bafkreib77mjbyizqewnkoyjgyhrg42l2zhr2vw4x2spxp6nr6mrvcrlpmi@jpeg"
 							width={80}
 							height={80}

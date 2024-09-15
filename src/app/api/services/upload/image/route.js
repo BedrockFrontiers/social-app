@@ -1,18 +1,27 @@
+import AuthenticateUserUseCase from "@/domain/usecases/user/authenticate-user-usecase";
 import UploadImageUseCase from "@/domain/usecases/imgur/upload-image-usecase";
-import SessionRepository from "@/infrastructure/repositories/session-repository";
 
-export async function GET(request) {
-	const sessionRepository = new SessionRepository();
-	const accessGID = request.headers.get("Authorization");
+export async function POST(request) {
+	const authenticateUserUseCase = new AuthenticateUserUseCase();
 
-  if (!accessGID || !accessGID.startsWith("G-ID"))
-    return Response.json({ error: "Invalid or missing G-ID." }, { status: 401 });
+	try {
+		const accessGID = request.headers.get("Authorization");
+		await authenticateUserUseCase.execute(accessGID);
+	} catch (error) {
+		return Response.json({ error: error.message }, { status: 401 })
+	}
 
-  const gid = accessGID.replace("G-ID ", '');
-	const isValid = await sessionRepository.validate(gid);
+	const formData = await request.formData();
+	const image = formData.get("attachment");
 
-	if (!isValid)
-		return Response.json({ error: "Invalid G-ID." }, { status: 401 });
+	if (!image)
+		return Response.json({ error: "No image provided." }, { status: 400 });
 
-	return new Response("hi!");
+	if (!image.type.startsWith("image/"))
+		return Response.json({ error: "File is not an image." }, { status: 400 });
+
+	const imgurUseCase = new UploadImageUseCase();
+	const result = await imgurUseCase.execute(image);
+
+	return Response.json({ message: "Image uploaded successfully.", result }, { status: 200 });
 }

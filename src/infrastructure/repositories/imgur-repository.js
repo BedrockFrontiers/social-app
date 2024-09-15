@@ -2,16 +2,19 @@ import { IMGUR_CLIENT_ID, IMGUR_API_URL } from "@/shared/constants";
 
 export default class ImgurRepository {
   async uploadImage(imageFile) {
-    const formData = new FormData();
-    formData.append("image", imageFile);
-
+    if (!imageFile)
+      return { link: null, error: null };
     try {
       const response = await fetch(IMGUR_API_URL, {
         method: "POST",
         headers: {
           "Authorization": `Client-ID ${IMGUR_CLIENT_ID}`,
+          "Content-Type": "application/json"
         },
-        body: formData,
+        body: JSON.stringify({
+          image: imageFile,
+          type: "base64"
+        })
       });
 
       if (!response.ok) {

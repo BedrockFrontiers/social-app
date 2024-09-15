@@ -5,22 +5,63 @@ import Image from "next/image";
 import Button from "@/presentation/components/UI/Button";
 import Input from "@/presentation/components/UI/Input";
 
-export default function EditProfile({ user }) {
+export default function EditProfile({ user, onClose }) {
+	const [loading, setLoading] = useState(false);
+	const [success, setSuccess] = useState(false);
+	const [error, setError] = useState(null);
 	const [displayName, setDisplayName] = useState(user.prisma.name);
 	const [bannerUrl, setBannerUrl] = useState(user.prisma.bannerUrl || '');
 	const [avatarUrl, setAvatarUrl] = useState(user.prisma.avatarUrl || '');
+	const [selectedBannerFile, setSelectedBannerFile] = useState(null);
+	const [selectedAvatarFile, setSelectedAvatarFile] = useState(null);
 	const [bio, setBio] = useState(user.prisma.bio || '');
 
-	const handleImageChange = (event, setImageUrl) => {
+	const handleImageChange = (event, setImageUrl, setFile) => {
     const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setImageUrl(reader.result);
+      	const base64Image = reader.result;
+
+        setImageUrl(base64Image);
+        setFile(base64Image.replace(/^data:image\/(png|jpg|webp|jpeg);base64,/, ''));
       };
       reader.readAsDataURL(file);
     }
   };
+
+  async function handleUpdateProfile() {
+  	setLoading(true);
+  	setSuccess(false);
+  	setError(null);
+
+  	const formData = new FormData();
+    formData.append("displayName", displayName);
+    formData.append("bio", bio);
+
+    if (selectedAvatarFile)
+    	formData.append("avatar", selectedAvatarFile);
+
+    if (selectedBannerFile)
+    	formData.append("banner", selectedBannerFile);
+
+    const res = await fetch("/api/account/update", {
+    	method: "PATCH",
+    	headers: {
+    		"Authorization": `G-ID ${user.id}`
+    	},
+    	body: formData
+    });
+
+    const data = await res.json();
+
+    if (res.ok)
+    	setSuccess(true);
+    else 
+    	setError(data.error);
+
+    setLoading(false);
+  }
 
 	return (
 		<div className="fixed top-0 left-0 z-50 bg-black bg-opacity-70 w-full h-full flex items-center justify-center p-4">
@@ -36,7 +77,7 @@ export default function EditProfile({ user }) {
 						  <input
                 type="file"
                 accept="image/*"
-                onChange={(e) => handleImageChange(e, setBannerUrl)}
+                onChange={(e) => handleImageChange(e, setBannerUrl, setSelectedBannerFile)}
                 className="absolute inset-0 opacity-0 cursor-pointer"
               /> 	  
 						</div>
@@ -46,7 +87,7 @@ export default function EditProfile({ user }) {
                 <input
                   type="file"
                   accept="image/*"
-                  onChange={(e) => handleImageChange(e, setAvatarUrl)}
+                  onChange={(e) => handleImageChange(e, setAvatarUrl, setSelectedAvatarFile)}
                   className="absolute inset-0 opacity-0 cursor-pointer"
                 />
               </div>
@@ -74,8 +115,10 @@ export default function EditProfile({ user }) {
 						</div>
 					</div>
 					<div className="relative flex flex-col gap-4 mt-auto">
-						<Button className="rounded-3xl text-sm">Save Changes</Button>
-						<Button className="rounded-3xl text-sm bg-transparent hover:bg-transparent !text-black border-none">Cancel</Button>
+						{success && (<p className="text-xs text-green-500 font-semibold text-center select-none">Account updated. Refresh to apply changes.</p>)}
+						{error && (<p className="text-xs text-red-500 font-semibold text-center select-none">{error}</p>)}
+						<Button disabled={loading} onClick={handleUpdateProfile} className="rounded-3xl text-sm">{loading ? "Wait..." : "Apply Changes"}</Button>
+						<Button disabled={loading} onClick={onClose} className="rounded-3xl text-sm bg-transparent hover:bg-transparent !text-black border-none">{loading ? "Wait..." : "Cancel"}</Button>
 					</div>
 				</div>
 			</div>
