@@ -32,12 +32,6 @@ export async function generateMetadata({ params }) {
       description: user.bio || `This is the profile of ${identifier}.`,
       images: [
         {
-          url: user.avatarUrl,
-          width: 800,
-          height: 800,
-          alt: `${identifier}'s profile picture`,
-        },
-        {
           url: user.bannerUrl || "https://images.pexels.com/photos/281260/pexels-photo-281260.jpeg?cs=srgb&dl=pexels-francesco-ungaro-281260.jpg&fm=jpg",
           width: 800,
           height: 800,
