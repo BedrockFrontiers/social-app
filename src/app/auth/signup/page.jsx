@@ -4,7 +4,7 @@ import { useState } from "react";
 import { MdOutlineAlternateEmail, MdLockOutline, MdOutlineArrowRight } from "react-icons/md";
 import { IoTicketOutline } from "react-icons/io5";
 import { TbAlertTriangleFilled } from "react-icons/tb";
-import { isValidEmail, isValidPassword, PASSWORD_MIN_LENGTH } from "@/shared/utils/validation-utils";
+import { isValidEmail, isValidPassword, PASSWORD_MIN_LENGTH } from "@/shared/utils/validation-util";
 import Input from "@/presentation/components/UI/Input";
 import Image from "next/image";
 
