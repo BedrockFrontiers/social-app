@@ -5,7 +5,7 @@ import UpdateUserUseCase from "@/domain/usecases/user/update-user-usecase";
 
 export async function PATCH(request) {
 	const authenticateUserUseCase = new AuthenticateUserUseCase();
-	let gid = "";
+	let gid;
 
 	try {
 		const accessGID = request.headers.get("Authorization");
