@@ -16,7 +16,7 @@ export default async function DeveloperSettings() {
 	return (
 		<MainStructure>
 			<div className="p-4 bg-white dark:bg-zinc-950 border-b border-gray-200 dark:border-zinc-800">
-				<h3 className="select-none font-bold text-xl">Settings (API)</h3>
+				<h3 className="select-none font-bold text-xl">Settings (Developer Kit)</h3>
 			</div>
 			<div className="p-4 mt-5">
 				<p className="font-semibold">Application</p>
