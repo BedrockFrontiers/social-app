@@ -34,6 +34,7 @@ export default async function ProfileSettings() {
 								API
 							</Link>
 						</div>
+						{/*
 						<div className="mt-5" >
 							<Link className="flex items-center gap-2 w-[max-content]" href="/api/auth/signout">
 								<div className="bg-gray-200 dark:bg-zinc-800 p-3 rounded-full">
@@ -43,6 +44,7 @@ export default async function ProfileSettings() {
 							</Link>
 						</div>
 					</div>
+		      */}
 				)}
 				<p className="font-semibold text-md select-none mt-5">Basics</p>
 				<div className="mt-2" >
