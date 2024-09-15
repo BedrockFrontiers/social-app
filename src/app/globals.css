@@ -18,12 +18,5 @@ body {
 }
 
 .themed-border {
-  @apply border;
-  border-color: #e5e7eb;
-}
-
-@media (prefers-color-scheme: dark) {
-  .themed-border {
-    border-color: #1f2937;
-  }
+  @apply border border-zinc-200 dark:border-zinc-800;
 }
