@@ -4,6 +4,56 @@ import MainStructure from "@/presentation/components/MainStructure";
 import getVerifiedLevelName from "@/shared/utils/user/get-verified-level-name-util";
 import getAccount from "@/shared/utils/account/get-account-util";
 
+export async function generateMetadata({ params }) {
+  const identifier = decodeURIComponent(params.identifier);
+  const me = await getAccount("@me");
+  let user = null;
+
+  if (identifier === "@me") {
+    user = me?.prisma;
+  } else {
+    user = await getAccount(identifier);
+  }
+
+  if (!user) {
+    return {
+      title: `Account ${identifier} Not Found`,
+      description: `The account with identifier ${identifier} does not exist or is not active.`,
+    };
+  }
+
+  const verifiedName = getVerifiedLevelName(user.verified);
+
+  return {
+    title: `${user.name} (${identifier})`,
+    description: user.bio || `This is the profile of ${identifier}.`,
+    openGraph: {
+      title: `${user.name} (${identifier})`,
+      description: user.bio || `This is the profile of ${identifier}.`,
+      images: [
+        {
+          url: user.avatarUrl,
+          width: 800,
+          height: 800,
+          alt: `${identifier}'s profile picture`,
+        },
+        {
+          url: user.bannerUrl || "https://images.pexels.com/photos/281260/pexels-photo-281260.jpeg?cs=srgb&dl=pexels-francesco-ungaro-281260.jpg&fm=jpg",
+          width: 800,
+          height: 800,
+          alt: `Banner of ${identifier}`,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${user.name} (${identifier})`,
+      description: user.bio || `This is the profile of ${identifier}.`,
+      image: user.avatarUrl
+    },
+  };
+}
+
 export default async function Profile({ params }) {
   const identifier = decodeURIComponent(params.identifier);
   const me = await getAccount("@me");
@@ -26,48 +76,6 @@ export default async function Profile({ params }) {
   }
 
   const verifiedName = getVerifiedLevelName(user.verified);
-
-  /*const posts = {
-    post1: {
-      username: "datcravat クラバット🍷",
-      identifier: "@datcravat",
-      profileImage: "https://cdn.bsky.app/img/avatar_thumbnail/plain/did:plc:knkltoiapkt336rr335ztt3p/bafkreie4jefbhqhnhh5gm4w335tkurvbwxa2orcfb4lcw7zvdikpm4onl4@jpeg",
-      content: "💕",
-      attachments: ["https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:knkltoiapkt336rr335ztt3p/bafkreicbfna23ghip366e65pwk7lomsfvgq2enywclwt4wrvg5k6x6gk5a@jpeg"],
-      uploadedAt: "7d",
-      likes: "2K",
-      reposts: "575",
-      comments: "25",
-      verified: 1,
-      reposted: true
-    },
-    post2: {
-      username: "LINE",
-      identifier: "@lineshark",
-      profileImage: "https://cdn.bsky.app/img/avatar_thumbnail/plain/did:plc:bokcpbnh774esg2ufsuv5pll/bafkreib77mjbyizqewnkoyjgyhrg42l2zhr2vw4x2spxp6nr6mrvcrlpmi@jpeg",
-      content: '',
-      attachments: ["https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:bokcpbnh774esg2ufsuv5pll/bafkreigsc6uaxkz4ifivzmigt2n2y4tzehctroppqsxo2fflsq6pyjkxha@jpeg"],
-      uploadedAt: "6d",
-      likes: "2K",
-      reposts: "441",
-      comments: "9",
-      verified: 1,
-      reposted: true
-    },
-    post3: {
-      username: "Pablo .",
-      identifier: "@pablosinistro",
-      profileImage: "https://cdn.bsky.app/img/avatar_thumbnail/plain/did:plc:mcj4fbvybjqnmzmy6o2wvozp/bafkreicad7svkswyknyrukcaajhptawaamc7siqkxyrz2rnmjnoemgcsiy@jpeg",
-      content: "MF DOOM *drop the mic*",
-      attachments: ["https://cdn.bsky.app/img/feed_thumbnail/plain/did:plc:mcj4fbvybjqnmzmy6o2wvozp/bafkreih5weuxqqw7lsxuk7d6nnhllbq6cc5ejjidpmy5rptridom2w4fzq@jpeg"],
-      uploadedAt: "7d",
-      likes: "109",
-      reposts: "27",
-      comments: "6",
-      verified: 2,
-      reposted: true
-    }
-  };*/
 
   return (
     <MainStructure>
