@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import MainStructure from "@/presentation/components/MainStructure";
 import getAccount from "@/shared/utils/get-account-util";
-import { AiOutlineApi } from "react-icons/ai";
+import { MdDeveloperMode } from "react-icons/md";
 import { FaBrush, FaDoorOpen } from "react-icons/fa6";
 
 export default async function ProfileSettings() {
@@ -27,11 +27,11 @@ export default async function ProfileSettings() {
               </div>
 						</Link>
 						<div className="mt-5" >
-							<Link className="flex items-center gap-2 w-[max-content]" href="/settings/api">
+							<Link className="flex items-center gap-2 w-[max-content]" href="/settings/developer-kit">
 								<div className="bg-gray-200 dark:bg-zinc-800 p-3 rounded-full">
-									<AiOutlineApi />
+									<MdDeveloperMode />
 								</div>
-								API
+								Developer Kit
 							</Link>
 						</div>
 		      </div>
