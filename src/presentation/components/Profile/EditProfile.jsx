@@ -8,7 +8,7 @@ import Input from "@/presentation/components/UI/Input";
 export default function EditProfile({ user, onClose }) {
 	const [loading, setLoading] = useState(false);
 	const [success, setSuccess] = useState(false);
-	const [error, setError] = useState(null);
+	const [error, setError] = useState('');
 	const [displayName, setDisplayName] = useState(user.prisma.name);
 	const [bannerUrl, setBannerUrl] = useState(user.prisma.bannerUrl || '');
 	const [avatarUrl, setAvatarUrl] = useState(user.prisma.avatarUrl || '');
@@ -33,7 +33,7 @@ export default function EditProfile({ user, onClose }) {
   async function handleUpdateProfile() {
   	setLoading(true);
   	setSuccess(false);
-  	setError(null);
+  	setError('');
 
   	const formData = new FormData();
     formData.append("displayName", displayName);
@@ -116,7 +116,7 @@ export default function EditProfile({ user, onClose }) {
 					</div>
 					<div className="relative flex flex-col gap-4 mt-auto">
 						{success && (<p className="text-xs text-green-500 font-semibold text-center select-none">Account updated. Refresh to apply changes.</p>)}
-						{error && (<p className="text-xs text-red-500 font-semibold text-center select-none">{error}</p>)}
+						<p className="text-xs text-red-500 font-semibold text-center select-none">{error}</p>
 						<Button disabled={loading} onClick={handleUpdateProfile} className="rounded-3xl text-sm">{loading ? "Wait..." : "Apply Changes"}</Button>
 						<Button disabled={loading} onClick={onClose} className="rounded-3xl text-sm bg-transparent hover:bg-transparent !text-black border-none">{loading ? "Wait..." : "Cancel"}</Button>
 					</div>
