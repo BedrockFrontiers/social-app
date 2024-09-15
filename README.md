@@ -1,14 +1,24 @@
-<img src="/assets/logo.png" width="100" height="100" alt="Social App Logo" />
+<div align="center">
+    <img src="/assets/logo.png" width="80" height="80" alt="Social App Logo" />
+</div>
 
-# Tidal Social App
+<h1 align="center">
+    Tidal Social App
+</h1>
 
+<div align="center">
+    
 ![Vercel](https://img.shields.io/badge/saas:%20vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white)
 ![Next.js](https://img.shields.io/badge/built:%20next.js-%23000000.svg?style=for-the-badge&logo=next.js&logoColor=white)
 ![JWT](https://img.shields.io/badge/auth:%20jwt%20token-%23000000.svg?style=for-the-badge&logo=json%20web%20tokens&logoColor=FF4081)
 ![Media](https://img.shields.io/badge/media:%20imgur-%231BB13B.svg?style=for-the-badge&logo=imgur&logoColor=white)
 ![PostgreSQL](https://img.shields.io/badge/database:%20postgresql-%23336791.svg?style=for-the-badge&logo=postgresql&logoColor=white)
+    
+</div>
 
-Welcome to **Tidal**, a new wave in social networking that combines simplicity with subtlety. Tidal is designed to offer a seamless, elegant experience, bringing people together in an environment that feels natural and fluid. Our platform emphasizes ease of use, meaningful interactions, and a community-driven approach.
+<p align="center">
+    Welcome to <strong>Tidal</strong>, a new wave in social networking that combines simplicity with subtlety. Tidal is designed to offer a seamless, elegant experience, bringing people together in an environment that feels natural and fluid. Our platform emphasizes ease of use, meaningful interactions, and a community-driven approach.
+</p>
 
 ## Features
 
