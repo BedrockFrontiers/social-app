@@ -55,7 +55,7 @@ export default function ProfileHeader({ user, verifiedName, me }) {
           </div>
         </div>
         <div className="my-2 p-4">
-          <p className="text-xs font-semibold flex items-center gal-2">
+          <p className="text-xs font-semibold flex items-center gap-2 text-zinc-700">
             <FaBabyCarriage />
             Since: {sinceRelativeDate}
           </p>
