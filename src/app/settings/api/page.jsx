@@ -1,4 +1,3 @@
-import { redirect } from "next/navigation";
 import MainStructure from "@/presentation/components/MainStructure";
 import getAccount from "@/shared/utils/get-account-util";
 
@@ -7,7 +6,11 @@ export default async function APISettings() {
 	const isLogged = Object.keys(me || {}).length > 0;
 
 	if (!isLogged)
-		redirect('/');
+		return (
+			<MainStructure className="p-4">
+			  <p className="font-semibold text-sm">You need to be logged.</p>
+			</MainStructure>
+		);
 
 	return (
 		<MainStructure>
