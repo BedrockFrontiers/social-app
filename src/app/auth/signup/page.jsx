@@ -89,7 +89,7 @@ export default function SignUp() {
 						{invalidIdentifier && (
 							<div className="rounded-xl bg-amber-100 border border-amber-300 p-4 mt-5">
 								<TbAlertTriangleFilled className="text-amber-600 mx-auto" size={20} />
-								<p className="text-xs text-center text-amber-600 font-bold select-none">Alert: You can&apos;t use "@me" as a user identifier.</p>
+								<p className="text-xs text-center text-amber-600 font-bold select-none">Alert: You can&apos;t use &quot;@me&quot; as a user identifier.</p>
 							</div>
 						)}
 					</div>
