@@ -4,7 +4,8 @@ import { useState } from "react";
 import { MdOutlineAlternateEmail, MdLockOutline, MdOutlineArrowRight } from "react-icons/md";
 import { IoTicketOutline } from "react-icons/io5";
 import { TbAlertTriangleFilled } from "react-icons/tb";
-import { isValidEmail, isValidPassword, PASSWORD_MIN_LENGTH } from "@/shared/utils/validation-util";
+import { isValidEmail, isValidPassword, isValidUsername, USERNAME_MIN_LENGTH, PASSWORD_MIN_LENGTH } from "@/shared/utils/validation/validation-util";
+import createIdentifier from "@/shared/utils/identifier/create-identifier-util";
 import Input from "@/presentation/components/UI/Input";
 import Image from "next/image";
 
@@ -28,8 +29,8 @@ export default function SignUp() {
       return;
     }
 
-    if (username.trim().length === 0) {
-      setError("Username cannot be empty.");
+    if (!isValidUsername(username)) {
+      setError(`Username must be at least ${USERNAME_MIN_LENGTH} characters long.`);
       return;
     }
 
@@ -58,7 +59,7 @@ export default function SignUp() {
 	}
 
 	function handleChangeUsername(value) {
-		const PRE_IDENTIFIER = `@${value.trim().replaceAll(' ', '_').toLowerCase()}`;
+		const PRE_IDENTIFIER = createIdentifier(value);
 		setIdentifier(PRE_IDENTIFIER);
 
 		if (PRE_IDENTIFIER === "@me")

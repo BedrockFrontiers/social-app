@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import { FaCircleCheck } from "react-icons/fa6";
+import MainHeader from "@/presentation/components/MainHeader";
 import MainStructure from "@/presentation/components/MainStructure";
 
 export default function AppearanceSettings() {
@@ -15,9 +16,9 @@ export default function AppearanceSettings() {
 
 	return (
 		<MainStructure>
-			<div className="p-4 bg-white dark:bg-zinc-950 border-b border-gray-200 dark:border-zinc-800">
+			<MainHeader returnRoute="/settings">
 				<h3 className="select-none font-bold text-xl">Settings (Appearance)</h3>
-			</div>
+			</MainHeader>
 			{isMounted && (
 				<div className="p-4 mt-5">
 					<p className="font-semibold">Theme</p>

@@ -1,20 +1,22 @@
 "use client";
 
 import { useState } from "react";
+import { FaCamera } from "react-icons/fa";
+import { isValidUsername, USERNAME_MIN_LENGTH } from "@/shared/utils/validation/validation-util";
 import Image from "next/image";
 import Button from "@/presentation/components/UI/Button";
 import Input from "@/presentation/components/UI/Input";
 
-export default function EditProfile({ user, onClose }) {
+export default function EditProfile({ me, onClose }) {
 	const [loading, setLoading] = useState(false);
 	const [success, setSuccess] = useState(false);
 	const [error, setError] = useState('');
-	const [displayName, setDisplayName] = useState(user.prisma.name);
-	const [bannerUrl, setBannerUrl] = useState(user.prisma.bannerUrl || '');
-	const [avatarUrl, setAvatarUrl] = useState(user.prisma.avatarUrl || '');
+	const [displayName, setDisplayName] = useState(me.prisma.name);
+	const [bannerUrl, setBannerUrl] = useState(me.prisma.bannerUrl || '');
+	const [avatarUrl, setAvatarUrl] = useState(me.prisma.avatarUrl || '');
 	const [selectedBannerFile, setSelectedBannerFile] = useState(null);
 	const [selectedAvatarFile, setSelectedAvatarFile] = useState(null);
-	const [bio, setBio] = useState(user.prisma.bio || '');
+	const [bio, setBio] = useState(me.prisma.bio || '');
 
 	const handleImageChange = (event, setImageUrl, setFile) => {
     const file = event.target.files[0];
@@ -24,7 +26,7 @@ export default function EditProfile({ user, onClose }) {
       	const base64Image = reader.result;
 
         setImageUrl(base64Image);
-        setFile(base64Image.replace(/^data:image\/(png|jpg|webp|jpeg);base64,/, ''));
+        setFile(base64Image.replace(/^data:image\/(png|jpg|webp|jpeg|gif);base64,/, ''));
       };
       reader.readAsDataURL(file);
     }
@@ -34,6 +36,12 @@ export default function EditProfile({ user, onClose }) {
   	setLoading(true);
   	setSuccess(false);
   	setError('');
+
+  	if (!isValidUsername(displayName)) {
+  		setLoading(false);
+  	  setError(`Username must be at least ${USERNAME_MIN_LENGTH} characters long.`);
+  	  return;
+  	}
 
   	const formData = new FormData();
     formData.append("displayName", displayName);
@@ -48,7 +56,7 @@ export default function EditProfile({ user, onClose }) {
     const res = await fetch("/api/account/update", {
     	method: "PATCH",
     	headers: {
-    		"Authorization": `G-ID ${user.id}`
+    		"Authorization": `G-ID ${me.id}`
     	},
     	body: formData
     });
@@ -78,8 +86,11 @@ export default function EditProfile({ user, onClose }) {
                 type="file"
                 accept="image/*"
                 onChange={(e) => handleImageChange(e, setBannerUrl, setSelectedBannerFile)}
-                className="absolute inset-0 opacity-0 cursor-pointer"
-              /> 	  
+                className="absolute inset-0 opacity-0 cursor-pointer z-10"
+              />
+              <div className="absolute bottom-[4px] right-[4px] p-2 bg-black bg-opacity-50 text-white rounded-full">
+              	<FaCamera /> 
+              </div>
 						</div>
 						<div className="z-10 -mt-10">
               <div className="relative w-[100px] h-[100px]">
@@ -88,8 +99,11 @@ export default function EditProfile({ user, onClose }) {
                   type="file"
                   accept="image/*"
                   onChange={(e) => handleImageChange(e, setAvatarUrl, setSelectedAvatarFile)}
-                  className="absolute inset-0 opacity-0 cursor-pointer"
+                  className="absolute inset-0 opacity-0 cursor-pointer z-10"
                 />
+                <div className="absolute bottom-[4px] right-[4px] p-2 bg-black bg-opacity-50 text-white rounded-full">
+                	<FaCamera /> 
+                </div>
               </div>
             </div>
 					</div>
@@ -118,7 +132,7 @@ export default function EditProfile({ user, onClose }) {
 						{success && (<p className="text-xs text-green-500 font-semibold text-center select-none">Account updated. Refresh to apply changes.</p>)}
 						<p className="text-xs text-red-500 font-semibold text-center select-none">{error}</p>
 						<Button disabled={loading} onClick={handleUpdateProfile} className="rounded-3xl text-sm">{loading ? "Wait..." : "Apply Changes"}</Button>
-						<Button disabled={loading} onClick={onClose} className="rounded-3xl text-sm bg-transparent hover:bg-transparent !text-black border-none">{loading ? "Wait..." : "Cancel"}</Button>
+						<Button disabled={loading} onClick={onClose} className="rounded-3xl text-sm bg-transparent hover:bg-transparent !text-black border-none !dark:text-white">{loading ? "Wait..." : "Cancel"}</Button>
 					</div>
 				</div>
 			</div>

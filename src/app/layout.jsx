@@ -1,5 +1,5 @@
 import { Montserrat } from "next/font/google";
-import getAccount from "@/shared/utils/get-account-util";
+import getAccount from "@/shared/utils/account/get-account-util";
 import LayoutStructure from "@/presentation/components/LayoutStructure";
 import "./globals.css";
 
@@ -65,7 +65,7 @@ export default async function RootLayout({ children }) {
   return (
     <html suppressHydrationWarning>
       <body className={`${font.className} h-full bg-gray-100 dark:bg-black`}>
-        <LayoutStructure user={me}>
+        <LayoutStructure me={me}>
           {children}
         </LayoutStructure>
       </body>

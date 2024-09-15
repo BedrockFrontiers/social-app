@@ -24,12 +24,7 @@ export default class UserRepository {
   async update(gid, user) {
     const updatedUser = await prisma.user.update({
       where: { gid },
-      data: {
-        name: user.name,
-        avatarUrl: user.avatarUrl,
-        bannerUrl: user.bannerUrl,
-        bio: user.bio
-      }
+      data: user
     });
 
     return new User(updatedUser);

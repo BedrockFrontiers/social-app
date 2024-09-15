@@ -1,11 +1,13 @@
+import MainHeader from "@/presentation/components/MainHeader";
 import MainStructure from "@/presentation/components/MainStructure";
-import getAccount from "@/shared/utils/get-account-util";
+import isLogged from "@/shared/utils/account/is-logged-util";
+import getAccount from "@/shared/utils/account/get-account-util";
 
 export default async function DeveloperSettings() {
 	const me = await getAccount("@me");
-	const isLogged = me && Object.keys(me).length > 0;
+	const logged = isLogged(me);
 
-	if (!isLogged) {
+	if (!logged) {
 		return (
 			<MainStructure className="p-4">
 			  <p className="font-semibold text-sm">You need to be logged.</p>
@@ -15,9 +17,9 @@ export default async function DeveloperSettings() {
 
 	return (
 		<MainStructure>
-			<div className="p-4 bg-white dark:bg-zinc-950 border-b border-gray-200 dark:border-zinc-800">
+			<MainHeader returnRoute="/settings">
 				<h3 className="select-none font-bold text-xl">Settings (Developer Kit)</h3>
-			</div>
+			</MainHeader>
 			<div className="p-4 mt-5">
 				<p className="font-semibold">Application</p>
 				<div className="mt-5">

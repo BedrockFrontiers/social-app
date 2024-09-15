@@ -31,7 +31,7 @@ export default function ViewProfileActions({ me, user }) {
 					  	Edit Profile
 					  </span>
 					</button>
-					{isOpenEditProfile && (<EditProfile user={me} onClose={() => setIsOpenEditProfile(false)} />)}
+					{isOpenEditProfile && (<EditProfile me={me} onClose={() => setIsOpenEditProfile(false)} />)}
 				</>
 			)}
 		</div>

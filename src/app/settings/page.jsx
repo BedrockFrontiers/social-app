@@ -1,21 +1,23 @@
 import Link from "next/link";
 import Image from "next/image";
 import MainStructure from "@/presentation/components/MainStructure";
-import getAccount from "@/shared/utils/get-account-util";
+import getAccount from "@/shared/utils/account/get-account-util";
+import MainHeader from "@/presentation/components/MainHeader";
+import SettingItem from "@/presentation/components/Settings/SettingItem";
 import { MdDeveloperMode } from "react-icons/md";
-import { FaBrush, FaDoorOpen } from "react-icons/fa6";
+import { FaBrush, FaDoorOpen, FaAt } from "react-icons/fa6";
 
 export default async function ProfileSettings() {
 	const me = await getAccount("@me");
 
 	return (
 		<MainStructure>
-			<div className="p-4 bg-white dark:bg-zinc-950 border-b border-gray-200 dark:border-zinc-800">
+			<MainHeader>
 				<h3 className="select-none font-bold text-xl">Settings</h3>
-			</div>
+			</MainHeader>
 			<div className="p-4 mt-5 h-full">
 				{me && (
-					<div>
+					<div className="my-5">
 						<p className="font-semibold text-md select-none">Signed in as</p>
 						<Link href="/profile/@me" className="mt-2 flex items-center gap-2">
 							<div className="w-[40px] h-[40px]">
@@ -27,23 +29,18 @@ export default async function ProfileSettings() {
               </div>
 						</Link>
 						<div className="mt-5" >
-							<Link className="flex items-center gap-2 w-[max-content]" href="/settings/developer-kit">
-								<div className="bg-gray-200 dark:bg-zinc-800 p-3 rounded-full">
-									<MdDeveloperMode />
-								</div>
-								Developer Kit
-							</Link>
+							<SettingItem icon={<MdDeveloperMode />} content="Developer Kit" url="/settings/developer-kit" />
+						</div>
+
+						<p className="font-semibold text-md select-none mt-5">Advanced</p>
+						<div className="mt-5" >
+							<SettingItem icon={<FaAt />} content="Change Identifier" url="/settings/change-identifier" />
 						</div>
 		      </div>
 				)}
-				<p className="font-semibold text-md select-none mt-5">Basics</p>
+				<p className="font-semibold text-md select-none">Basics</p>
 				<div className="mt-2" >
-					<Link className="flex items-center gap-2 w-[max-content]" href="/settings/appearance">
-						<div className="bg-gray-200 dark:bg-zinc-800 p-3 rounded-full">
-							<FaBrush />
-						</div>
-						Appearance
-					</Link>
+					<SettingItem icon={<FaBrush />} content="Appearance" url="/settings/appearance" />
 				</div>
 			</div>
 		</MainStructure>

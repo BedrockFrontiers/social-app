@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { MdOutlineAlternateEmail, MdLockOutline, MdOutlineArrowRight } from "react-icons/md";
 import { useRouter } from "next/navigation";
-import { isValidEmail, isValidPassword, PASSWORD_MIN_LENGTH } from "@/shared/utils/validation-util";
+import { isValidEmail, isValidPassword, PASSWORD_MIN_LENGTH } from "@/shared/utils/validation/validation-util";
 import Input from "@/presentation/components/UI/Input";
 import Image from "next/image";
 
