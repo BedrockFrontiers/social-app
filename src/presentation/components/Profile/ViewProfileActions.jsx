@@ -45,7 +45,7 @@ export default function ViewProfileActions({ me, user, isFollowing = false }) {
 		<div className="flex flex-wrap items-center gap-4">
 			{((me && user) && me.prisma.identifier !== user.identifier) && (
 				<>
-					<button className="py-1 px-5 rounded-full font-bold bg-gray-100 dark:bg-zinc-700 transition duration-200 hover:bg-gray-200 dark:hover:bg-zinc-800">
+					<button className="py-2 px-2 rounded-full font-bold bg-gray-100 dark:bg-zinc-700 transition duration-200 hover:bg-gray-200 dark:hover:bg-zinc-800">
 					  <span className="select-none text-[11px] sm:text-xs text-gray-800 dark:text-white text-center">
 					  	<MdMailOutline />
 					  </span>
