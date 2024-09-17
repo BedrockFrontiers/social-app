@@ -20,8 +20,8 @@ export default async function ProfileHeader({ user, verifiedName, me }) {
         <div className="px-4">
           <div className="flex max-lg:flex-col gap-3">
             <div className="z-[15] -mt-10 flex justify-between">
-              <div className="w-[150px] h-[150px]">
-                <MediaModal className="relative rounded-full object-cover select-none border-4 border-white dark:border-black cursor-pointer w-[150px] h-[150px]" src={user.avatarUrl} width={150} height={150} quality={100} alt="Profile Picture" />
+              <div className="w-[100px] h-[100px]">
+                <MediaModal className="relative rounded-full object-cover select-none border-4 border-white dark:border-black cursor-pointer w-[100px] h-[100px]" src={user.avatarUrl} width={100} height={100} quality={100} alt="Profile Picture" />
               </div>
               <div className="lg:hidden mt-[60px]">
                 <ViewProfileActions user={user} me={me} isFollowing={isFollowing} />
