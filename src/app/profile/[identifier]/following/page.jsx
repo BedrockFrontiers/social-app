@@ -30,10 +30,10 @@ export default async function ProfileFollowing({ params }) {
 			<MainHeader returnRoute={`/profile/${user.identifier}`}>
 				<h3 className="select-none font-bold text-xl">{ user.identifier }&#39;s following</h3>
 			</MainHeader>
-			<div className="mt-5">
+			<div>
 				{user.following.map((following, index) => (
 					<div key={index} className="themed-border !border-x-0 !border-t-0">
-						<div className="px-4 pb-4">
+						<div className="p-4">
 							<UserBox bigger={true} full={true} me={me} user={following.follower} />
 						</div>
 					</div>
