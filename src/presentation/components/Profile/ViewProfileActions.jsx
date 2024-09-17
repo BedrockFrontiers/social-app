@@ -50,7 +50,7 @@ export default function ViewProfileActions({ me, user, isFollowing = false }) {
 					</button>
 					<button onClick={following ? unfollowUser : followUser} className={`py-1 px-5 rounded-full font-bold transition duration-200 ${!following ? "bg-blue-500 hover:opacity-90 text-white dark:text-black" : "text-black dark:text-white bg-transparent border-2 border-blue-500 hover:border-transparent hover:bg-blue-500 hover:text-white dark:hover:text-black"}`}>
 					  <span className="select-none text-[11px] sm:text-xs text-center">
-					  	{ following ? "Unfollow" : "Follow" }
+					  	{ following ? "Following" : "Follow" }
 					  </span>
 					</button>
 				</>
