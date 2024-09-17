@@ -54,11 +54,11 @@ export default function ViewProfileActions({ me, user, isFollowing = false }) {
 					  <span className="select-none text-[11px] sm:text-xs text-center flex items-center gap-2">
 					  	{following ? (
 					      <>
-					        <FaCheck /> "Following"
+					        <FaCheck /> Following
 								</>
 				      ) : (
 					      <>
-					        <FaPlus /> "Follow"
+					        <FaPlus /> Follow
 								</>
 							)}
 					  </span>
