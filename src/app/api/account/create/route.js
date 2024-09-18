@@ -13,7 +13,7 @@ export async function POST(request) {
 
     const newUser = await createUser.execute({ username, identifier, email, password });
 
-    return new Response(JSON.stringify({ message: "Account created successfully.", user: newUser }), { status: 200 });
+    return new Response(JSON.stringify({ message: `Account created successfully. Check your email ${email} to verify.`, user: newUser }), { status: 200 });
   } catch (error) {
     return new Response(JSON.stringify({ error: error.message }), { status: 400 });
   }
