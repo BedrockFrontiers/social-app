@@ -24,7 +24,7 @@ export default async function UserBox({ me, user, bigger = false, full = false }
 		    <p className={`text-${size[3]} text-zinc-500 max-w-[130px] truncate`}>{user.identifier}</p>
 		    {full && (
 		    	<div>
-		    		<p className={`text-${size[3]} mt-3`}>{ user.bio || "Nothing about me." }</p>
+		    		<p className={`text-${size[3]} mt-3 whitespace-pre-line max-lg:max-w-[80%] lg:max-w-[400px]`}>{ user.bio || "Nothing about me." }</p>
 		    	</div>
 		    )}
 		  </div>
