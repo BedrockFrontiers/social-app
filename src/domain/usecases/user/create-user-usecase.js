@@ -15,6 +15,7 @@ export default class CreateUserUseCase {
     }
 
     const { data, error: signupError } = await this.supabaseClient.auth.signUp({ email, password });
+    console.log(data, signupError);
     const newUser = await this.userRepository.create({
       gid: data.user.id,
       name: username,
