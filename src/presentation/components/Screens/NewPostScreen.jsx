@@ -69,7 +69,7 @@ export default function NewPostScreen({ me, onClose }) {
 				<div className="mt-4 grid grid-cols-2 gap-2">
           {attachments.map((attachment) => (
             <div key={attachment.id} className="relative">
-              <MediaModal src={attachment.id} alt="Uploaded preview" className="w-full aspect-square rounded-lg object-cover cursor-pointer" width={1000} height={1000} alt={`Image ${attachment.id}`} />
+              <MediaModal src={attachment.id} className="w-full aspect-square rounded-lg object-cover cursor-pointer" width={1000} height={1000} alt={`Preview ${attachment.id}`} />
               <button onClick={() => handleRemoveImage(attachment.id)} className="absolute top-2 right-2 text-white bg-black dark:text-black dark:bg-white bg-opacity-70 rounded-full p-1">
                 <MdClose size={20} />
               </button>
