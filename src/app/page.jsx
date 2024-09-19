@@ -12,7 +12,7 @@ export default async function Home() {
 
   async function addIsLikedToPosts() {
     for (let i = 0; i < posts.length; i++) {
-      posts[i].isLiked = await likeRepository.exists(me.prisma.id, posts[i].id);
+      posts[i].isLiked = await likeRepository.exists(me?.prisma.id, posts[i].id);
     }
   }
 
