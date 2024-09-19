@@ -19,9 +19,28 @@ export default function NewPostScreen({ me, onClose }) {
     const formData = new FormData();
     formData.append("content", content);
 
-    images.forEach(image => {
-      formData.append("attachments", image.file);
+    attachments.forEach(attachment => {
+      formData.append("attachments", attachment.file);
     });
+
+		try {
+      const response = await fetch("/api/services/posts", {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await response.json();
+      
+      if (response.ok) {
+        setSuccess(true);
+      } else {
+        setError(data.error || "Failed to post");
+      }
+    } catch (err) {
+      setError("An error occurred while posting");
+    } finally {
+      setLoading(false);
+    }
   }
 
 	function handleImageUpload(event) {
@@ -56,6 +75,10 @@ export default function NewPostScreen({ me, onClose }) {
 				<div className="flex items-center justify-between">
 					<button onClick={onClose} className="text-sm font-semibold text-blue-500">Cancel</button>
 					<button disabled={loading} onClick={handlePost} className="text-sm font-semibold bg-blue-500 text-white transition duration-200 hover:bg-opacity-70 py-2 min-w-[80px] rounded-full">{loading ? "Posting..." : "Post"}</button>
+				</div>
+				<div>
+				  {success && (<p className="text-xs text-green-500 font-semibold text-center select-none">Post published successfully.</p>)}
+					<p className="text-xs text-red-500 font-semibold text-center select-none">{error}</p>
 				</div>
 				<div className="mt-4">
 					<textarea 
