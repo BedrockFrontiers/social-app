@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import BuzzText from "@/presentation/components/UI/BuzzText";
 import getVerifiedLevelName from "@/shared/utils/user/get-verified-level-name-util";
 
 export default async function UserBox({ me, user, bigger = false, full = false }) {
@@ -13,8 +14,8 @@ export default async function UserBox({ me, user, bigger = false, full = false }
 
 	return (
 		<Link href={`/profile/${user.identifier}`} className="flex gap-2">
-		  <div className={`w-[${size[0]}px] h-[${size[0]}px]`}>
-		    <Image className={`rounded-full object-cover select-none w-[${size[0]}px] h-[${size[0]}px]`} src={user.avatarUrl} width={size[0]} height={size[0]} quality={100} alt="Profile Picture" />
+		  <div className={`w-[${size[0]}px] h-[${size[0]}px] flex-shrink-0`}>
+		    <Image className={`rounded-full object-cover select-none h-[${size[0]}px]`} src={user.avatarUrl} width={size[0]} height={size[0]} quality={100} alt="Profile Picture" />
 		  </div>
 		  <div>
 		    <div className="flex items-center gap-2">
@@ -23,8 +24,8 @@ export default async function UserBox({ me, user, bigger = false, full = false }
 		    </div>
 		    <p className={`text-${size[3]} text-zinc-500 max-w-[130px] truncate`}>{user.identifier}</p>
 		    {full && (
-		    	<div>
-		    		<p className={`text-${size[3]} mt-3`}>{ user.bio || "Nothing about me." }</p>
+		    	<div className="text-sm mt-2">
+		    		<BuzzText content={user.bio || "Nothing about me."} />
 		    	</div>
 		    )}
 		  </div>

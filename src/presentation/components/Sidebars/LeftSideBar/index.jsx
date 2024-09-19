@@ -12,11 +12,11 @@ export default function LeftSideBar({ me }) {
 
   return (
     <>
-      <div className="w-[300px] max-lg:w-0 max-lg:hidden h-[95vh] z-10">
+      <div className="w-[300px] max-lg:w-0 max-lg:hidden h-[95vh] z-50">
         <aside className="fixed top-0 left-0 w-[300px] max-lg:w-0 max-lg:hidden h-[95vh] overflow-y-hidden flex flex-col items-center bg-transparent text-black">
           <div className="pt-4 flex flex-col gap-6">
             <div className="flex flex-col gap-2">
-              {(logged) ? <LoggedItems /> : <UnloggedItems />}
+              {(logged) ? <LoggedItems me={me} /> : <UnloggedItems />}
             </div>
           </div>
           {logged && (
@@ -33,15 +33,6 @@ export default function LeftSideBar({ me }) {
                   <p className="text-xs font-semibold text-zinc-500 max-w-[130px] truncate">{me.prisma.identifier}</p>
                 </div>
               </Link>
-              {/*
-              <div className="flex border-t dark:border-zinc-800 flex-wrap mt-5 pt-5 gap-2 items-center justify-center">
-                <Link className="text-sm font-semibold text-blue-500 transition duration-200 hover:text-blue-400 hover:underline" href="/support/tos">Terms of Service</Link>
-                ·
-                <Link className="text-sm font-semibold text-blue-500 transition duration-200 hover:text-blue-400 hover:underline" href="/support/privacy">Privacy</Link>
-                ·
-                <Link className="text-sm font-semibold text-blue-500 transition duration-200 hover:text-blue-400 hover:underline" href="/support/cookies">Use of Cookies</Link>
-              </div>
-              */}
             </div>
           )}
         </aside>

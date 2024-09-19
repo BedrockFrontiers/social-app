@@ -1,6 +1,7 @@
 import moment from "moment";
 import Image from "next/image";
 import Link from "next/link";
+import BuzzText from "@/presentation/components/UI/BuzzText";
 import ViewProfileActions from "@/presentation/components/Profile/ViewProfileActions";
 import MediaModal from "@/presentation/components/Media/MediaModal";
 import FollowerRepository from "@/infrastructure/repositories/follower-repository";
@@ -45,15 +46,15 @@ export default async function ProfileHeader({ user, verifiedName, me }) {
               <div className="flex mt-3 max-lg:mt-2 gap-4">
                 <Link href={`/profile/${user.identifier}/followers`} className="text-gray-700 transition duration-200 hover:underline dark:text-white text-sm"><strong>{user.followers.length}</strong> followers</Link>
                 <Link href={`/profile/${user.identifier}/following`} className="text-gray-700 transition duration-200 hover:underline dark:text-white text-sm"><strong>{user.following.length}</strong> following</Link>
-                <span className="text-gray-700 dark:text-white text-sm"><strong>{user.posts.length}</strong> posts</span>
+                <span className="text-gray-600 dark:text-white text-sm"><strong>{user.posts.length}</strong> posts</span>
               </div>
             </div>
           </div>
           <div className="mt-3">
             <div className="p-4 rounded-xl border border-gray-200 dark:border-zinc-800 w-full">
               <h3 className="text-xs text-zinc-600 font-bold select-none border-b border-gray-200 dark:border-zinc-800">About Me</h3>
-              <div className="mt-5">
-                <p className="text-sm">{user.bio || "Nothing about me."}</p>
+              <div className="mt-5 text-sm">
+                <BuzzText content={user.bio || "Nothing about me."} />
               </div>
             </div>
           </div>
