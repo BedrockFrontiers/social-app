@@ -5,8 +5,8 @@ export default class PostRepository {
   async create(post) {
     const newPost = await prisma.post.create({
       data: {
-        gid: post.gid,
         content: post.content,
+        authorId: post.authorId,
         attachments: post.attachments
       }
     });
