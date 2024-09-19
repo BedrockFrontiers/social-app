@@ -1,5 +1,6 @@
 import AuthenticateUserUseCase from "@/domain/usecases/user/authenticate-user-usecase";
 import PostRepository from "@/infrastructure/repositories/post-repository";
+import UserRepository from "@/infrastructure/repositories/user-repository";
 import ImgurRepository from "@/infrastructure/repositories/imgur-repository";
 import CreatePostUseCase from "@/domain/usecases/posts/create-post-usecase";
 
@@ -16,6 +17,7 @@ export async function POST(request) {
 
   const formData = await request.formData();
   const postRepository = new PostRepository();
+  const userRepository = new UserRepository();
   const imgurRepository = new ImgurRepository();
 
   const content = formData.get("content");
@@ -35,7 +37,7 @@ export async function POST(request) {
     uploadedUrls.push(uploadResponse.link);
   }
 
-  const createPostUseCase = new CreatePostUseCase(postRepository);
+  const createPostUseCase = new CreatePostUseCase(userRepository, postRepository);
 
   try {
     await createPostUseCase.execute({
