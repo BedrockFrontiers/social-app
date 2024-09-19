@@ -26,6 +26,9 @@ export default function NewPostScreen({ me, onClose }) {
 		try {
       const response = await fetch("/api/services/posts", {
         method: "POST",
+				headers: {
+					"Authorization": `G-ID ${me.prisma.gid}`
+				},
         body: formData,
       });
 
