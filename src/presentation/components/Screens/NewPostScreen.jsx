@@ -47,24 +47,36 @@ export default function NewPostScreen({ me, onClose }) {
   }
 
 	function handleImageUpload(event) {
-    const files = Array.from(event.target.files);
-    const newImages = files.map(file => ({
-      id: URL.createObjectURL(file),
-      file: file
-    }));
-    setAttachments(prevImages => [...prevImages, ...newImages]);
+    const file = event.target.files[0];
+		if (file) {
+			const reader = new FileReader();
+			reader.onloadend = () => {
+				const base64Image = reader.result;
+				const newImage = {
+					id: base64Image,
+					file: base64Image.replace(/^data:image\/(png|jpg|webp|jpeg|gif);base64,/, '')
+				}
+				setAttachments(prevImages => [...prevImages, ...[newImage]]);
+			};
+			reader.readAsDataURL(file);
+		}
   }
 
 	function handleEditImage(event, id) {
     const file = event.target.files[0];
     if (file) {
-      const newImage = {
-        id: URL.createObjectURL(file),
-        file: file
-      };
-      setAttachments(prevImages => prevImages.map(image =>
-        image.id === id ? newImage : image
-      ));
+      const reader = new FileReader();
+			reader.onloadend = () => {
+				const base64Image = reader.result;
+				const newImage = {
+					id: base64Image,
+					file: base64Image.replace(/^data:image\/(png|jpg|webp|jpeg|gif);base64,/, '')
+				}
+				setAttachments(prevImages => prevImages.map(image =>
+          image.id === id ? newImage : image
+        ));
+			};
+			reader.readAsDataURL(file);
     }
   }
 
