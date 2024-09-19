@@ -1,10 +1,11 @@
 export default class CreatePostUseCase {
-  constructor(postRepository) {
+  constructor(userRepository, postRepository) {
+    this.userRepository = userRepository;
     this.postRepository = postRepository;
   }
 
   async execute({ gid, content, attachments }) {
-    const user = await this.postRepository.findByGID(gid);
+    const user = await this.userRepository.findByGID(gid);
     if (!user) {
       throw new Error("Invalid G-ID.");
     }
@@ -13,7 +14,6 @@ export default class CreatePostUseCase {
       gid: gid,
       content: content,
       attachments: attachments,
-      createdAt: new Date(),
     });
 
     return newPost;
