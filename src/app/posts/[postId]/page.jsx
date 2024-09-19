@@ -36,7 +36,7 @@ export async function generateMetadata({ params }) {
 			card: "summary_large_image",
 			title: `${post.author.identifier} post`,
 			description: post.content,
-			image: image.length > 0 ? image[0] : ''
+			image: images.length > 0 ? images[0] : ''
 		}
 	};
 }

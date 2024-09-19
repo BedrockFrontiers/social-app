@@ -9,7 +9,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Attachments from "@/presentation/components/Media/Attachments";
 
-export default function Post({ post, me, isLiked = false, linkable = false }) {
+export default function Post({ post, me, isLiked = false, linkable = true }) {
 	const [liked, setLiked] = useState(isLiked);
 	const [likeCount, setLikeCount] = useState(post.likes.length);
 	const verifiedName = getVerifiedLevelName(post.author.verified);
