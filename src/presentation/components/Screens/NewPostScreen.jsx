@@ -16,6 +16,12 @@ export default function NewPostScreen({ me, onClose }) {
     setSuccess(false);
     setError('');
 
+    if (content.trim().length < 2) {
+    	setError("Post content must be atleast 2 characters length.");
+    	setLoading(false);
+    	return;
+    }
+
     const formData = new FormData();
     formData.append("content", content);
 

@@ -40,7 +40,7 @@ export async function generateMetadata({ params }) {
       ],
     },
     twitter: {
-      card: 'summary_large_image',
+      card: "summary_large_image",
       title: `${user.name} (${identifier})`,
       description: user.bio || `This is the profile of ${identifier}.`,
       image: user.avatarUrl

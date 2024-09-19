@@ -5,6 +5,42 @@ import LikeRepository from "@/infrastructure/repositories/like-repository";
 import Post from "@/presentation/components/Post";
 import getAccount from "@/shared/utils/account/get-account-util";
 
+export async function generateMetadata({ params }) {
+	const { postId } = params;
+	const postRepository = new PostRepository();
+	const post = await postRepository.findById(parseInt(postId));
+
+	if (!post) {
+		return {
+      title: `Post ${postId} Not Found`,
+      description: `The post with ID ${postId} does not exist or is not active.`,
+    };
+	}
+
+	const images = post.attachments.map((url) => ({
+    url: url,
+    width: 800,
+    height: 800,
+    alt: `Attachment from ${post.author.identifier} post`,
+  }));
+
+	return {
+		title: `${post.author.identifier} post`,
+		description: post.content,
+		openGraph: {
+			title: `${post.author.identifier} post`,
+			description: post.content,
+			images
+		},
+		twitter: {
+			card: "summary_large_image",
+			title: `${post.author.identifier} post`,
+			description: post.content,
+			image: image.length > 0 ? image[0] : ''
+		}
+	};
+}
+
 export default async function ViewPost({ params }) {
 	const { postId } = params;
 	const me = await getAccount("@me");
