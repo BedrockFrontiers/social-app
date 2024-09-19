@@ -1,7 +1,7 @@
 import AuthenticateUserUseCase from "@/domain/usecases/user/authenticate-user-usecase";
 import PostRepository from "@/infrastructure/repositories/post-repository";
 import ImgurRepository from "@/infrastructure/repositories/imgur-repository";
-import CreatePostUseCase from "@/domain/usecases/post/create-post-usecase";
+import CreatePostUseCase from "@/domain/usecases/posts/create-post-usecase";
 
 export async function POST(request) {
   const authenticateUserUseCase = new AuthenticateUserUseCase();
