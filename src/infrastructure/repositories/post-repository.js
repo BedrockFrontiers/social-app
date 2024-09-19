@@ -7,11 +7,7 @@ export default class PostRepository {
       data: {
         gid: post.gid,
         content: post.content,
-        attachments: post.attachments,
-        createdAt: new Date(),
-      },
-      include: {
-        author: true,
+        attachments: post.attachments
       }
     });
 
