@@ -5,14 +5,14 @@ export default class CreatePostUseCase {
   }
 
   async execute({ gid, content, attachments }) {
-    const user = await this.userRepository.findByGID(gid);
-    if (!user) {
-      throw new Error("Invalid G-ID.");
+    const existingUser = await this.userRepository.findByGID(gid);
+    if (!existingUser) {
+      throw new Error("G-ID invalid.");
     }
 
     const newPost = await this.postRepository.create({
-      gid: gid,
       content: content,
+      authorId: existingUser.id,
       attachments: attachments,
     });
 
