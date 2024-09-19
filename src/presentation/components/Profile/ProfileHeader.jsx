@@ -15,12 +15,12 @@ export default async function ProfileHeader({ user, verifiedName, me }) {
   return (
     <div>
       <div className={`relative min-h-[200px] ${!user.bannerUrl && "bg-blue-500"}`}>
-        {user.bannerUrl && (<MediaModal className="object-cover select-none cursor-pointer" quality={100} src={user.bannerUrl} fill={true} alt="Profile Banner" />)}       
+        {user.bannerUrl && (<MediaModal className="object-cover select-none cursor-pointer" quality={100} src={user.bannerUrl} fill={true} alt="Profile Banner" />)}     
       </div>
       <div className="relative themed-border !border-x-0 bg-white dark:bg-black">
         <div className="px-4">
           <div className="flex max-lg:flex-col gap-3">
-            <div className="z-[15] -mt-10 flex justify-between">
+            <div className="-mt-10 flex justify-between">
               <div className="w-[120px] h-[120px]">
                 <MediaModal className="relative rounded-full object-cover select-none border-4 border-white dark:border-black cursor-pointer w-[120px] h-[120px]" src={user.avatarUrl} width={120} height={120} quality={100} alt="Profile Picture" />
               </div>

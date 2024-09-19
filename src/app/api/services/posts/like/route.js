@@ -1,15 +1,16 @@
 import AuthenticateUserUseCase from "@/domain/usecases/user/authenticate-user-usecase";
 import UserRepository from "@/infrastructure/repositories/user-repository";
-import FollowerRepository from "@/infrastructure/repositories/follower-repository";
-import FollowUserUseCase from "@/domain/usecases/user/follow/follow-user-usecase";
-import UnfollowUserUseCase from "@/domain/usecases/user/follow/unfollow-user-usecase";
+import LikeRepository from "@/infrastructure/repositories/like-repository";
+import PostRepository from "@/infrastructure/repositories/post-repository";
+import CreateLikeUserUseCase from "@/domain/usecases/posts/like/create-like-usecase";
+import RemoveLikeUserUseCase from "@/domain/usecases/posts/like/remove-like-usecase";
 
 export async function POST(request) {
-	const { identifier, toFollowIdentifier } = await request.json();
+	const { postId } = await request.json();
 	const authenticateUserUseCase = new AuthenticateUserUseCase();
 	let gid;
 
-	if (!identifier || !toFollowIdentifier)
+	if (!postId)
 		return Response.json({ error: "Missing required fields." }, { status: 400 });
 
 	try {
@@ -20,23 +21,24 @@ export async function POST(request) {
 	}
 
 	const userRepository = new UserRepository();
-	const followerRepository = new FollowerRepository();
-	const followUserUseCase = new FollowUserUseCase(userRepository, followerRepository);
+	const postRepository = new PostRepository();
+	const likeRepository = new LikeRepository();
+	const createLikeUseCase = new CreateLikeUserUseCase(userRepository, likeRepository, postRepository);
 
 	try {
-		await followUserUseCase.execute({ gid, identifier, toFollowIdentifier });
-		return Response.json({ message: "User followed successfully." }, { status: 200 });
+		await createLikeUseCase.execute({ gid, postId });
+		return Response.json({ message: "Post liked successfully." }, { status: 200 });
 	} catch (error) {
 		return Response.json({ error: error.message }, { status: 400 });
 	}
 }
 
 export async function DELETE(request) {
-	const { identifier, toFollowIdentifier } = await request.json();
+	const { postId } = await request.json();
 	const authenticateUserUseCase = new AuthenticateUserUseCase();
 	let gid;
 
-	if (!identifier || !toFollowIdentifier)
+	if (!postId)
 		return Response.json({ error: "Missing required fields." }, { status: 400 });
 
 	try {
@@ -47,12 +49,13 @@ export async function DELETE(request) {
 	}
 
 	const userRepository = new UserRepository();
-	const followerRepository = new FollowerRepository();
-	const unfollowUserUseCase = new UnfollowUserUseCase(userRepository, followerRepository);
+	const postRepository = new PostRepository();
+	const likeRepository = new LikeRepository();
+	const removeLikeUseCase = new RemoveLikeUserUseCase(userRepository, likeRepository, postRepository);
 
 	try {
-		await unfollowUserUseCase.execute({ gid, identifier, toFollowIdentifier });
-		return Response.json({ message: "User unfollowed successfully." }, { status: 200 });
+		await removeLikeUseCase.execute({ gid, postId });
+		return Response.json({ message: "Post like removed successfully." }, { status: 200 });
 	} catch (error) {
 		return Response.json({ error: error.message }, { status: 400 });
 	}

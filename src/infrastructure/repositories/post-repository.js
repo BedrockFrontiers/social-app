@@ -36,10 +36,9 @@ export default class PostRepository {
   async findAll() {
     const posts = await prisma.post.findMany({
       include: {
-        author: true, 
+        author: true,
         likes: true, 
         reposts: true, 
-        comments: true, 
       },
       orderBy: {
         createdAt: "desc", 

@@ -12,7 +12,7 @@ export default function LeftSideBar({ me }) {
 
   return (
     <>
-      <div className="w-[300px] max-lg:w-0 max-lg:hidden h-[95vh] z-50">
+      <div className="w-[300px] max-lg:w-0 max-lg:hidden h-[95vh] z-[20]">
         <aside className="fixed top-0 left-0 w-[300px] max-lg:w-0 max-lg:hidden h-[95vh] overflow-y-hidden flex flex-col items-center bg-transparent text-black">
           <div className="pt-4 flex flex-col gap-6">
             <div className="flex flex-col gap-2">

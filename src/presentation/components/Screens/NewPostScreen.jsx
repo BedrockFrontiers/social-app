@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { MdOutlineImage, MdClose } from "react-icons/md";
+import { MdOutlineImage, MdClose, MdOutlineMovie } from "react-icons/md";
 import MediaModal from "@/presentation/components/Media/MediaModal";
 
 export default function NewPostScreen({ me, onClose }) {

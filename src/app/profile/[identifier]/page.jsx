@@ -75,6 +75,7 @@ export default async function Profile({ params }) {
     <MainStructure>
     	<div>
 	      <ProfileHeader user={user} verifiedName={verifiedName} me={me} />
+        <ProfilePosts user={user} me={me} />
       </div>
     </MainStructure>
   );

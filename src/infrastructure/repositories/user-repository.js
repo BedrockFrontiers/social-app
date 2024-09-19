@@ -34,7 +34,13 @@ export default class UserRepository {
     const user = await prisma.user.findUnique({ 
       where: { email },
       include: {
-        posts: true,
+        posts: {
+          include: {
+            author: true,
+            likes: true,
+            reposts: true
+          }
+        },
         followers: {
           include: {
             following: true,
@@ -56,7 +62,13 @@ export default class UserRepository {
     const user = await prisma.user.findUnique({ 
       where: { identifier },
       include: {
-        posts: true,
+        posts: {
+          include: {
+            author: true,
+            likes: true,
+            reposts: true
+          }
+        },
         followers: {
           include: {
             following: true,
@@ -78,7 +90,13 @@ export default class UserRepository {
     const user = await prisma.user.findUnique({ 
       where: { gid },
       include: {
-        posts: true,
+        posts: {
+          include: {
+            author: true,
+            likes: true,
+            reposts: true
+          }
+        },
         followers: {
           include: {
             following: true,

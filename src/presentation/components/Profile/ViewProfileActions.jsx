@@ -27,8 +27,8 @@ export default function ViewProfileActions({ me, user, isFollowing = false }) {
 	}
 
 	async function unfollowUser() {
-		const req = await fetch("/api/services/unfollow", {
-			method: "POST",
+		const req = await fetch("/api/services/follow", {
+			method: "DELETE",
 			headers: {
 				"Authorization": `G-ID ${me.prisma.gid}`,
 				"Content-Type": "application/json"
