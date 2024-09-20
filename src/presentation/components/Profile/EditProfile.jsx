@@ -50,8 +50,8 @@ export default function EditProfile({ me, onClose }) {
 		}
 
   	const profileData = {
-	    displayName.trim(),
-	    bio.trim(),
+	    displayName: displayName.trim(),
+	    bio: bio.trim(),
 	    avatar: selectedAvatarFile,
 	    banner: selectedBannerFile,
 	  };
