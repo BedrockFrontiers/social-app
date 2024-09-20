@@ -21,7 +21,7 @@ datasource db {
 model User {
   id Int @id @default(autoincrement()) // Unique identifier for the user (auto-incrementing integer).
   gid String? @unique // Unique G-ID.
-  identifier @db.VarChar(64) String @unique // Unique username identifier for the user (e.g., @username).
+  identifier String @db.VarChar(64) @unique // Unique username identifier for the user (e.g., @username).
   email String @unique // Unique email address associated with the user.
   name String? @db.VarChar(64) // Full name of the user (optional).
   bio String? @db.VarChar(500) // Bio or description about the user (optional).
@@ -47,8 +47,8 @@ model Post {
   id Int @id @default(autoincrement()) // Unique identifier for the post (auto-incrementing integer).
   content String @db.VarChar(1000) // The textual content of the post.
   attachments String[] // An array of URLs representing attachments (images, videos, etc.) related to the post.
-  createdAt DateTime  @default(now()) // The date when the post was created. Defaults to the current timestamp.
-  updatedAt DateTime  @updatedAt // The date when the post was last updated. Automatically updated on modifications.
+  createdAt DateTime @default(now()) // The date when the post was created. Defaults to the current timestamp.
+  updatedAt DateTime @updatedAt // The date when the post was last updated. Automatically updated on modifications.
   authorId Int // Foreign key linking the post to its author (User model).
 
   // Relations
