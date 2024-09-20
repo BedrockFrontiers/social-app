@@ -15,17 +15,17 @@ export async function POST(request) {
     return Response.json({ error: error.message }, { status: 401 });
   }
 
-  const formData = await request.formData();
+  const { content, attachments } = await request.json();
+
+  if (!content && !attachments)
+    return Response.json({ error: "Missing fields." }, { status: 401 });
+
   const postRepository = new PostRepository();
   const userRepository = new UserRepository();
   const imgurRepository = new ImgurRepository();
 
-  const content = formData.get("content");
-  const attachments = formData.getAll("attachments");
-
   const uploadedUrls = [];
 
-  // Upload all attachments to Imgur
   for (const attachment of attachments) {
     const attachmentBase64 = attachment;
     const uploadResponse = await imgurRepository.uploadImage(attachmentBase64);
@@ -49,5 +49,32 @@ export async function POST(request) {
     return Response.json({ message: "Post created successfully." }, { status: 201 });
   } catch (error) {
     return Response.json({ error: error.message }, { status: 500 });
+  }
+}
+
+export async function DELETE(request) {
+  const authenticateUserUseCase = new AuthenticateUserUseCase();
+  let gid;
+
+  try {
+    const accessGID = request.headers.get("Authorization");
+    gid = await authenticateUserUseCase.execute(accessGID);
+  } catch (error) {
+    return Response.json({ error: error.message }, { status: 401 });
+  }
+
+  const { postId } = await request.json();
+
+  if (!postId)
+    return Response.json({ error: "Missing fields." }, { status: 401 });
+
+  const postRepository = new PostRepository();
+  const removePostUseCase = new RemovePostUseCase(userRepository, postRepository);
+
+  try {
+    await removePostUseCase.execute({
+      gid,
+      postId
+    });
   }
 }

@@ -4,7 +4,7 @@ import MediaModal from "@/presentation/components/Media/MediaModal";
 export default function Attachments({ items }) {
 	return (
 		<div className="grid gap-2">
-      <div className="relative aspect-video overflow-hidden rounded-lg">
+      <div className="relative overflow-hidden rounded-lg">
         <MediaModal
           src={items[0]}
           width={1000}

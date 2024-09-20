@@ -39,7 +39,10 @@ export default class UserRepository {
             author: true,
             likes: true,
             reposts: true
-          }
+          },
+          orderBy: {
+            createdAt: "desc", 
+          },
         },
         followers: {
           include: {
@@ -67,7 +70,10 @@ export default class UserRepository {
             author: true,
             likes: true,
             reposts: true
-          }
+          },
+          orderBy: {
+            createdAt: "desc", 
+          },
         },
         followers: {
           include: {
@@ -95,7 +101,10 @@ export default class UserRepository {
             author: true,
             likes: true,
             reposts: true
-          }
+          },
+          orderBy: {
+            createdAt: "desc", 
+          },
         },
         followers: {
           include: {

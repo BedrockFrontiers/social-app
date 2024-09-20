@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 export default function BuzzText({ content }) {
-  const regex = /(@\w+|#\w+|https?:\/\/[^\s]+|^>.*)/gm;
+  const regex = /(@[\w\u00C0-\u017F]+|#[\w\u00C0-\u017F]+|https?:\/\/[^\s]+|^>.*)/gm;
 
   function getDomainAndPath (url) {
     try {
@@ -47,5 +47,15 @@ export default function BuzzText({ content }) {
     });
   }
 
-  return <div className="whitespace-pre-wrap">{renderText(content)}</div>;
+  return <div className="whitespace-pre-wrap">
+    {content.length > 1000 ? (
+      <>
+        {renderText(content.slice(0, 1000))}...
+      </>
+    ) : (
+      <>
+        {renderText(content)}
+      </>
+    )}
+  </div>;
 }

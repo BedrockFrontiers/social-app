@@ -63,7 +63,7 @@ export default async function ViewPost({ params }) {
 	return (
 		<MainStructure>
 			<MainHeader returnRoute={`/profile/${post.author.identifier}`}>
-				<h3 className="select-none font-bold text-xl">{post.author.identifier} post</h3>
+				<h3 className="select-none font-bold text-xl max-w-[130px] truncate">{post.author.identifier}</h3> post
 			</MainHeader>
 			<div>
 				<Post post={post} me={me} isLiked={isLiked} linkable={false} />

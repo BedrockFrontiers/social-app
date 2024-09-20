@@ -14,21 +14,41 @@ export async function PATCH(request) {
 		return Response.json({ error: error.message }, { status: 401 })
 	}
 
-	const formData = await request.formData();
-	const userRepository = new UserRepository();
-	const imgurRepository = new ImgurRepository();
+	const { displayName, bio, avatar, banner } = await request.json();
 
-	const avatarBase64 = formData.get("avatar");
-  const bannerBase64 = formData.get("banner");
+	let avatarUrl = null;
+	let bannerUrl = null;
 
-	const avatarUrl = await imgurRepository.uploadImage(avatarBase64);
-	const bannerUrl = await imgurRepository.uploadImage(bannerBase64);
+	if (avatar) {
+    const avatarUpload = await imgurRepository.uploadImage(avatar);
+    if (avatarUpload.error) {
+      return Response.json({ error: avatarUpload.error }, { status: 400 });
+    }
+    avatarUrl = avatarUpload.link;
+  }
 
-	if (avatarUrl.error || bannerUrl.error)
-		return Response.json({ error: avatarUrl.error }, { status: 400 });
+  if (banner) {
+    const bannerUpload = await imgurRepository.uploadImage(banner);
+    if (bannerUpload.error) {
+      return Response.json({ error: bannerUpload.error }, { status: 400 });
+    }
+    bannerUrl = bannerUpload.link;
+  }
 
-	const updateUserUseCase = new UpdateUserUseCase(userRepository);
-	await updateUserUseCase.execute({ gid, username: formData.get("displayName"), bio: formData.get("bio"), avatarUrl: avatarUrl.link, bannerUrl: bannerUrl.link });
+  const userRepository = new UserRepository();
+  const updateUserUseCase = new UpdateUserUseCase(userRepository);
 
-	return Response.json({ message: "Account updated successfully." }, { status: 200 });
+	try {
+    await updateUserUseCase.execute({
+      gid,
+      username: displayName,
+      bio,
+      avatarUrl,
+      bannerUrl,
+    });
+
+    return Response.json({ message: "Account updated successfully." }, { status: 200 });
+  } catch (error) {
+    return Response.json({ error: error.message }, { status: 500 });
+  }
 }

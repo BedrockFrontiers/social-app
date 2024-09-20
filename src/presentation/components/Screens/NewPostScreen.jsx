@@ -22,20 +22,25 @@ export default function NewPostScreen({ me, onClose }) {
     	return;
     }
 
-    const formData = new FormData();
-    formData.append("content", content);
+    if (content.trim().length > 1000) {
+    	setError("Post content can't be more than 1000 characters.");
+    	setLoading(false);
+    	return;
+    }
 
-    attachments.forEach(attachment => {
-      formData.append("attachments", attachment.file);
-    });
+    const postPayload = {
+	    content: content,
+	    attachments: attachments.map(attachment => attachment.file)
+	  };
 
 		try {
       const response = await fetch("/api/services/posts", {
         method: "POST",
 				headers: {
-					"Authorization": `G-ID ${me.prisma.gid}`
+					"Authorization": `G-ID ${me.prisma.gid}`,
+					"Content-Type": "application/json"
 				},
-        body: formData,
+        body: JSON.stringify(postPayload),
       });
 
       const data = await response.json();
@@ -103,7 +108,7 @@ export default function NewPostScreen({ me, onClose }) {
 				</div>
 				<div className="mt-4">
 					<textarea 
-						className="min-h-[200px] w-full border themed-border rounded-xl resize-none outline-none p-4 text-sm" 
+						className="min-h-[200px] w-full border themed-border rounded-xl resize-none outline-none p-4 text-sm dark:text-white" 
 						value={content}
 						onChange={(e) => setContent(e.target.value)}
 						placeholder="What you think?"

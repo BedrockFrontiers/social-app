@@ -1,15 +1,18 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { FaRegComment, FaHeart, FaRegHeart, FaArrowsRotate } from "react-icons/fa6";
+import { FaHeart, FaRegHeart, FaArrowsRotate } from "react-icons/fa6";
+import { IoEllipsisVerticalSharp } from "react-icons/io5";
 import moment from "moment";
 import getVerifiedLevelName from "@/shared/utils/user/get-verified-level-name-util";
 import BuzzText from "@/presentation/components/UI/BuzzText";
 import Link from "next/link";
 import Image from "next/image";
+import PostDropdownActions from "@/presentation/components/UI/Post/PostDropdownActions";
 import Attachments from "@/presentation/components/Media/Attachments";
 
 export default function Post({ post, me, isLiked = false, linkable = true }) {
+	const [postDropdownOpen, setPostDropdownOpen] = useState(false);
 	const [liked, setLiked] = useState(isLiked);
 	const [likeCount, setLikeCount] = useState(post.likes.length);
 	const verifiedName = getVerifiedLevelName(post.author.verified);
@@ -56,7 +59,7 @@ export default function Post({ post, me, isLiked = false, linkable = true }) {
 			<div className="flex gap-4">
 				<Link href={`/profile/${post.author.identifier}`} className="h-[max-content]">
 					<Image
-						className="rounded-full select-none"
+						className="rounded-full select-none w-[60px] h-[60px]"
 						src={post.author.avatarUrl}
 						width={60}
 						height={60}
@@ -67,10 +70,9 @@ export default function Post({ post, me, isLiked = false, linkable = true }) {
 				<div className="w-[88vw] sm:w-[500px]">
 					<div className="flex items-center gap-1 flex-wrap">
 						<div className="flex items-center  gap-1">
-							<Link href={`/profile/${post.author.identifier}`} className="text-sm font-bold cursor-pointer transition duration-200 hover:underline">{post.author.name}</Link>
+							<Link href={`/profile/${post.author.identifier}`} className="text-sm font-bold cursor-pointer transition duration-200 hover:underline max-w-[130px] truncate">{post.author.name}</Link>
 							{verifiedName.length > 0 && (
 								<Image
-									id="user:verified"
 									className="select-none"
 									src={`/badges/${verifiedName}.png`}
 									width={20}
@@ -100,7 +102,7 @@ export default function Post({ post, me, isLiked = false, linkable = true }) {
 						</div>
 					)}
 					<div className="sm:w-[500px] flex justify-between mt-2 items-center flex-wrap">
-						<div id="post:repost:action" className="transition duration-200 rounded-full p-1 hover:bg-zinc-700 hover:bg-opacity-20 flex items-center gap-2 cursor-pointer">
+						<div className="transition duration-200 rounded-full p-1 hover:bg-zinc-700 hover:bg-opacity-20 flex items-center gap-2 cursor-pointer">
 							<FaArrowsRotate className="text-zinc-500" />
 							<p className="text-sm text-zinc-500 font-semibold text-zinc-500 select-none">{post.reposts.length}</p>
 						</div>
@@ -111,6 +113,12 @@ export default function Post({ post, me, isLiked = false, linkable = true }) {
 								<FaRegHeart className="text-zinc-500" />
 							)}
 							<p className={`text-sm ${liked ? "text-pink-500" : "text-zinc-500"} select-none font-semibold text-zinc-500`}>{likeCount}</p>
+						</div>
+						<div className="relative">
+							<div onClick={() => setPostDropdownOpen(prev => !prev)} className="transition duration-200 rounded-full p-1 hover:bg-zinc-700 hover:bg-opacity-20 cursor-pointer">
+								<IoEllipsisVerticalSharp className="text-zinc-500" />
+							</div>
+							{postDropdownOpen && <PostDropdownActions me={me} />}
 						</div>
 					</div>
 				</div>

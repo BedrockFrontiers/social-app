@@ -39,26 +39,24 @@ export default function EditProfile({ me, onClose }) {
 
   	if (!isValidUsername(displayName)) {
   		setLoading(false);
-  	  setError(`Username must be at least ${USERNAME_MIN_LENGTH} characters long.`);
+  	  setError(`Username must be at least ${USERNAME_MIN_LENGTH} characters long and lower than 64 characters.`);
   	  return;
   	}
 
-  	const formData = new FormData();
-    formData.append("displayName", displayName);
-    formData.append("bio", bio);
-
-    if (selectedAvatarFile)
-    	formData.append("avatar", selectedAvatarFile);
-
-    if (selectedBannerFile)
-    	formData.append("banner", selectedBannerFile);
+  	const profileData = {
+	    displayName,
+	    bio,
+	    avatar: selectedAvatarFile,
+	    banner: selectedBannerFile,
+	  };
 
     const res = await fetch("/api/account/update", {
     	method: "PATCH",
     	headers: {
-    		"Authorization": `G-ID ${me.id}`
+    		"Authorization": `G-ID ${me.id}`,
+    		"Content-Type": "application/json"
     	},
-    	body: formData
+    	body: JSON.stringify(profileData),
     });
 
     const data = await res.json();
@@ -120,7 +118,7 @@ export default function EditProfile({ me, onClose }) {
 						<div className="my-5">
 							<p className="text-sm font-semibold">Bio</p>
 							<textarea 
-								className="min-h-[300px] w-full border themed-border rounded-xl resize-none outline-none p-4 text-sm" 
+								className="min-h-[300px] w-full border themed-border rounded-xl resize-none outline-none p-4 text-sm dark:text-white" 
 								value={bio}
 								onChange={(e) => setBio(e.target.value)}
 								placeholder="e.g. Hello, i'm using Tidal Social."

@@ -17,6 +17,18 @@ export default function ChangeIdentifier({ me, validateIdentifier, applyChangeId
 		if (invalidIdentifier)
 			return;
 
+		if (identifier.trim().length < 2) {
+			setLoading(false);
+			setError("Identifier must be atleast 2 length.");
+			return;
+		}
+
+		if (identifier.trim().length > 64) {
+			setLoading(false);
+			setError("Identifier must be atleast lower than 64 characters.");
+			return;
+		}
+
 		setLoading(true);
 		setSuccess(false);
 		setError('');
