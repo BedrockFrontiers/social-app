@@ -15,6 +15,7 @@ export async function PATCH(request) {
 	}
 
 	const { displayName, bio, avatar, banner } = await request.json();
+	const imgurRepository = new ImgurRepository();
 
 	let avatarUrl = null;
 	let bannerUrl = null;
