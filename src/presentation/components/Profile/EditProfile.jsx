@@ -39,13 +39,19 @@ export default function EditProfile({ me, onClose }) {
 
   	if (!isValidUsername(displayName)) {
   		setLoading(false);
-  	  setError(`Username must be at least ${USERNAME_MIN_LENGTH} characters long and lower than 64 characters.`);
+  	  setError(`Username must be at least ${USERNAME_MIN_LENGTH} characters long.`);
   	  return;
   	}
 
+		if (bio.trim().length > 400) {
+			setLoading(false);
+			setError("Bio must be lowet than 400 characters long.");
+			return;
+		}
+
   	const profileData = {
-	    displayName,
-	    bio,
+	    displayName.trim(),
+	    bio.trim(),
 	    avatar: selectedAvatarFile,
 	    banner: selectedBannerFile,
 	  };
