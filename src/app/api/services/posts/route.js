@@ -51,30 +51,3 @@ export async function POST(request) {
     return Response.json({ error: error.message }, { status: 500 });
   }
 }
-
-export async function DELETE(request) {
-  const authenticateUserUseCase = new AuthenticateUserUseCase();
-  let gid;
-
-  try {
-    const accessGID = request.headers.get("Authorization");
-    gid = await authenticateUserUseCase.execute(accessGID);
-  } catch (error) {
-    return Response.json({ error: error.message }, { status: 401 });
-  }
-
-  const { postId } = await request.json();
-
-  if (!postId)
-    return Response.json({ error: "Missing fields." }, { status: 401 });
-
-  const postRepository = new PostRepository();
-  const removePostUseCase = new RemovePostUseCase(userRepository, postRepository);
-
-  try {
-    await removePostUseCase.execute({
-      gid,
-      postId
-    });
-  }
-}
