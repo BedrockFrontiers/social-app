@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export default function BuzzText({ content }) {
+export default function BuzzText({ content, limitText = false }) {
   const regex = /(@[\w\u00C0-\u017F]+|#[\w\u00C0-\u017F]+|https?:\/\/[^\s]+|^>.*)/gm;
 
   function getDomainAndPath (url) {
@@ -48,9 +48,9 @@ export default function BuzzText({ content }) {
   }
 
   return <div className="whitespace-pre-wrap">
-    {content.length > 1000 ? (
+    {limitText ? (
       <>
-        {renderText(content.slice(0, 1000))}...
+        {renderText(content.slice(0, 400))}...
       </>
     ) : (
       <>
