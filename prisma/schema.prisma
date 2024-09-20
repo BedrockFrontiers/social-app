@@ -21,10 +21,10 @@ datasource db {
 model User {
   id Int @id @default(autoincrement()) // Unique identifier for the user (auto-incrementing integer).
   gid String? @unique // Unique G-ID.
-  identifier String @unique // Unique username identifier for the user (e.g., @username).
+  identifier @db.VarChar(64) String @unique // Unique username identifier for the user (e.g., @username).
   email String @unique // Unique email address associated with the user.
-  name String? // Full name of the user (optional).
-  bio String? // Bio or description about the user (optional).
+  name String? @db.VarChar(64) // Full name of the user (optional).
+  bio String? @db.VarChar(500) // Bio or description about the user (optional).
   avatarUrl String? // URL of the user's avatar image (optional).
   bannerUrl String? // URL of the user's banner image (optional).
   createdAt DateTime @default(now()) // The date when the user account was created. Defaults to the current timestamp.
@@ -45,14 +45,14 @@ model User {
 // A post contains content, optional attachments, and is associated with its author.
 model Post {
   id Int @id @default(autoincrement()) // Unique identifier for the post (auto-incrementing integer).
-  content String // The textual content of the post.
+  content String @db.VarChar(1000) // The textual content of the post.
   attachments String[] // An array of URLs representing attachments (images, videos, etc.) related to the post.
   createdAt DateTime  @default(now()) // The date when the post was created. Defaults to the current timestamp.
   updatedAt DateTime  @updatedAt // The date when the post was last updated. Automatically updated on modifications.
   authorId Int // Foreign key linking the post to its author (User model).
 
   // Relations
-  author User @relation(fields: [authorId], references: [id]) // The user who authored the post. Establishes a relation to the User model.
+  author User @relation(fields: [authorId], references: [id], onDelete: Cascade) // The user who authored the post. Establishes a relation to the User model.
   likes Like[] // List of likes that the post has received.
   reposts Repost[] // List of reposts (retweets or shares) of the post.
 }
@@ -64,8 +64,8 @@ model Follower {
   followerId Int // Foreign key linking to the user who is following.
 
   // Relations
-  following User @relation("UserFollowing", fields: [followingId], references: [id]) // The user being followed.
-  follower User @relation("UserFollowers", fields: [followerId], references: [id]) // The user who is following.
+  following User @relation("UserFollowing", fields: [followingId], references: [id], onDelete: Cascade) // The user being followed.
+  follower User @relation("UserFollowers", fields: [followerId], references: [id], onDelete: Cascade) // The user who is following.
   followedAt DateTime @default(now()) // The date when the following relationship was established.
 }
 
@@ -76,8 +76,8 @@ model Like {
   postId Int // Foreign key linking to the liked post.
 
   // Relations
-  user User @relation(fields: [userId], references: [id]) // The user who liked the post. Establishes a relation to the User model.
-  post Post @relation(fields: [postId], references: [id]) // The post that was liked. Establishes a relation to the Post model.
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade) // The user who liked the post. Establishes a relation to the User model.
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade) // The post that was liked. Establishes a relation to the Post model.
 }
 
 // The Repost model represents a repost (retweet or share) of a post by a user.
@@ -87,7 +87,7 @@ model Repost {
   postId Int // Foreign key linking to the reposted post.
 
   // Relations
-  user User @relation(fields: [userId], references: [id]) // The user who reposted the post. Establishes a relation to the User model.
-  post Post @relation(fields: [postId], references: [id]) // The post that was reposted. Establishes a relation to the Post model.
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade) // The user who reposted the post. Establishes a relation to the User model.
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade) // The post that was reposted. Establishes a relation to the Post model.
   createdAt DateTime @default(now()) // The date when the post was reposted. Defaults to the current timestamp.
 }
