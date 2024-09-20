@@ -11,5 +11,5 @@ export function isValidPassword(password) {
 }
 
 export function isValidUsername(username) {
-  return username.trim().length >= USERNAME_MIN_LENGTH && username.trim().length <= 64;
+  return username.trim().length >= USERNAME_MIN_LENGTH;
 }
