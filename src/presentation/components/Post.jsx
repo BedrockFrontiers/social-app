@@ -57,7 +57,7 @@ export default function Post({ post, me, isLiked = false, linkable = true }) {
 	return (
 		<div className="relative p-4">
 			<div className="flex gap-4">
-				<Link href={`/profile/${post.author.identifier}`} className="h-[max-content]">
+				<Link href={`/profile/${post.author.identifier}`} className="h-[60px] w-[60px] flex-shrink-0">
 					<Image
 						className="rounded-full select-none w-[60px] h-[60px]"
 						src={post.author.avatarUrl}
