@@ -30,7 +30,7 @@ export default function SignUp() {
     }
 
     if (!isValidUsername(username)) {
-      setError(`Username must be at least ${USERNAME_MIN_LENGTH} characters long and lower than 64 characters.`);
+      setError(`Username must be at least ${USERNAME_MIN_LENGTH} characters long.`);
       return;
     }
 
