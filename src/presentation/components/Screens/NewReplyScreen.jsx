@@ -2,19 +2,16 @@
 
 import { useState } from "react";
 import { MdOutlineImage, MdClose, MdOutlineMovie } from "react-icons/md";
+import { useRouter } from "next/navigation";
 import MediaModal from "@/presentation/components/Media/MediaModal";
 
-export default function NewPostScreen({ me, onClose }) {
+export default function NewReplyScreen({ me, comment, onClose }) {
+	const router = useRouter();
 	const [content, setContent] = useState('');
 	const [attachments, setAttachments] = useState([]);
-	const [isNSFW, setIsNSFW] = useState(false);
 	const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
-
-  const handleNSFWChange = (event) => {
-    setIsNSFW(event.target.checked);
-  };
 
   async function handlePost() {
   	setLoading(true);
@@ -22,19 +19,19 @@ export default function NewPostScreen({ me, onClose }) {
     setError('');
 
     if (content.trim().length < 2) {
-    	setError("Post content must be atleast 2 characters length.");
+    	setError("Reply content must be atleast 2 characters length.");
     	setLoading(false);
     	return;
     }
 
     const postPayload = {
 	    content: content,
-	    nsfw: isNSFW,
+	    commentId: comment.id,
 	    attachments: attachments.map(attachment => attachment.file)
 	  };
 
 		try {
-      const response = await fetch("/api/services/posts", {
+      const response = await fetch("/api/services/posts/comment/reply", {
         method: "POST",
 				headers: {
 					"Authorization": `G-ID ${me.prisma.gid}`,
@@ -48,12 +45,13 @@ export default function NewPostScreen({ me, onClose }) {
       if (response.ok) {
         setSuccess(true);
       } else {
-        setError(data.error || "Failed to post");
+        setError(data.error || "Failed to reply");
       }
     } catch (err) {
-      setError("An error occurred while posting");
+      setError("An error occurred while reply");
     } finally {
       setLoading(false);
+      router.refresh();
     }
   }
 
@@ -100,10 +98,10 @@ export default function NewPostScreen({ me, onClose }) {
 			<div className="relative lg:rounded-xl bg-white dark:bg-zinc-900 themed-border p-4 max-lg:w-full lg:w-[550px] max-lg:h-full max-lg:max-h-full lg:max-h-[500px] overflow-y-auto">
 				<div className="flex items-center justify-between">
 					<button onClick={onClose} className="text-sm font-semibold text-blue-500">Cancel</button>
-					<button disabled={loading} onClick={handlePost} className="text-sm font-semibold bg-blue-500 text-white transition duration-200 hover:bg-opacity-70 py-2 min-w-[80px] rounded-full">{loading ? "Posting..." : "Post"}</button>
+					<button disabled={loading} onClick={handlePost} className="text-sm font-semibold bg-blue-500 text-white transition duration-200 hover:bg-opacity-70 py-2 min-w-[80px] rounded-full">{loading ? "Replying..." : "Reply"}</button>
 				</div>
 				<div>
-				  {success && (<p className="text-xs text-green-500 font-semibold text-center select-none">Post published successfully.</p>)}
+				  {success && (<p className="text-xs text-green-500 font-semibold text-center select-none">Comment published successfully.</p>)}
 					<p className="text-xs text-red-500 font-semibold text-center select-none">{error}</p>
 				</div>
 				<div className="mt-4">
@@ -114,16 +112,6 @@ export default function NewPostScreen({ me, onClose }) {
 						placeholder="What you think?"
 					>
 					</textarea>
-				</div>
-				<div className="my-4">
-					<label className="text-sm flex gap-2">
-	          <input
-	            type="checkbox"
-	            checked={isNSFW}
-	            onChange={handleNSFWChange}
-	          />
-	          <span>+18 Content</span>
-	        </label>
 				</div>
 				<div className="mt-4 grid grid-cols-2 gap-2">
           {attachments.map((attachment) => (

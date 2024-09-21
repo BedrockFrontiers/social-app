@@ -1,5 +1,4 @@
 import prisma from "@/db.js";
-import User from "@/domain/entities/user/user";
 
 export default class UserRepository {
   async create(user) {
@@ -18,7 +17,7 @@ export default class UserRepository {
       }
     });
     
-    return new User(newUser);
+    return newUser;
   }
 
   async update(gid, user) {
@@ -27,7 +26,7 @@ export default class UserRepository {
       data: user
     });
 
-    return new User(updatedUser);
+    return updatedUser;
   }
 
   async findByEmail(email) {
@@ -56,10 +55,11 @@ export default class UserRepository {
           },
         },
         likes: true,
+        commentLikes: true,
         reposts: true
       }
     });
-    return user ? new User(user).toJSON() : null;
+    return user ? user : null;
   }
 
   async findByIdentifier(identifier) {
@@ -88,10 +88,11 @@ export default class UserRepository {
           },
         },
         likes: true,
+        commentLikes: true,
         reposts: true
       }
     });
-    return user ? new User(user).toJSON() : null;
+    return user ? user : null;
   }
 
   async findByGID(gid) {
@@ -120,9 +121,10 @@ export default class UserRepository {
           },
         },
         likes: true,
+        commentLikes: true,
         reposts: true
       }
     });
-    return user ? new User(user).toJSON() : null;
+    return user ? user : null;
   }
 }

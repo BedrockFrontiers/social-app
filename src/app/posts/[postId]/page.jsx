@@ -2,6 +2,7 @@ import MainHeader from "@/presentation/components/MainHeader";
 import MainStructure from "@/presentation/components/MainStructure";
 import PostRepository from "@/infrastructure/repositories/post-repository";
 import LikeRepository from "@/infrastructure/repositories/like-repository";
+import CommentLikeRepository from "@/infrastructure/repositories/comment-like-repository";
 import PagePost from "@/presentation/components/PagePost";
 import Comment from "@/presentation/components/UI/Post/Comment";
 import getAccount from "@/shared/utils/account/get-account-util";
@@ -48,6 +49,7 @@ export default async function ViewPost({ params }) {
 	const me = await getAccount("@me");
 	const postRepository = new PostRepository();
 	const likeRepository = new LikeRepository();
+	const commentLikeRepository = new CommentLikeRepository();
 	const post = await postRepository.findById(parseInt(postId));
 
 	if (!post) {
@@ -62,6 +64,14 @@ export default async function ViewPost({ params }) {
 
 	const isLiked = await likeRepository.exists(me?.prisma.id, post.id);
 
+	async function addIsLikedToComments() {
+	  for (let i = 0; i < post.comments.length; i++) {
+	    post.comments[i].isLiked = await commentLikeRepository.exists(me?.prisma.id, post.comments[i].id);
+	  }
+	}
+
+	await addIsLikedToComments();
+
 	return (
 		<MainStructure>
 			<MainHeader returnRoute={`/profile/${post.author.identifier}`}>
@@ -74,10 +84,10 @@ export default async function ViewPost({ params }) {
 			<div>
 				{post.comments.map((comment, index) => (
 					<div key={index}>
-						{!comment.parent && (
+						{!comment.parentId && (
 							<div>
 								<div className="p-4">
-									<Comment me={me} comment={comment} linkable={false} />
+									<Comment me={me} comment={comment} isLiked={comment.isLiked} linkable={true} />
 								</div>
 								<hr className="themed-border" />
 							</div>

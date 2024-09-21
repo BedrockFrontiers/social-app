@@ -5,9 +5,6 @@ export default class FollowUserUseCase {
 	}
 
 	async execute({ gid, identifier, toFollowIdentifier }) {
-		if (identifier.trim() === toFollowIdentifier.trim())
-			throw new Error("You can't follow you.");
-
     const existingUser = await this.userRepository.findByGID(gid);
     if (!existingUser)
       throw new Error("G-ID invalid.");
@@ -20,6 +17,8 @@ export default class FollowUserUseCase {
     if (isFollowing)
     	throw new Error("You already is following him.");
 
+    if (existingUser.id === existingToFollowGID.id)
+      throw new Error("You can't follow you.");
 
     await this.followerRepository.create(existingUser.id, existingToFollowGID.id);
   }

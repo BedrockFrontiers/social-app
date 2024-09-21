@@ -42,13 +42,7 @@ export default function EditProfile({ me, onClose }) {
   	  setError(`Username must be at least ${USERNAME_MIN_LENGTH} characters long.`);
   	  return;
   	}
-
-		if (bio.trim().length > 400) {
-			setLoading(false);
-			setError("Bio must be lowet than 400 characters long.");
-			return;
-		}
-
+  	
   	const profileData = {
 	    displayName: displayName.trim(),
 	    bio: bio.trim(),

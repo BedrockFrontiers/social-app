@@ -2,9 +2,11 @@
 
 import { useState } from "react";
 import { MdOutlineImage, MdClose, MdOutlineMovie } from "react-icons/md";
+import { useRouter } from "next/navigation";
 import MediaModal from "@/presentation/components/Media/MediaModal";
 
 export default function NewCommentScreen({ me, post, onClose }) {
+	const router = useRouter();
 	const [content, setContent] = useState('');
 	const [attachments, setAttachments] = useState([]);
 	const [loading, setLoading] = useState(false);
@@ -17,13 +19,7 @@ export default function NewCommentScreen({ me, post, onClose }) {
     setError('');
 
     if (content.trim().length < 2) {
-    	setError("Post content must be atleast 2 characters length.");
-    	setLoading(false);
-    	return;
-    }
-
-    if (content.trim().length > 1000) {
-    	setError("Post content can't be more than 1000 characters.");
+    	setError("Comment content must be atleast 2 characters length.");
     	setLoading(false);
     	return;
     }
@@ -55,6 +51,7 @@ export default function NewCommentScreen({ me, post, onClose }) {
       setError("An error occurred while comment");
     } finally {
       setLoading(false);
+      router.refresh();
     }
   }
 

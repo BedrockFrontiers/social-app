@@ -1,5 +1,4 @@
 import prisma from "@/db.js";
-import Follower from "@/domain/entities/user/follower";
 
 export default class FollowerRepository {
 	async create(followingId, followerId) {
@@ -10,7 +9,7 @@ export default class FollowerRepository {
 			}
 		});
 
-		return new Follower(newFollower);
+		return newFollower;
 	}
 
 	async exists(followingId, followerId) {

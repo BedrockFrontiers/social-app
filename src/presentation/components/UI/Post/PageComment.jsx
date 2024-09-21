@@ -9,9 +9,11 @@ import BuzzText from "@/presentation/components/UI/BuzzText";
 import Link from "next/link";
 import Image from "next/image";
 import CommentDropdownActions from "@/presentation/components/UI/Post/CommentDropdownActions";
+import NewReplyScreen from "@/presentation/components/Screens/NewReplyScreen";
 import Attachments from "@/presentation/components/Media/Attachments";
 
-export default function Comment({ me, comment, isLiked = false, linkable = true }) {
+export default function Comment({ me, comment, isLiked = false }) {
+  const [isOpenNewReplyScreen, setIsOpenNewReplyScreen] = useState(false);
   const [liked, setLiked] = useState(isLiked);
   const [likeCount, setLikeCount] = useState(comment.likes.length);
   const [commentDropdownOpen, setCommentDropdownOpen] = useState(false);
@@ -53,42 +55,38 @@ export default function Comment({ me, comment, isLiked = false, linkable = true 
 
   return (
     <div className="relative">
-      <div className="flex gap-4">
-        <Link href={`/profile/${comment.author.identifier}`} className="h-[40px] w-[40px] flex-shrink-0">
-          <Image
-            className="rounded-full select-none w-[40px] h-[40px]"
-            src={comment.author.avatarUrl}
-            width={40}
-            height={40}
-            quality={100}
-            alt="Profile Picture"
-          />
-        </Link>
-        <div className="relative w-[88vw] sm:w-[500px]">
-          <div className="flex items-center gap-1 flex-wrap">
-            <div className="flex items-center  gap-1">
-              <Link href={`/profile/${comment.author.identifier}`} className="text-sm font-bold cursor-pointer transition duration-200 hover:underline max-w-[130px] truncate">
-                {comment.author.name}
-              </Link>
-              {verifiedName.length > 0 && (
-                <Image className="select-none" src={`/badges/${verifiedName}.png`} width={20} height={20} alt="Verified" />
-              )}
-              <p className="text-sm font-semibold text-zinc-500 max-w-[130px] truncate">{comment.author.identifier}</p>
+      <div className="p-4">
+        <div className="flex gap-4">
+          <Link href={`/profile/${comment.author.identifier}`} className="h-[40px] w-[40px] flex-shrink-0">
+            <Image
+              className="rounded-full select-none w-[40px] h-[40px]"
+              src={comment.author.avatarUrl}
+              width={40}
+              height={40}
+              quality={100}
+              alt="Profile Picture"
+            />
+          </Link>
+          <div className="relative w-[88vw] sm:w-[500px]">
+            <div className="flex items-center gap-1 flex-wrap">
+              <div className="flex items-center  gap-1">
+                <Link href={`/profile/${comment.author.identifier}`} className="text-sm font-bold cursor-pointer transition duration-200 hover:underline max-w-[130px] truncate">
+                  {comment.author.name}
+                </Link>
+                {verifiedName.length > 0 && (
+                  <Image className="select-none" src={`/badges/${verifiedName}.png`} width={20} height={20} alt="Verified" />
+                )}
+              </div>
             </div>
-            <span className="text-zinc-500">·</span>
-            <p className="text-xs font-semibold text-zinc-500">{moment(comment.createdAt).fromNow()}</p>
+            <p className="text-sm font-semibold text-zinc-500 max-w-[130px] truncate">{comment.author.identifier}</p>
           </div>
+        </div>
+        <div className="mt-5">
           <div>
             <div className="mt-1">
-              {linkable ? (
-                <Link href={`/comment/${comment.id}`} className="text-sm">
-                  <BuzzText content={comment.content} />
-                </Link>
-              ) : (
-                <div className="text-sm">
-                  <BuzzText content={comment.content} />
-                </div>
-              )}
+              <div className="text-sm">
+                <BuzzText content={comment.content} />
+              </div>
             </div>
             {comment.attachments.length > 0 && (
               <div className="mt-2">
@@ -96,7 +94,12 @@ export default function Comment({ me, comment, isLiked = false, linkable = true 
               </div>
             )}
           </div>
-          <div className="sm:w-[500px] flex justify-between mt-2 items-center flex-wrap">
+          <hr className="themed-border mt-5" />
+          <div className="my-2">
+            <p className="text-xs font-semibold text-zinc-500">{moment(comment.createdAt).format("MMMM D, YYYY [at] h:mm A")}</p>
+          </div>
+          <hr className="themed-border" />
+          <div className="flex justify-between mt-2 items-center flex-wrap">
             <div className="transition duration-200 rounded-full p-1 hover:bg-zinc-700 hover:bg-opacity-20 flex items-center gap-2 cursor-pointer">
               <FaRegComment className="text-zinc-500" />
               <p className="text-sm text-zinc-500 font-semibold text-zinc-500 select-none">{comment.replies.length}</p>
@@ -118,6 +121,25 @@ export default function Comment({ me, comment, isLiked = false, linkable = true 
           </div>
         </div>
       </div>
+      {me && (
+        <div>
+          <hr className="themed-border" />
+          <div onClick={() => setIsOpenNewReplyScreen(true)} className="p-4 flex items-center gap-2 cursor-pointer">
+            <div className="w-[40px] h-[40px]">
+              <Image
+                className="rounded-full select-none w-[40px] h-[40px]"
+                src={me.prisma.avatarUrl}
+                width={40}
+                height={40}
+                quality={100}
+                alt="Profile Picture"
+              />
+            </div>
+            <p className="text-sm">Write your reply</p>
+          </div>
+          {isOpenNewReplyScreen && (<NewReplyScreen me={me} comment={comment} onClose={() => setIsOpenNewReplyScreen(false)} />)}
+        </div>
+      )}
     </div>
   );
 }

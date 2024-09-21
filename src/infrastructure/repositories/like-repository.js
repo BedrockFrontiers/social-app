@@ -1,5 +1,4 @@
 import prisma from "@/db.js";
-import Like from "@/domain/entities/post/like";
 
 export default class LikeRepository {
 	async create(userId, postId) {
@@ -14,7 +13,7 @@ export default class LikeRepository {
 			}
 		});
 
-		return new Like(newLike);
+		return newLike;
 	}
 
 	async exists(userId, postId) {

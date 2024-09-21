@@ -38,6 +38,7 @@ model User {
   followers Follower[] @relation("UserFollowers") // List of followers who follow the user.
   following Follower[] @relation("UserFollowing") // List of users that this user is following.
   likes Like[] // List of likes by the user
+  commentLikes CommentLike[] // List of likes of comments by the user
   reposts Repost[] // List of reposts by the user
   comments Comment[] // List of comments associated with the user.
 }
@@ -73,7 +74,8 @@ model Comment {
   post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
   author User @relation(fields: [authorId], references: [id], onDelete: Cascade)
   replies Comment[] @relation("CommentReplies") // Replies to this comment.
-  parent Comment? @relation("CommentReplies", fields: [parentId], references: [id]) // Optional relation to parent comment.
+  parent Comment? @relation("CommentReplies", fields: [parentId], references: [id], onDelete: Cascade) // Optional relation to parent comment.
+  likes CommentLike[] // List of likes on this comment.
 }
 
 // The Follower model represents the relationship between users where one user follows another.
@@ -97,6 +99,17 @@ model Like {
   // Relations
   user User @relation(fields: [userId], references: [id], onDelete: Cascade) // The user who liked the post. Establishes a relation to the User model.
   post Post @relation(fields: [postId], references: [id], onDelete: Cascade) // The post that was liked. Establishes a relation to the Post model.
+}
+
+// The CommentLike model represents a like on a comment by a user.
+model CommentLike {
+  id Int @id @default(autoincrement()) // Unique identifier for the like (auto-incrementing integer).
+  userId Int // Foreign key linking to the user who liked the post.
+  commentId Int // Foreign key linking to the liked post.
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade) // The user who liked the comment. Establishes a relation to the User model.
+  comment Comment @relation(fields: [commentId], references: [id], onDelete: Cascade) // The comment that was liked. Establishes a relation to the Comment model.
 }
 
 // The Repost model represents a repost (retweet or share) of a post by a user.

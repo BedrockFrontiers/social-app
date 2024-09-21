@@ -158,7 +158,7 @@ export default function PagePost({ post, me, isLiked = false }) {
                 alt="Profile Picture"
               />
             </div>
-            <p>Write your reply</p>
+            <p className="text-sm">Write your reply</p>
           </div>
           {isOpenNewCommentScreen && (<NewCommentScreen me={me} post={post} onClose={() => setIsOpenNewCommentScreen(false)} />)}
         </div>

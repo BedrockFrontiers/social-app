@@ -7,6 +7,7 @@ export default class CommentRepository {
         content: comment.content,
         postId: comment.postId,
         authorId: comment.authorId,
+        parentId: comment.parentId,
         attachments: comment.attachments
       }
     });
@@ -21,7 +22,16 @@ export default class CommentRepository {
         author: true,
         post: true,
         parent: true,
-        replies: true
+        likes: true,
+        replies: {
+          include: {
+            author: true,
+            post: true,
+            parent: true,
+            likes: true,
+            replies: true
+          }
+        }
       },
     });
 

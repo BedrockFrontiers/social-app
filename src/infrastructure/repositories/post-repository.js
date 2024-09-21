@@ -1,5 +1,4 @@
 import prisma from "@/db.js";
-import Post from "@/domain/entities/post/post";
 
 export default class PostRepository {
   async create(post) {
@@ -12,7 +11,7 @@ export default class PostRepository {
       }
     });
 
-    return new Post(newPost);
+    return newPost;
   }
   
   async findById(postId) {
@@ -27,7 +26,8 @@ export default class PostRepository {
             author: true,
             post: true,
             parent: true,
-            replies: true
+            replies: true,
+            likes: true
           },
           orderBy: {
             createdAt: "desc", 
@@ -36,7 +36,7 @@ export default class PostRepository {
       },
     });
 
-    return post ? new Post(post).toJSON() : null;
+    return post ? post : null;
   }
 
   async delete(postId) {
@@ -56,7 +56,8 @@ export default class PostRepository {
             author: true,
             post: true,
             parent: true,
-            replies: true
+            replies: true,
+            likes: true
           },
           orderBy: {
             createdAt: "desc", 
@@ -68,6 +69,6 @@ export default class PostRepository {
       },
     });
 
-    return posts.map(post => new Post(post).toJSON());
+    return posts.map(post => post);
   }
 }

@@ -16,7 +16,7 @@ export default function Post({ post, me, isLiked = false, linkable = true }) {
   const [postDropdownOpen, setPostDropdownOpen] = useState(false);
   const [liked, setLiked] = useState(isLiked);
   const [likeCount, setLikeCount] = useState(post.likes.length);
-  const [showNSFW, setShowNSFW] = useState(!post.nsfw); // Estado para controle NSFW
+  const [showNSFW, setShowNSFW] = useState(!post.nsfw);
   const verifiedName = getVerifiedLevelName(post.author.verified);
 
   async function likePost() {
@@ -56,12 +56,12 @@ export default function Post({ post, me, isLiked = false, linkable = true }) {
   return (
     <div className="relative p-4">
       <div className="flex gap-4">
-        <Link href={`/profile/${post.author.identifier}`} className="h-[60px] w-[60px] flex-shrink-0">
+        <Link href={`/profile/${post.author.identifier}`} className="h-[40px] w-[40px] flex-shrink-0">
           <Image
-            className="rounded-full select-none w-[60px] h-[60px]"
+            className="rounded-full select-none w-[40px] h-[40px]"
             src={post.author.avatarUrl}
-            width={60}
-            height={60}
+            width={40}
+            height={40}
             quality={100}
             alt="Profile Picture"
           />
