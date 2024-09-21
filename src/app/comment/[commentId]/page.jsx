@@ -72,7 +72,7 @@ export default async function ViewComment({ params }) {
 
 	return (
 		<MainStructure>
-			<MainHeader returnRoute={comment.parentId ? `/comment/${comment.parentId}` : `/post/${comment.postId}`}>
+			<MainHeader returnRoute={comment.parentId ? `/comment/${comment.parentId}` : `/posts/${comment.postId}`}>
 				<h3 className="select-none font-bold text-xl">{comment.author.identifier} Comment</h3>
 			</MainHeader>
 			<div>
