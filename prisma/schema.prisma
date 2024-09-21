@@ -24,7 +24,7 @@ model User {
   identifier String @db.VarChar(64) @unique // Unique username identifier for the user (e.g., @username).
   email String @unique // Unique email address associated with the user.
   name String? @db.VarChar(64) // Full name of the user (optional).
-  bio String? @db.VarChar(500) // Bio or description about the user (optional).
+  bio String? @db.VarChar(1000) // Bio or description about the user (optional).
   avatarUrl String? // URL of the user's avatar image (optional).
   bannerUrl String? // URL of the user's banner image (optional).
   createdAt DateTime @default(now()) // The date when the user account was created. Defaults to the current timestamp.
@@ -39,22 +39,41 @@ model User {
   following Follower[] @relation("UserFollowing") // List of users that this user is following.
   likes Like[] // List of likes by the user
   reposts Repost[] // List of reposts by the user
+  comments Comment[] // List of comments associated with the user.
 }
 
 // The Post model represents individual posts (or tweets) created by users.
 // A post contains content, optional attachments, and is associated with its author.
 model Post {
   id Int @id @default(autoincrement()) // Unique identifier for the post (auto-incrementing integer).
-  content String @db.VarChar(1000) // The textual content of the post.
+  content String @db.VarChar(2000) // The textual content of the post.
   attachments String[] // An array of URLs representing attachments (images, videos, etc.) related to the post.
   createdAt DateTime @default(now()) // The date when the post was created. Defaults to the current timestamp.
   updatedAt DateTime @updatedAt // The date when the post was last updated. Automatically updated on modifications.
   authorId Int // Foreign key linking the post to its author (User model).
-
+  nsfw Boolean @default(false) // The content of post is +18.
   // Relations
   author User @relation(fields: [authorId], references: [id], onDelete: Cascade) // The user who authored the post. Establishes a relation to the User model.
   likes Like[] // List of likes that the post has received.
+  comments Comment[] // List of comments associated with the post.
   reposts Repost[] // List of reposts (retweets or shares) of the post.
+}
+
+// The Comment model represents comments on posts.
+model Comment {
+  id Int @id @default(autoincrement()) // Unique identifier for the comment.
+  content String @db.VarChar(2000) // The content of the comment.
+  attachments String[] // An array of URLs representing attachments (images, videos, etc.) related to the post.
+  createdAt DateTime @default(now()) // The date when the comment was created.
+  postId Int // Foreign key linking to the associated post.
+  authorId Int // Foreign key linking to the user who authored the comment.
+  parentId Int? // Optional foreign key linking to the parent comment (for replies).
+
+  // Relations
+  post Post @relation(fields: [postId], references: [id], onDelete: Cascade)
+  author User @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  replies Comment[] @relation("CommentReplies") // Replies to this comment.
+  parent Comment? @relation("CommentReplies", fields: [parentId], references: [id]) // Optional relation to parent comment.
 }
 
 // The Follower model represents the relationship between users where one user follows another.

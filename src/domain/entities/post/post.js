@@ -5,9 +5,11 @@ export default class Post {
     this.attachments = postObject.attachments;
     this.createdAt = postObject.createdAt;
     this.updatedAt = postObject.updatedAt;
+    this.nsfw = postObject.nsfw;
     this.author = postObject.author;
     this.likes = postObject.likes;
     this.reposts = postObject.reposts;
+    this.comments = postObject.comments;
   }
 
   toJSON() {
@@ -17,9 +19,11 @@ export default class Post {
       attachments: this.attachments,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
+      nsfw: this.nsfw,
       author: this.author,
       likes: this.likes,
       reposts: this.reposts,
+      comments: this.comments
     };
   }
 }

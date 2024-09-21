@@ -2,8 +2,10 @@ import MainHeader from "@/presentation/components/MainHeader";
 import MainStructure from "@/presentation/components/MainStructure";
 import PostRepository from "@/infrastructure/repositories/post-repository";
 import LikeRepository from "@/infrastructure/repositories/like-repository";
-import Post from "@/presentation/components/Post";
+import PagePost from "@/presentation/components/PagePost";
+import Comment from "@/presentation/components/UI/Post/Comment";
 import getAccount from "@/shared/utils/account/get-account-util";
+import Image from "next/image";
 
 export async function generateMetadata({ params }) {
 	const { postId } = params;
@@ -66,7 +68,22 @@ export default async function ViewPost({ params }) {
 				<h3 className="select-none font-bold text-xl">{post.author.identifier} Post</h3>
 			</MainHeader>
 			<div>
-				<Post post={post} me={me} isLiked={isLiked} linkable={false} />
+				<PagePost post={post} me={me} isLiked={isLiked} />
+			</div>
+			<hr className="themed-border" />
+			<div>
+				{post.comments.map((comment, index) => (
+					<div key={index}>
+						{!comment.parent && (
+							<div>
+								<div className="p-4">
+									<Comment me={me} comment={comment} linkable={false} />
+								</div>
+								<hr className="themed-border" />
+							</div>
+						)}
+					</div>
+				))}
 			</div>
 		</MainStructure>
 	);

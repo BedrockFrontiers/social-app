@@ -38,7 +38,8 @@ export default class UserRepository {
           include: {
             author: true,
             likes: true,
-            reposts: true
+            reposts: true,
+            comments: true
           },
           orderBy: {
             createdAt: "desc", 
@@ -69,7 +70,8 @@ export default class UserRepository {
           include: {
             author: true,
             likes: true,
-            reposts: true
+            reposts: true,
+            comments: true
           },
           orderBy: {
             createdAt: "desc", 
@@ -100,7 +102,8 @@ export default class UserRepository {
           include: {
             author: true,
             likes: true,
-            reposts: true
+            reposts: true,
+            comments: true
           },
           orderBy: {
             createdAt: "desc", 

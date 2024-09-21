@@ -15,6 +15,7 @@ export default class User {
     this.likes = userObject.likes;
     this.createdAt = userObject.createdAt;
     this.updatedAt = userObject.updatedAt;
+    this.comments = userObject.comments;
   }
 
   toJSON() {
@@ -34,6 +35,7 @@ export default class User {
       likes: this.likes,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
+      commnets: this.comments
     };
   }
 }

@@ -6,6 +6,7 @@ export default class PostRepository {
     const newPost = await prisma.post.create({
       data: {
         content: post.content,
+        nsfw: post.nsfw,
         authorId: post.authorId,
         attachments: post.attachments
       }
@@ -21,6 +22,17 @@ export default class PostRepository {
         author: true, 
         likes: true, 
         reposts: true, 
+        comments: {
+          include: {
+            author: true,
+            post: true,
+            parent: true,
+            replies: true
+          },
+          orderBy: {
+            createdAt: "desc", 
+          },
+        }
       },
     });
 
@@ -39,6 +51,17 @@ export default class PostRepository {
         author: true,
         likes: true, 
         reposts: true, 
+        comments: {
+          include: {
+            author: true,
+            post: true,
+            parent: true,
+            replies: true
+          },
+          orderBy: {
+            createdAt: "desc", 
+          },
+        }
       },
       orderBy: {
         createdAt: "desc", 

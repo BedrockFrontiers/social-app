@@ -29,15 +29,17 @@ export default async function ProfileHeader({ user, verifiedName, me }) {
               </div>
             </div>
             <div className="mt-2 w-full">
-              <div className="flex gap-4 w-full items-center max-lg:items-start justify-between">
+              <div className="flex gap-4 w-full justify-between">
                 <div>
-                  <div className="flex items-center gap-4">
-                    <h3 className="font-bold text-gray-800 dark:text-white text-2xl">{user.name}</h3>
-                    {verifiedName.length > 0 && (
-                      <Image className="select-none" src={`/badges/${verifiedName}.png`} width={25} height={25} alt={verifiedName} />
-                    )}
+                  <div className="flex gap-4">
+                    <h3 className="font-bold text-gray-800 dark:text-white text-xl max-w-[250px]">{user.name}</h3>
+                    <div>
+                      {verifiedName.length > 0 && (
+                        <Image className="select-none" src={`/badges/${verifiedName}.png`} width={25} height={25} alt={verifiedName} />
+                      )}
+                    </div>
                   </div>
-                  <p className="text-sm font-semibold text-zinc-500">{user.identifier}</p>
+                  <p className="text-sm font-semibold text-zinc-500 max-w-[250px]">{user.identifier}</p>
                 </div>
                 <div className="lg:visible max-lg:hidden">
                   <ViewProfileActions user={user} me={me} isFollowing={isFollowing} />
