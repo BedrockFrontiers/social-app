@@ -70,10 +70,10 @@ export default function Login() {
 						<div className="flex flex-col gap-4">
 							<Input 
 								icon={<MdOutlineAlternateEmail className="text-gray-600 dark:text-gray-400" />} 
-								type="text" 
+								type="email" 
 								value={email}
 								onChange={(e) => setEmail(e.target.value)}
-								placeholder="Email address" 
+								placeholder="Email" 
 							/>
 							<Input 
 								icon={<MdLockOutline className="text-gray-600 dark:text-gray-400" />} 
