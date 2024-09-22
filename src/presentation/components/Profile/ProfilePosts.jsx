@@ -8,7 +8,7 @@ export default async function ProfilePosts({ user, me }) {
     <div>
       {reposts.map((repost, index) => (
         <div key={index}>
-          <Post post={repost.post} me={me} hasLiked={repost.post.hasLiked} hasReposted={repost.hasReposted} useRepostIndication={true} />
+          <Post post={repost.post} me={me} hasLiked={repost.hasLiked} hasReposted={repost.hasReposted} useRepostIndication={true} />
           <hr className="border-gray-200 dark:border-zinc-700" />
         </div>
       ))}
