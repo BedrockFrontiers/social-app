@@ -15,7 +15,7 @@ export default class CommentRepository {
     return newComment;
   }
   
-  async findById(commentId) {
+  async findById(commentId, userId = null) {
     const comment = await prisma.comment.findUnique({
       where: { id: commentId },
       include: {
