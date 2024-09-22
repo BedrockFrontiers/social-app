@@ -95,7 +95,7 @@ export default class UserRepository {
     return user ? user : null;
   }
 
-  async findByIdentifier(identifier) {
+  async findByIdentifier(identifier, userId = null) {
     const user = await prisma.user.findUnique({ 
       where: { identifier },
       include: {
@@ -144,16 +144,16 @@ export default class UserRepository {
       user.posts = user.posts.map(post => {
         return {
           ...post,
-          hasLiked: post.likes.some(like => like.userId === user.id),
-          hasReposted: post.reposts.some(repost => repost.userId === user.id)
+          hasLiked: post.likes.some(like => like.userId === userId),
+          hasReposted: post.reposts.some(repost => repost.userId === userId)
         };
       });
 
       user.reposts = user.reposts.map(repost => {
         return {
           ...repost,
-          hasLiked: repost.post.likes.some(like => like.userId === user.id),
-          hasReposted: repost.post.reposts.some(rp => rp.userId === user.id)
+          hasLiked: repost.post.likes.some(like => like.userId === userId),
+          hasReposted: repost.post.reposts.some(rp => rp.userId === userId)
         };
       });
     }
@@ -205,24 +205,6 @@ export default class UserRepository {
         }
       }
     });
-
-    if (user) {
-      user.posts = user.posts.map(post => {
-        return {
-          ...post,
-          hasLiked: post.likes.some(like => like.userId === user.id),
-          hasReposted: post.reposts.some(repost => repost.userId === user.id)
-        };
-      });
-
-      user.reposts = user.reposts.map(repost => {
-        return {
-          ...repost,
-          hasLiked: repost.post.likes.some(like => like.userId === user.id),
-          hasReposted: repost.post.reposts.some(rp => rp.userId === user.id)
-        };
-      });
-    }
     
     return user ? user : null;
   }

@@ -3,7 +3,7 @@ import UserRepository from "@/infrastructure/repositories/user-repository";
 
 const userRepository = new UserRepository();
 
-export default async function getAccount(identifier) {
+export default async function getAccount(identifier, userId = null) {
   const supabase = createClient();
 
   if (identifier === "@me") {
@@ -24,7 +24,7 @@ export default async function getAccount(identifier) {
 
     return data?.user;
   } else {
-    const user = await userRepository.findByIdentifier(identifier);
+    const user = await userRepository.findByIdentifier(identifier, userId);
 
     if (!user)
       return null;

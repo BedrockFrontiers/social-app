@@ -12,7 +12,7 @@ export async function generateMetadata({ params }) {
   if (identifier === "@me") {
     user = me?.prisma;
   } else {
-    user = await getAccount(identifier);
+    user = await getAccount(identifier, me?.prisma.id);
   }
 
   if (!user) {
