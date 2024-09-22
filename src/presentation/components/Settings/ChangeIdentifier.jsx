@@ -76,18 +76,18 @@ export default function ChangeIdentifier({ me, validateIdentifier, applyChangeId
 					onChange={(e) => handleChangeIdentifier(e.target.value)}
 					placeholder="e.g. @fulano"
 				/>
-				<p className="text-xs text-zinc-700 select-none mt-2">
+				<p className="text-xs text-zinc-500 select-none mt-2">
 					When you change your <strong>@username identifier</strong>, it is crucial to understand that this decision has <strong>permanent and irreversible consequences</strong> across your account and online presence. Here are the key points you need to be aware of:
 				</p>
 				<ul className="list-disc ml-5 mt-5">
-					<li className="text-xs select-none text-zinc-700">
+					<li className="text-xs select-none text-zinc-500">
 						<strong>Old URLs Will No Longer Work</strong>: Any URLs, links, or references that used your previous identifier will stop functioning. For example, if you have shared links, profiles, or posts associated with your old identifier, they will not redirect to your new one. This means anyone attempting to visit your previous links will encounter a &apos;page not found&apos; error.
 					</li>
-					<li className="text-xs select-none text-zinc-700">
+					<li className="text-xs select-none text-zinc-500">
 						<strong>No Turning Back</strong>: Once the change is made, you <strong>cannot revert</strong> to your previous identifier, especially if it becomes claimed by another user or is deactivated by the system. Your new identifier will be the only one recognized and linked to your account moving forward.
 					</li>
 				</ul>
-				<p className="text-xs text-zinc-700 select-none mt-2">
+				<p className="text-xs text-zinc-500 select-none mt-2">
 					Please be certain before proceeding with this change, as it will significantly affect how others find and interact with your content online.
 				</p>
 				<Button disabled={loading} onClick={handleApplyChange} className="text-sm mt-5 !rounded-full">{loading ? "Wait..." : "Apply Change"}</Button>

@@ -26,7 +26,7 @@ export default async function DeveloperSettings() {
 					<p className="text-sm">
 						<strong>G-ID</strong>: { me.id }
 					</p>
-					<p className="text-xs text-zinc-700 select-none">
+					<p className="text-xs text-zinc-500 select-none">
 					  Your G-ID is crucial for account security. It grants access to your API requests, including posting content, updating your profile, and more. 
 					  Never share your G-ID to protect your account from unauthorized actions.
 					</p>

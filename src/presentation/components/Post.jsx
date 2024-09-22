@@ -129,7 +129,7 @@ export default function Post({ post, me, hasLiked = false, hasReposted = false, 
               	<TbRating18Plus size={20} />
               	NSFW Content
               </p>
-              <p className="text-xs text-zinc-600 mt-1">
+              <p className="text-xs text-zinc-500 mt-1">
               	This content is marked as NSFW (Not Safe For Work) to protect users from viewing potentially explicit or sensitive material without prior consent. The NSFW filter ensures that users have control over their experience, allowing them to choose whether or not to view content that may be inappropriate for certain settings, such as work environments or around minors. By clicking &apos;Show this content,&apos; you acknowledge and accept the nature of this material and take responsibility for your viewing experience.
               </p>
               <button
