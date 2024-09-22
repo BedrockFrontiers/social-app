@@ -2,8 +2,8 @@ import AuthenticateUserUseCase from "@/domain/usecases/user/authenticate-user-us
 import UserRepository from "@/infrastructure/repositories/user-repository";
 import CommentLikeRepository from "@/infrastructure/repositories/comment-like-repository";
 import CommentRepository from "@/infrastructure/repositories/comment-repository";
-import CreateCommentLikeUseUseCase from "@/domain/usecases/posts/comment/like/create-comment-like-usecase";
-import RemoveCommentLikeUseUseCase from "@/domain/usecases/posts/comment/like/remove-comment-like-usecase";
+import CreateCommentLikeUseCase from "@/domain/usecases/posts/comment/like/create-comment-like-usecase";
+import RemoveCommentLikeUseCase from "@/domain/usecases/posts/comment/like/remove-comment-like-usecase";
 
 export async function POST(request) {
 	const { commentId } = await request.json();
@@ -23,7 +23,7 @@ export async function POST(request) {
 	const userRepository = new UserRepository();
 	const commentRepository = new CommentRepository();
 	const commentLikeRepository = new CommentLikeRepository();
-	const createCommentLikeUseCase = new CreateCommentLikeUseUseCase(userRepository, commentLikeRepository, commentRepository);
+	const createCommentLikeUseCase = new CreateCommentLikeUseCase(userRepository, commentLikeRepository, commentRepository);
 
 	try {
 		await createCommentLikeUseCase.execute({ gid, commentId });
@@ -51,7 +51,7 @@ export async function DELETE(request) {
 	const userRepository = new UserRepository();
 	const commentRepository = new CommentRepository();
 	const commentLikeRepository = new CommentLikeRepository();
-	const removeCommentLikeUseCase = new RemoveCommentLikeUseUseCase(userRepository, commentLikeRepository, commentRepository);
+	const removeCommentLikeUseCase = new RemoveCommentLikeUseCase(userRepository, commentLikeRepository, commentRepository);
 
 	try {
 		await removeCommentLikeUseCase.execute({ gid, commentId });
