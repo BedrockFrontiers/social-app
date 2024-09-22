@@ -2,15 +2,16 @@
 
 import { useState } from "react";
 import { MdOutlineImage, MdClose, MdOutlineMovie } from "react-icons/md";
+import { useRouter } from "next/navigation";
 import MediaModal from "@/presentation/components/Media/MediaModal";
 
 export default function NewPostScreen({ me, onClose }) {
+	const router = useRouter();
 	const [content, setContent] = useState('');
 	const [attachments, setAttachments] = useState([]);
 	const [isNSFW, setIsNSFW] = useState(false);
 	const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [success, setSuccess] = useState(false);
 
   const handleNSFWChange = (event) => {
     setIsNSFW(event.target.checked);
@@ -18,7 +19,6 @@ export default function NewPostScreen({ me, onClose }) {
 
   async function handlePost() {
   	setLoading(true);
-    setSuccess(false);
     setError('');
 
     if (content.trim().length < 2) {
@@ -46,7 +46,8 @@ export default function NewPostScreen({ me, onClose }) {
       const data = await response.json();
       
       if (response.ok) {
-        setSuccess(true);
+        onClose();
+        router.push(`/posts/${data.id}`);
       } else {
         setError(data.error || "Failed to post");
       }
@@ -110,7 +111,6 @@ export default function NewPostScreen({ me, onClose }) {
 					<button disabled={loading} onClick={handlePost} className="text-sm font-semibold bg-blue-500 text-white transition duration-200 hover:bg-opacity-70 py-2 min-w-[80px] rounded-full">{loading ? "Posting..." : "Post"}</button>
 				</div>
 				<div>
-				  {success && (<p className="text-xs text-green-500 font-semibold text-center select-none">Post published successfully.</p>)}
 					<p className="text-xs text-red-500 font-semibold text-center select-none">{error}</p>
 				</div>
 				<div className="mt-4">

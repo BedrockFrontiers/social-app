@@ -41,14 +41,14 @@ export async function POST(request) {
   const createPostUseCase = new CreatePostUseCase(userRepository, postRepository);
 
   try {
-    await createPostUseCase.execute({
+    const data = await createPostUseCase.execute({
       gid,
       content,
       nsfw,
       attachments: uploadedUrls,
     });
 
-    return Response.json({ message: "Post created successfully." }, { status: 201 });
+    return Response.json({ message: "Post created successfully.", data }, { status: 201 });
   } catch (error) {
     return Response.json({ error: error.message }, { status: 500 });
   }
