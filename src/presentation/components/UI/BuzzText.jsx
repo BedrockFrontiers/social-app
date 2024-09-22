@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 export default function BuzzText({ content }) {
-  const regex = /(@[\w\u00C0-\u017F]+|#[\w\u00C0-\u017F]+|https?:\/\/[^\s]+|^>.*)/gm;
+  const regex = /(\*\*[^*]+\*\*|_[^_]+_|@[\w\u00C0-\u017F]+|#[\w\u00C0-\u017F]+|https?:\/\/[^\s]+|^>.*)/gm;
 
   function getDomainAndPath (url) {
     try {
@@ -16,7 +16,15 @@ export default function BuzzText({ content }) {
   function renderText(content) {
     const parts = content.split(regex);
     return parts.map((part, index) => {
-      if (part.startsWith('@')) {
+      if (part.startsWith("**") && part.endsWith("**")) {
+        return (
+          <strong key={index}>{part.slice(2, -2)}</strong>
+        );
+      } else if (part.startsWith('_') && part.endsWith('_')) {
+        return (
+          <em key={index}>{part.slice(1, -1)}</em>
+        );
+      } else if (part.startsWith('@')) {
         return (
           <Link className="text-blue-600 hover:underline" href={`/profile/${part}`} key={index}>
             {part}
