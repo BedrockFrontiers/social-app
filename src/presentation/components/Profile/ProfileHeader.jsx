@@ -49,6 +49,7 @@ export default async function ProfileHeader({ user, verifiedName, me }) {
                 <Link href={`/profile/${user.identifier}/followers`} className="text-gray-700 transition duration-200 hover:underline dark:text-white text-sm"><strong>{user.followers.length}</strong> followers</Link>
                 <Link href={`/profile/${user.identifier}/following`} className="text-gray-700 transition duration-200 hover:underline dark:text-white text-sm"><strong>{user.following.length}</strong> following</Link>
                 <span className="text-gray-600 dark:text-white text-sm"><strong>{user.posts.length}</strong> posts</span>
+                <span className="text-gray-600 dark:text-white text-sm"><strong>{user.likes.length + user.commentLikes.length}</strong> likes</span>
               </div>
             </div>
           </div>

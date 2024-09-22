@@ -11,9 +11,9 @@ export default function MediaModal({ ...props }) {
   return (
     <>
       {isVideo ? (
-        <video {...props} controls />
+        <video onClick={(e) => e.stopPropagation()} {...props} controls />
       ) : (
-        <Image onClick={() => setIsOpenModal(true)} {...props} />
+        <Image onClick={(e) => { e.stopPropagation(); setIsOpenModal(true) }} {...props} />
       )}
 
       {isOpenModal && (

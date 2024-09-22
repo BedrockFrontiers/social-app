@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import Twemoji from "react-twemoji";
 
 export default function BuzzText({ content }) {
   const regex = /(\*\*[^*]+\*\*|_[^_]+_|@[\w\u00C0-\u017F]+|#[\w\u00C0-\u017F]+|https?:\/\/[^\s]+|^>.*)/gm;
@@ -56,6 +59,8 @@ export default function BuzzText({ content }) {
   }
 
   return <div className="whitespace-pre-wrap break-words max-w-lg">
-    {renderText(content)}
+    <Twemoji options={{ className: "twemoji" }}>
+      {renderText(content)}
+    </Twemoji>
   </div>;
 }

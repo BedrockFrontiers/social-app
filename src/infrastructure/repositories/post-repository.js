@@ -1,4 +1,5 @@
 import prisma from "@/db.js";
+import getUserFields from "@/domain/fields/user";
 
 export default class PostRepository {
   async create(post) {
@@ -15,15 +16,20 @@ export default class PostRepository {
   }
   
   async findById(postId, userId = null) {
+    const userFields = await getUserFields();
     const post = await prisma.post.findUnique({
       where: { id: postId },
       include: {
-        author: true, 
+        author: {
+          select: userFields,
+        },
         likes: true, 
         reposts: true, 
         comments: {
           include: {
-            author: true,
+            author: {
+              select: userFields,
+            },
             post: true,
             parent: true,
             replies: true,
@@ -60,14 +66,19 @@ export default class PostRepository {
   }
 
   async findAll(userId = null) {
+    const userFields = await getUserFields();
     const posts = await prisma.post.findMany({
       include: {
-        author: true,
+        author: {
+          select: userFields,
+        },
         likes: true, 
         reposts: true, 
         comments: {
           include: {
-            author: true,
+            author: {
+              select: userFields,
+            },
             post: true,
             parent: true,
             replies: true,

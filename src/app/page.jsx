@@ -1,6 +1,6 @@
 import MainStructure from "@/presentation/components/MainStructure";
-import Post from "@/presentation/components/Post";
 import PostRepository from "@/infrastructure/repositories/post-repository";
+import Post from "@/presentation/components/Post";
 import getAccount from "@/shared/utils/account/get-account-util";
 
 export default async function Home() {

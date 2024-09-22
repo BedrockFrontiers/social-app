@@ -12,7 +12,7 @@ import Image from "next/image";
 import PostDropdownActions from "@/presentation/components/UI/Post/PostDropdownActions";
 import Attachments from "@/presentation/components/Media/Attachments";
 
-export default function Post({ post, me, hasLiked = false, hasReposted = false, linkable = true, useRepostIndication = false }) {
+export default function Post({ post, me, hasLiked = false, hasReposted = false, useRepostIndication = false }) {
   const [postDropdownOpen, setPostDropdownOpen] = useState(false);
   const [liked, setLiked] = useState(hasLiked);
   const [reposted, setReposted] = useState(hasReposted);
@@ -20,73 +20,95 @@ export default function Post({ post, me, hasLiked = false, hasReposted = false, 
   const [repostCount, setRepostCount] = useState(post.reposts.length);
   const [showNSFW, setShowNSFW] = useState(!post.nsfw);
   const verifiedName = getVerifiedLevelName(post.author.verified);
+  const [isLoadingLike, setIsLoadingLike] = useState(false);
+  const [isLoadingRepost, setIsLoadingRepost] = useState(false);
 
   async function likePost() {
-    if (!me) return;
-    const req = await fetch("/api/services/posts/like", {
-      method: "POST",
-      headers: {
-        Authorization: `G-ID ${me.prisma.gid}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        postId: post.id,
-      }),
-    });
+    if (!me || isLoadingLike) return;
+    setIsLoadingLike(true);
+    try {
+      const req = await fetch("/api/services/posts/like", {
+        method: "POST",
+        headers: {
+          Authorization: `G-ID ${me.prisma.gid}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ postId: post.id }),
+      });
 
-    setLiked(true);
-    setLikeCount((prev) => prev + 1);
+      if (req.ok) {
+        setLiked(true);
+        setLikeCount((prev) => prev + 1);
+      }
+    } finally {
+      setIsLoadingLike(false);
+    }
   }
 
   async function removeLikePost() {
-    if (!me) return;
-    const req = await fetch("/api/services/posts/like", {
-      method: "DELETE",
-      headers: {
-        Authorization: `G-ID ${me.prisma.gid}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        postId: post.id,
-      }),
-    });
+    if (!me || isLoadingLike) return;
+    setIsLoadingLike(true);
+    try {
+      const req = await fetch("/api/services/posts/like", {
+        method: "DELETE",
+        headers: {
+          Authorization: `G-ID ${me.prisma.gid}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ postId: post.id }),
+      });
 
-    setLiked(false);
-    setLikeCount((prev) => prev - 1);
+      if (req.ok) {
+        setLiked(false);
+        setLikeCount((prev) => prev - 1);
+      }
+    } finally {
+      setIsLoadingLike(false);
+    }
   }
 
   async function addRepost() {
-    if (!me) return;
-    const req = await fetch("/api/services/repost", {
-      method: "POST",
-      headers: {
-        Authorization: `G-ID ${me.prisma.gid}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        postId: post.id,
-      }),
-    });
+    if (!me || isLoadingRepost) return;
+    setIsLoadingRepost(true);
+    try {
+      const req = await fetch("/api/services/repost", {
+        method: "POST",
+        headers: {
+          Authorization: `G-ID ${me.prisma.gid}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ postId: post.id }),
+      });
 
-    setReposted(true);
-    setRepostCount((prev) => prev + 1);
+      if (req.ok) {
+        setReposted(true);
+        setRepostCount((prev) => prev + 1);
+      }
+    } finally {
+      setIsLoadingRepost(false);
+    }
   }
 
   async function removeRepost() {
-    if (!me) return;
-    const req = await fetch("/api/services/repost", {
-      method: "DELETE",
-      headers: {
-        Authorization: `G-ID ${me.prisma.gid}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        postId: post.id,
-      }),
-    });
+    if (!me || isLoadingRepost) return;
+    setIsLoadingRepost(true);
+    try {
+      const req = await fetch("/api/services/repost", {
+        method: "DELETE",
+        headers: {
+          Authorization: `G-ID ${me.prisma.gid}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ postId: post.id }),
+      });
 
-    setReposted(false);
-    setRepostCount((prev) => prev - 1);
+      if (req.ok) {
+        setReposted(false);
+        setRepostCount((prev) => prev - 1);
+      }
+    } finally {
+      setIsLoadingRepost(false);
+    }
   }
 
   return (
@@ -140,17 +162,11 @@ export default function Post({ post, me, hasLiked = false, hasReposted = false, 
             </div>
           ) : (
             <div>
-              <div className="mt-1">
-                {linkable ? (
-                  <Link href={`/posts/${post.id}`} className="text-sm">
-                    <BuzzText content={post.content} />
-                  </Link>
-                ) : (
-                  <div className="text-sm">
-                    <BuzzText content={post.content} />
-                  </div>
-                )}
-              </div>
+              <Link href={`/posts/${post.id}`} className="mt-1">
+                <div className="text-sm">
+                  <BuzzText content={post.content} />
+                </div>
+              </Link>
               {post.attachments.length > 0 && (
                 <div className="mt-2">
                   <Attachments items={post.attachments} />

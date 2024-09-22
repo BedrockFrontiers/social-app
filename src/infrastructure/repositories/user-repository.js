@@ -1,4 +1,5 @@
 import prisma from "@/db.js";
+import getUserFields from "@/domain/fields/user";
 
 export default class UserRepository {
   async create(user) {
@@ -96,12 +97,15 @@ export default class UserRepository {
   }
 
   async findByIdentifier(identifier, userId = null) {
+    const userFields = await getUserFields();
     const user = await prisma.user.findUnique({ 
       where: { identifier },
       include: {
         posts: {
           include: {
-            author: true,
+            author: {
+              select: userFields
+            },
             likes: true,
             reposts: true,
             comments: true
@@ -126,7 +130,9 @@ export default class UserRepository {
           include: {
             post: {
               include: {
-                author: true,
+                author: {
+                  select: userFields
+                },
                 likes: true,
                 comments: true,
                 reposts: true
@@ -162,12 +168,15 @@ export default class UserRepository {
   }
 
   async findByGID(gid) {
+    const userFields = await getUserFields();
     const user = await prisma.user.findUnique({ 
       where: { gid },
       include: {
         posts: {
           include: {
-            author: true,
+            author: {
+              select: userFields
+            },
             likes: true,
             reposts: true,
             comments: true
@@ -192,7 +201,62 @@ export default class UserRepository {
           include: {
             post: {
               include: {
-                author: true,
+                author: {
+                  select: userFields
+                },
+                likes: true,
+                comments: true,
+                reposts: true
+              }
+            }
+          },
+          orderBy: {
+            createdAt: "desc",
+          }
+        }
+      }
+    });
+    
+    return user ? user : null;
+  }
+
+  async findById(id) {
+    const userFields = await getUserFields();
+    const user = await prisma.user.findUnique({ 
+      where: { id },
+      include: {
+        posts: {
+          include: {
+            author: {
+              select: userFields
+            },
+            likes: true,
+            reposts: true,
+            comments: true
+          },
+          orderBy: {
+            createdAt: "desc", 
+          },
+        },
+        followers: {
+          include: {
+            following: true,
+          },
+        },
+        following: {
+          include: {
+            follower: true,
+          },
+        },
+        likes: true,
+        commentLikes: true,
+        reposts: {
+          include: {
+            post: {
+              include: {
+                author: {
+                  select: userFields
+                },
                 likes: true,
                 comments: true,
                 reposts: true

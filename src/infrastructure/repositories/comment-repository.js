@@ -1,4 +1,5 @@
 import prisma from "@/db.js";
+import getUserFields from "@/domain/fields/user";
 
 export default class CommentRepository {
   async create(comment) {
@@ -16,16 +17,21 @@ export default class CommentRepository {
   }
   
   async findById(commentId, userId = null) {
+    const userFields = await getUserFields();
     const comment = await prisma.comment.findUnique({
       where: { id: commentId },
       include: {
-        author: true,
+        author: {
+          select: userFields
+        },
         post: true,
         parent: true,
         likes: true,
         replies: {
           include: {
-            author: true,
+            author: {
+              select: userFields
+            },
             post: true,
             parent: true,
             likes: true,

@@ -23,6 +23,13 @@ export default async function getAccount(identifier, userId = null) {
     }
 
     return data?.user;
+  } else if (!isNaN(identifier)) {
+    const user = await userRepository.findById(parseInt(identifier), userId);
+
+    if (!user)
+      return null;
+
+    return user;
   } else {
     const user = await userRepository.findByIdentifier(identifier, userId);
 

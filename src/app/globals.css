@@ -20,3 +20,24 @@ body {
 .themed-border {
   @apply border border-zinc-200 dark:border-zinc-800;
 }
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+.twemoji {
+  width: 1.4em;
+  height: 1.4em;
+  margin: 0 0.05em;
+  vertical-align: middle;
+  display: inline;
+}

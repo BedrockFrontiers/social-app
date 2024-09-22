@@ -41,6 +41,8 @@ model User {
   commentLikes CommentLike[] // List of likes of comments by the user
   reposts Repost[] // List of reposts by the user
   comments Comment[] // List of comments associated with the user.
+  messagesSent Message[] @relation("SentMessages") // List of messages sent by the user.
+  messagesReceived Message[] @relation("ReceivedMessages") // List of messages received by the user.
 }
 
 // The Post model represents individual posts (or tweets) created by users.
@@ -122,4 +124,18 @@ model Repost {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade) // The user who reposted the post. Establishes a relation to the User model.
   post Post @relation(fields: [postId], references: [id], onDelete: Cascade) // The post that was reposted. Establishes a relation to the Post model.
   createdAt DateTime @default(now()) // The date when the post was reposted. Defaults to the current timestamp.
+}
+
+// The Message model represents a message to user.
+model Message {
+  id Int @id @default(autoincrement()) // Unique identifier for the message (auto-incrementing integer).
+  content String @db.VarChar(2000) // The textual content of the message.
+  attachments String[] // An array of URLs representing attachments (images, videos, etc.) related to the post.
+  createdAt DateTime @default(now()) // The date when the message was created. Defaults to the current timestamp.
+  senderId Int // Foreign key linking the message to its sender (User model).
+  recipientId Int // Foreign key linking the message to the recipient (User model).
+
+  // Relations
+  sender User @relation("SentMessages", fields: [senderId], references: [id], onDelete: Cascade) // The user who sent the message.
+  recipient User @relation("ReceivedMessages", fields: [recipientId], references: [id], onDelete: Cascade) // The user who received the message.
 }

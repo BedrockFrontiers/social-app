@@ -22,73 +22,95 @@ export default function PagePost({ post, me, hasLiked = false, hasReposted = fal
   const [repostCount, setRepostCount] = useState(post.reposts.length);
   const [showNSFW, setShowNSFW] = useState(!post.nsfw);
   const verifiedName = getVerifiedLevelName(post.author.verified);
+  const [isLoadingLike, setIsLoadingLike] = useState(false);
+  const [isLoadingRepost, setIsLoadingRepost] = useState(false);
 
   async function likePost() {
-    if (!me) return;
-    const req = await fetch("/api/services/posts/like", {
-      method: "POST",
-      headers: {
-        Authorization: `G-ID ${me.prisma.gid}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        postId: post.id,
-      }),
-    });
+    if (!me || isLoadingLike) return;
+    setIsLoadingLike(true);
+    try {
+      const req = await fetch("/api/services/posts/like", {
+        method: "POST",
+        headers: {
+          Authorization: `G-ID ${me.prisma.gid}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ postId: post.id }),
+      });
 
-    setLiked(true);
-    setLikeCount((prev) => prev + 1);
+      if (req.ok) {
+        setLiked(true);
+        setLikeCount((prev) => prev + 1);
+      }
+    } finally {
+      setIsLoadingLike(false);
+    }
   }
 
   async function removeLikePost() {
-    if (!me) return;
-    const req = await fetch("/api/services/posts/like", {
-      method: "DELETE",
-      headers: {
-        Authorization: `G-ID ${me.prisma.gid}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        postId: post.id,
-      }),
-    });
+    if (!me || isLoadingLike) return;
+    setIsLoadingLike(true);
+    try {
+      const req = await fetch("/api/services/posts/like", {
+        method: "DELETE",
+        headers: {
+          Authorization: `G-ID ${me.prisma.gid}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ postId: post.id }),
+      });
 
-    setLiked(false);
-    setLikeCount((prev) => prev - 1);
+      if (req.ok) {
+        setLiked(false);
+        setLikeCount((prev) => prev - 1);
+      }
+    } finally {
+      setIsLoadingLike(false);
+    }
   }
 
   async function addRepost() {
-    if (!me) return;
-    const req = await fetch("/api/services/repost", {
-      method: "POST",
-      headers: {
-        Authorization: `G-ID ${me.prisma.gid}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        postId: post.id,
-      }),
-    });
+    if (!me || isLoadingRepost) return;
+    setIsLoadingRepost(true);
+    try {
+      const req = await fetch("/api/services/repost", {
+        method: "POST",
+        headers: {
+          Authorization: `G-ID ${me.prisma.gid}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ postId: post.id }),
+      });
 
-    setReposted(true);
-    setRepostCount((prev) => prev + 1);
+      if (req.ok) {
+        setReposted(true);
+        setRepostCount((prev) => prev + 1);
+      }
+    } finally {
+      setIsLoadingRepost(false);
+    }
   }
 
   async function removeRepost() {
-    if (!me) return;
-    const req = await fetch("/api/services/repost", {
-      method: "DELETE",
-      headers: {
-        Authorization: `G-ID ${me.prisma.gid}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        postId: post.id,
-      }),
-    });
+    if (!me || isLoadingRepost) return;
+    setIsLoadingRepost(true);
+    try {
+      const req = await fetch("/api/services/repost", {
+        method: "DELETE",
+        headers: {
+          Authorization: `G-ID ${me.prisma.gid}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ postId: post.id }),
+      });
 
-    setReposted(false);
-    setRepostCount((prev) => prev - 1);
+      if (req.ok) {
+        setReposted(false);
+        setRepostCount((prev) => prev - 1);
+      }
+    } finally {
+      setIsLoadingRepost(false);
+    }
   }
 
   return (
