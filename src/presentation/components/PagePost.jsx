@@ -87,7 +87,7 @@ export default function PagePost({ post, me, hasLiked = false, hasReposted = fal
       }),
     });
 
-    setReposted(true);
+    setReposted(false);
     setRepostCount((prev) => prev - 1);
   }
 
