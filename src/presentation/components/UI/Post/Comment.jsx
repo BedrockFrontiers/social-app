@@ -11,8 +11,8 @@ import Image from "next/image";
 import CommentDropdownActions from "@/presentation/components/UI/Post/CommentDropdownActions";
 import Attachments from "@/presentation/components/Media/Attachments";
 
-export default function Comment({ me, comment, isLiked = false, linkable = true }) {
-  const [liked, setLiked] = useState(isLiked);
+export default function Comment({ me, comment, hasLiked = false, linkable = true }) {
+  const [liked, setLiked] = useState(hasLiked);
   const [likeCount, setLikeCount] = useState(comment.likes.length);
   const [commentDropdownOpen, setCommentDropdownOpen] = useState(false);
   const verifiedName = getVerifiedLevelName(comment.author.verified);

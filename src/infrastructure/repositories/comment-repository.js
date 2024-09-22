@@ -35,7 +35,20 @@ export default class CommentRepository {
       },
     });
 
-    return comment ? comment : null;
+    if (comment) {
+      const repliesWithLikesStatus = comment.replies.map(reply => ({
+        ...reply,
+        hasLiked: reply.likes.some(like => like.userId === userId),
+      }));
+
+      return {
+        ...comment,
+        hasLiked: comment.likes.some(like => like.userId === userId),
+        replies: repliesWithLikesStatus,
+      };
+    }
+
+    return null;
   }
 
   async delete(commentId) {

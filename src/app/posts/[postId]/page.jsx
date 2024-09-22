@@ -1,8 +1,6 @@
 import MainHeader from "@/presentation/components/MainHeader";
 import MainStructure from "@/presentation/components/MainStructure";
 import PostRepository from "@/infrastructure/repositories/post-repository";
-import LikeRepository from "@/infrastructure/repositories/like-repository";
-import CommentLikeRepository from "@/infrastructure/repositories/comment-like-repository";
 import PagePost from "@/presentation/components/PagePost";
 import Comment from "@/presentation/components/UI/Post/Comment";
 import getAccount from "@/shared/utils/account/get-account-util";
@@ -48,9 +46,7 @@ export default async function ViewPost({ params }) {
 	const { postId } = params;
 	const me = await getAccount("@me");
 	const postRepository = new PostRepository();
-	const likeRepository = new LikeRepository();
-	const commentLikeRepository = new CommentLikeRepository();
-	const post = await postRepository.findById(parseInt(postId));
+	const post = await postRepository.findById(parseInt(postId), me?.prisma.id);
 
 	if (!post) {
 		return (
@@ -62,23 +58,13 @@ export default async function ViewPost({ params }) {
 		);
 	}
 
-	const isLiked = await likeRepository.exists(me?.prisma.id, post.id);
-
-	async function addIsLikedToComments() {
-	  for (let i = 0; i < post.comments.length; i++) {
-	    post.comments[i].isLiked = await commentLikeRepository.exists(me?.prisma.id, post.comments[i].id);
-	  }
-	}
-
-	await addIsLikedToComments();
-
 	return (
 		<MainStructure>
 			<MainHeader returnRoute={`/profile/${post.author.identifier}`}>
 				<h3 className="select-none font-bold text-xl">{post.author.identifier} Post</h3>
 			</MainHeader>
 			<div>
-				<PagePost post={post} me={me} isLiked={isLiked} />
+				<PagePost post={post} me={me} hasLiked={post.hasLiked} hasReposted={post.hasReposted} />
 			</div>
 			<hr className="themed-border" />
 			<div>
@@ -87,7 +73,7 @@ export default async function ViewPost({ params }) {
 						{!comment.parentId && (
 							<div>
 								<div className="p-4">
-									<Comment me={me} comment={comment} isLiked={comment.isLiked} linkable={true} />
+									<Comment me={me} comment={comment} hasLiked={comment.hasLiked} linkable={true} />
 								</div>
 								<hr className="themed-border" />
 							</div>

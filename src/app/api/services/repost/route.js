@@ -1,9 +1,9 @@
 import AuthenticateUserUseCase from "@/domain/usecases/user/authenticate-user-usecase";
 import UserRepository from "@/infrastructure/repositories/user-repository";
-import LikeRepository from "@/infrastructure/repositories/like-repository";
+import RepostRepository from "@/infrastructure/repositories/repost-repository";
 import PostRepository from "@/infrastructure/repositories/post-repository";
-import CreateLikeUseCase from "@/domain/usecases/posts/like/create-like-usecase";
-import RemoveLikeUseCase from "@/domain/usecases/posts/like/remove-like-usecase";
+import CreateRepostUseCase from "@/domain/usecases/posts/create-repost-usecase";
+import RemoveRepostUseCase from "@/domain/usecases/posts/remove-repost-usecase";
 
 export async function POST(request) {
 	const { postId } = await request.json();
@@ -22,12 +22,12 @@ export async function POST(request) {
 
 	const userRepository = new UserRepository();
 	const postRepository = new PostRepository();
-	const likeRepository = new LikeRepository();
-	const createLikeUseCase = new CreateLikeUseCase(userRepository, likeRepository, postRepository);
+	const repostRepository = new RepostRepository();
+	const createRepostUseCase = new CreateRepostUseCase(userRepository, repostRepository, postRepository);
 
 	try {
-		await createLikeUseCase.execute({ gid, postId });
-		return Response.json({ message: "Post liked successfully." }, { status: 200 });
+		await createRepostUseCase.execute({ gid, postId });
+		return Response.json({ message: "Repost created successfully." }, { status: 200 });
 	} catch (error) {
 		return Response.json({ error: error.message }, { status: 400 });
 	}
@@ -50,12 +50,12 @@ export async function DELETE(request) {
 
 	const userRepository = new UserRepository();
 	const postRepository = new PostRepository();
-	const likeRepository = new LikeRepository();
-	const removeLikeUseCase = new RemoveLikeUseCase(userRepository, likeRepository, postRepository);
+	const repostRepository = new RepostRepository();
+	const removeRepostUseCase = new RemoveRepostUseCase(userRepository, repostRepository, postRepository);
 
 	try {
-		await removeLikeUseCase.execute({ gid, postId });
-		return Response.json({ message: "Post like removed successfully." }, { status: 200 });
+		await removeRepostUseCase.execute({ gid, postId });
+		return Response.json({ message: "Repost removed successfully." }, { status: 200 });
 	} catch (error) {
 		return Response.json({ error: error.message }, { status: 400 });
 	}

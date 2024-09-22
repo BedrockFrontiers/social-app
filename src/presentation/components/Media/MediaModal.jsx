@@ -5,10 +5,16 @@ import Image from "next/image";
 
 export default function MediaModal({ ...props }) {
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const validVideoFormats = ["data:video/mp4", "data:video/ogg", "data:videl/webm"];
+  const isVideo = typeof props.src === "string" && (validVideoFormats.some(format => props.src.startsWith(format))) || validVideoFormats.some(format => props.src.endsWith(`.${format.split('/')[1]}`));
 
   return (
     <>
-      <Image onClick={() => setIsOpenModal(true)} {...props} />
+      {isVideo ? (
+        <video {...props} controls />
+      ) : (
+        <Image onClick={() => setIsOpenModal(true)} {...props} />
+      )}
 
       {isOpenModal && (
         <div

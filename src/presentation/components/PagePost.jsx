@@ -13,11 +13,13 @@ import PostDropdownActions from "@/presentation/components/UI/Post/PostDropdownA
 import NewCommentScreen from "@/presentation/components/Screens/NewCommentScreen";
 import Attachments from "@/presentation/components/Media/Attachments";
 
-export default function PagePost({ post, me, isLiked = false }) {
+export default function PagePost({ post, me, hasLiked = false, hasReposted = false }) {
   const [isOpenNewCommentScreen, setIsOpenNewCommentScreen] = useState(false);
   const [postDropdownOpen, setPostDropdownOpen] = useState(false);
-  const [liked, setLiked] = useState(isLiked);
+  const [liked, setLiked] = useState(hasLiked);
+  const [reposted, setReposted] = useState(hasReposted);
   const [likeCount, setLikeCount] = useState(post.likes.length);
+  const [repostCount, setRepostCount] = useState(post.reposts.length);
   const [showNSFW, setShowNSFW] = useState(!post.nsfw);
   const verifiedName = getVerifiedLevelName(post.author.verified);
 
@@ -53,6 +55,40 @@ export default function PagePost({ post, me, isLiked = false }) {
 
     setLiked(false);
     setLikeCount((prev) => prev - 1);
+  }
+
+  async function addRepost() {
+    if (!me) return;
+    const req = await fetch("/api/services/repost", {
+      method: "POST",
+      headers: {
+        Authorization: `G-ID ${me.prisma.gid}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        postId: post.id,
+      }),
+    });
+
+    setReposted(true);
+    setRepostCount((prev) => prev + 1);
+  }
+
+  async function removeRepost() {
+    if (!me) return;
+    const req = await fetch("/api/services/repost", {
+      method: "DELETE",
+      headers: {
+        Authorization: `G-ID ${me.prisma.gid}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        postId: post.id,
+      }),
+    });
+
+    setReposted(true);
+    setRepostCount((prev) => prev - 1);
   }
 
   return (
@@ -123,9 +159,13 @@ export default function PagePost({ post, me, isLiked = false }) {
               <FaRegComment className="text-zinc-500" />
               <p className="text-sm text-zinc-500 font-semibold text-zinc-500 select-none">{post.comments.length}</p>
             </div>
-            <div className="transition duration-200 rounded-full p-1 hover:bg-zinc-700 hover:bg-opacity-20 flex items-center gap-2 cursor-pointer">
-              <FaArrowsRotate className="text-zinc-500" />
-              <p className="text-sm text-zinc-500 font-semibold text-zinc-500 select-none">{post.reposts.length}</p>
+            <div onClick={reposted ? removeRepost : addRepost} className="transition duration-200 rounded-full p-1 hover:bg-zinc-700 hover:bg-opacity-20 flex items-center gap-2 cursor-pointer">
+              {reposted ? (
+                <FaArrowsRotate className="text-green-500" />
+              ) : (
+                <FaArrowsRotate className="text-zinc-500" />
+              )}
+              <p className="text-sm text-zinc-500 font-semibold text-zinc-500 select-none">{repostCount}</p>
             </div>
             <div onClick={liked ? removeLikePost : likePost} className="transition duration-200 rounded-full p-1 hover:bg-zinc-700 hover:bg-opacity-20 flex items-center gap-2 cursor-pointer">
               {liked ? (
@@ -160,7 +200,7 @@ export default function PagePost({ post, me, isLiked = false }) {
             </div>
             <p className="text-sm">Write your reply</p>
           </div>
-          {isOpenNewCommentScreen && (<NewCommentScreen me={me} post={post} onClose={() => setIsOpenNewCommentScreen(false)} />)}
+          {isOpenNewCommentScreen && (<NewCommentScreen me={me} postId={post.id} onClose={() => setIsOpenNewCommentScreen(false)} />)}
         </div>
       )}
     </div>

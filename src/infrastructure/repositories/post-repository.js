@@ -14,7 +14,7 @@ export default class PostRepository {
     return newPost;
   }
   
-  async findById(postId) {
+  async findById(postId, userId = null) {
     const post = await prisma.post.findUnique({
       where: { id: postId },
       include: {
@@ -36,7 +36,21 @@ export default class PostRepository {
       },
     });
 
-    return post ? post : null;
+    if (post) {
+      const commentsWithLikesStatus = post.comments.map(comment => ({
+        ...comment,
+        hasLiked: comment.likes.some(like => like.userId === userId),
+      }));
+
+      return {
+        ...post,
+        hasLiked: post.likes.some(like => like.userId === userId),
+        hasReposted: post.reposts.some(repost => repost.userId === userId),
+        comments: commentsWithLikesStatus,
+      };
+    }
+
+    return null;
   }
 
   async delete(postId) {
@@ -45,7 +59,7 @@ export default class PostRepository {
     });
   }
 
-  async findAll() {
+  async findAll(userId = null) {
     const posts = await prisma.post.findMany({
       include: {
         author: true,
@@ -69,6 +83,10 @@ export default class PostRepository {
       },
     });
 
-    return posts.map(post => post);
+    return posts.map(post => ({
+      ...post,
+      hasLiked: post.likes.some(like => like.userId === userId),
+      hasReposted: post.reposts.some(repost => repost.userId === userId),
+    }));
   }
 }

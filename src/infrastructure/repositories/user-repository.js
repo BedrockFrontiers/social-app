@@ -56,9 +56,42 @@ export default class UserRepository {
         },
         likes: true,
         commentLikes: true,
-        reposts: true
+        reposts: {
+          include: {
+            post: {
+              include: {
+                author: true,
+                likes: true,
+                comments: true,
+                reposts: true
+              }
+            }
+          },
+          orderBy: {
+            createdAt: "desc",
+          }
+        }
       }
     });
+
+    if (user) {
+      user.posts = user.posts.map(post => {
+        return {
+          ...post,
+          hasLiked: post.likes.some(like => like.userId === user.id),
+          hasReposted: post.reposts.some(repost => repost.userId === user.id)
+        };
+      });
+
+      user.reposts = user.reposts.map(repost => {
+        return {
+          ...repost,
+          hasLiked: repost.post.likes.some(like => like.userId === user.id),
+          hasReposted: repost.post.reposts.some(rp => rp.userId === user.id)
+        };
+      });
+    }
+
     return user ? user : null;
   }
 
@@ -89,9 +122,42 @@ export default class UserRepository {
         },
         likes: true,
         commentLikes: true,
-        reposts: true
+        reposts: {
+          include: {
+            post: {
+              include: {
+                author: true,
+                likes: true,
+                comments: true,
+                reposts: true
+              }
+            }
+          },
+          orderBy: {
+            createdAt: "desc",
+          }
+        }
       }
     });
+
+    if (user) {
+      user.posts = user.posts.map(post => {
+        return {
+          ...post,
+          hasLiked: post.likes.some(like => like.userId === user.id),
+          hasReposted: post.reposts.some(repost => repost.userId === user.id)
+        };
+      });
+
+      user.reposts = user.reposts.map(repost => {
+        return {
+          ...repost,
+          hasLiked: repost.post.likes.some(like => like.userId === user.id),
+          hasReposted: repost.post.reposts.some(rp => rp.userId === user.id)
+        };
+      });
+    }
+
     return user ? user : null;
   }
 
@@ -122,9 +188,42 @@ export default class UserRepository {
         },
         likes: true,
         commentLikes: true,
-        reposts: true
+        reposts: {
+          include: {
+            post: {
+              include: {
+                author: true,
+                likes: true,
+                comments: true,
+                reposts: true
+              }
+            }
+          },
+          orderBy: {
+            createdAt: "desc",
+          }
+        }
       }
     });
+
+    if (user) {
+      user.posts = user.posts.map(post => {
+        return {
+          ...post,
+          hasLiked: post.likes.some(like => like.userId === user.id),
+          hasReposted: post.reposts.some(repost => repost.userId === user.id)
+        };
+      });
+
+      user.reposts = user.reposts.map(repost => {
+        return {
+          ...repost,
+          hasLiked: repost.post.likes.some(like => like.userId === user.id),
+          hasReposted: repost.post.reposts.some(rp => rp.userId === user.id)
+        };
+      });
+    }
+    
     return user ? user : null;
   }
 }

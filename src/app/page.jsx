@@ -1,22 +1,12 @@
 import MainStructure from "@/presentation/components/MainStructure";
-import PostRepository from "@/infrastructure/repositories/post-repository";
-import LikeRepository from "@/infrastructure/repositories/like-repository";
 import Post from "@/presentation/components/Post";
+import PostRepository from "@/infrastructure/repositories/post-repository";
 import getAccount from "@/shared/utils/account/get-account-util";
 
 export default async function Home() {
   const me = await getAccount("@me");
   const postRepository = new PostRepository();
-  const likeRepository = new LikeRepository();
-  const posts = await postRepository.findAll();
-
-  async function addIsLikedToPosts() {
-    for (let i = 0; i < posts.length; i++) {
-      posts[i].isLiked = await likeRepository.exists(me?.prisma.id, posts[i].id);
-    }
-  }
-
-  await addIsLikedToPosts();
+  const posts = await postRepository.findAll(me?.prisma.id);
 
   return (
     <MainStructure>
@@ -34,7 +24,7 @@ export default async function Home() {
         <div>
           {posts.map((post, index) => (
             <div key={index}>
-              <Post post={post} me={me} isLiked={post.isLiked} />
+              <Post post={post} me={me} hasLiked={post.hasLiked} hasReposted={post.hasReposted} />
               <hr className="border-gray-200 dark:border-zinc-700" />
             </div>
           ))}

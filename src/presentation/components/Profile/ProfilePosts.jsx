@@ -1,23 +1,20 @@
 import Post from "@/presentation/components/Post";
-import LikeRepository from "@/infrastructure/repositories/like-repository";
 
 export default async function ProfilePosts({ user, me }) {
   const posts = user.posts;
-  const likeRepository = new LikeRepository();
-
-  async function addIsLikedToPosts() {
-    for (let i = 0; i < posts.length; i++) {
-      posts[i].isLiked = await likeRepository.exists(me?.prisma.id, posts[i].id);
-    }
-  }
-
-  await addIsLikedToPosts();
+  const reposts = user.reposts;
 
   return (
     <div>
+      {reposts.map((repost, index) => (
+        <div key={index}>
+          <Post post={repost.post} me={me} hasLiked={repost.post.hasLiked} hasReposted={repost.hasReposted} useRepostIndication={true} />
+          <hr className="border-gray-200 dark:border-zinc-700" />
+        </div>
+      ))}
       {posts.map((post, index) => (
         <div key={index}>
-          <Post post={post} me={me} isLiked={post.isLiked} />
+          <Post post={post} me={me} hasLiked={post.hasLiked} hasReposted={post.hasReposted} />
           <hr className="border-gray-200 dark:border-zinc-700" />
         </div>
       ))}

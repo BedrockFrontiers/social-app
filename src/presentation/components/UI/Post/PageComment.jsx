@@ -12,9 +12,9 @@ import CommentDropdownActions from "@/presentation/components/UI/Post/CommentDro
 import NewReplyScreen from "@/presentation/components/Screens/NewReplyScreen";
 import Attachments from "@/presentation/components/Media/Attachments";
 
-export default function Comment({ me, comment, isLiked = false }) {
+export default function Comment({ me, comment, hasLiked = false }) {
   const [isOpenNewReplyScreen, setIsOpenNewReplyScreen] = useState(false);
-  const [liked, setLiked] = useState(isLiked);
+  const [liked, setLiked] = useState(hasLiked);
   const [likeCount, setLikeCount] = useState(comment.likes.length);
   const [commentDropdownOpen, setCommentDropdownOpen] = useState(false);
   const verifiedName = getVerifiedLevelName(comment.author.verified);
@@ -137,7 +137,7 @@ export default function Comment({ me, comment, isLiked = false }) {
             </div>
             <p className="text-sm">Write your reply</p>
           </div>
-          {isOpenNewReplyScreen && (<NewReplyScreen me={me} comment={comment} onClose={() => setIsOpenNewReplyScreen(false)} />)}
+          {isOpenNewReplyScreen && (<NewReplyScreen me={me} commentId={comment.id} onClose={() => setIsOpenNewReplyScreen(false)} />)}
         </div>
       )}
     </div>
