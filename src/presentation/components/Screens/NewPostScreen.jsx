@@ -43,7 +43,7 @@ export default function NewPostScreen({ me, onClose }) {
         body: JSON.stringify(postPayload),
       });
 
-      const data = await response.json();
+      const { data } = await response.json();
       
       if (response.ok) {
         onClose();
