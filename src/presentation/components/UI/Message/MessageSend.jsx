@@ -129,8 +129,8 @@ export default function MessageSend({ me, userId }) {
 			<div className="flex-grow overflow-y-auto">
 			  <div className="h-full flex flex-col gap-10 p-4">
 			  	{messages.map((message, index) => (
-			  		<div className={`m${message.senderId === userId ? 'r' : 'l'}-auto w-[max-content]`}>
-				  		<div className={`w-[max-content] max-w-[500px] ${message.senderId === userId ? "bg-zinc-500" : "bg-blue-500"} rounded-bl-full rounded-tl-full rounded-tr-full p-4 text-white text-sm`} key={index}>
+			  		<div className={`m${message.senderId === userId ? 'r' : 'l'}-auto w-[max-content]`} key={index}>
+				  		<div className={`w-[max-content] max-w-[500px] ${message.senderId === userId ? "bg-zinc-500" : "bg-blue-500"} rounded-bl-full rounded-tl-full rounded-tr-full p-4 text-white text-sm`}>
 				  			<BuzzText content={message.content} />
 				  		</div>
 				  		<p className="text-xs ml-auto w-[max-content] font-semibold text-zinc-500 mt-1">{moment(message.createdAt).fromNow()}</p>
