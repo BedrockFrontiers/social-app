@@ -7,8 +7,7 @@ export default class MessageRepository {
       data: {
         content: message.content,
         senderId: message.senderId,
-        recipientId: message.recipientId,
-        createdAt: new Date(),
+        recipientId: message.recipientId
       }
     });
 
@@ -43,6 +42,27 @@ export default class MessageRepository {
         OR: [
           { senderId: userId },
           { recipientId: userId },
+        ]
+      },
+      include: {
+        sender: {
+          select: await getUserFields(),
+        },
+        recipient: {
+          select: await getUserFields(),
+        }
+      }
+    });
+
+    return messages;
+  }
+
+  async getMessagesWithUser(senderId, recipientId) {
+    const messages = await prisma.message.findMany({
+      where: {
+        OR: [
+          { senderId, recipientId },
+          { senderId: recipientId, recipientId: senderId }
         ]
       },
       include: {

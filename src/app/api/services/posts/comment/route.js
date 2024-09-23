@@ -19,7 +19,7 @@ export async function POST(request) {
 
   const { content, postId, attachments } = await request.json();
 
-  if (!content && !attachments)
+  if (!content && !attachments && !postId)
     return Response.json({ error: "Missing fields." }, { status: 401 });
 
   const postRepository = new PostRepository();

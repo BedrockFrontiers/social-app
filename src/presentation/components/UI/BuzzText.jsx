@@ -59,7 +59,7 @@ export default function BuzzText({ content }) {
   }
 
   return <div className="whitespace-pre-wrap break-words max-w-lg">
-    <Twemoji options={{ className: "twemoji" }}>
+    <Twemoji options={{ className: "twemoji", ext: ".svg", folder: "svg" }}>
       {renderText(content)}
     </Twemoji>
   </div>;

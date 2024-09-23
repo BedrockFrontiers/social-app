@@ -2,8 +2,7 @@ import MainStructure from "@/presentation/components/MainStructure";
 import MainHeader from "@/presentation/components/MainHeader";
 import Link from "next/link";
 import Image from "next/image";
-import Post from "@/presentation/components/Post";
-import MessageRepository from "@/infrastructure/repositories/message-repository";
+import MessageSend from "@/presentation/components/UI/Message/MessageSend";
 import getVerifiedLevelName from "@/shared/utils/user/get-verified-level-name-util";
 import getAccount from "@/shared/utils/account/get-account-util";
 
@@ -27,11 +26,9 @@ export default async function MessagesPage({ params }) {
   }
 
   const verifiedName = getVerifiedLevelName(user.verified);
-  const messageRepo = new MessageRepository();
-  const messages = await messageRepo.findAllByUserId(me.prisma.id);
 
   return (
-  	<MainStructure>
+  	<MainStructure className="flex flex-col h-full">
   		<MainHeader returnRoute={`/profile/${user.identifier}`}>
   			<Link href={`/profile/${user.identifier}`} className="flex items-center gap-2">
   			  <div className="w-[30px] h-[30px]">
@@ -46,6 +43,7 @@ export default async function MessagesPage({ params }) {
   			  </div>
   			</Link>
   		</MainHeader>
+      <MessageSend me={me} userId={parseInt(userId)} />
   	</MainStructure>
   );
 }
