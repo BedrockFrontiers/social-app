@@ -20,7 +20,6 @@ export default function MessageSend({ me, userId }) {
 	useEffect(() => {
 		async function fetchMessages() {
 			const messagePayload = JSON.stringify({
-				senderId: me.prisma.id,
 				recipientId: userId
 			});
 
