@@ -5,13 +5,16 @@ export default class CreateMessageUseCase {
 	}
 
 	async execute({ gid, content, attachments, recipientId }) {
-		const existingUser = await this.userRepository.findBy(gid);
+		const existingUser = await this.userRepository.findByGID(gid);
     if (!existingUser)
       throw new Error("G-ID invalid.");
 
     const existingRecipient = await this.userRepository.findById(recipientId);
-    if (!recipientId)
+    if (!existingRecipient)
       throw new Error("User to send message doesn't exist.");
+
+		if (existingUser.id === existingRecipient.if)
+			throw new Error("You can't send message to yourself.");
 
 		await this.messageRepository.create({ content: content, attachments: attachments, senderId: existingUser.id, recipientId: recipientId });
 	}
