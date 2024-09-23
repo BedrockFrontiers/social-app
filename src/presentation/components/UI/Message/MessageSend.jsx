@@ -54,7 +54,6 @@ export default function MessageSend({ me, userId }) {
 
     const messagePayload = {
 	    content: content,
-	    senderId: me.prisma.id,
 	    recipientId: userId,
 	    attachments: attachments.map(attachment => attachment.file)
 	  };
@@ -66,10 +65,10 @@ export default function MessageSend({ me, userId }) {
 					"Authorization": `G-ID ${me.prisma.gid}`,
 					"Content-Type": "application/json"
 				},
-        body: JSON.stringify(postPayload),
+        body: JSON.stringify(messagePayload),
       });
 
-      const { data } = await response.json();
+      const data = await response.json();
       
       if (!response.ok)
         setError(data.error);
