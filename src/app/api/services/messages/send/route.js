@@ -40,7 +40,7 @@ export async function POST(request) {
     uploadedUrls.push(uploadResponse.link);
   }
 
-  const createMessageUseCass = new CreateMessageUseCase(messageRepository, userRepository);
+  const createMessageUseCase = new CreateMessageUseCase(messageRepository, userRepository);
   try {
     await createMessageUseCase.execute({
       gid,
