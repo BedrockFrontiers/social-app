@@ -8,6 +8,7 @@ import moment from "moment";
 import BuzzText from "@/presentation/components/UI/BuzzText";
 import MediaModal from "@/presentation/components/Media/MediaModal";
 import Input from "@/presentation/components/UI/Input";
+import Attachments from "@/presentation/components/Media/Attachments";
 
 export default function MessageSend({ me, userId }) {
 	const router = useRouter();
@@ -75,6 +76,8 @@ export default function MessageSend({ me, userId }) {
     } catch (err) {
       setError("An error occurred while sending message");
     } finally {
+			setAttachments([]);
+			setContent('');
       setLoading(false);
     }
   }
@@ -133,6 +136,11 @@ export default function MessageSend({ me, userId }) {
 				  		<div className={`w-[max-content] max-w-[500px] ${message.senderId === userId ? "bg-zinc-500" : "bg-blue-500"} rounded-bl-full rounded-tl-full rounded-tr-full p-4 text-white text-sm`}>
 				  			<BuzzText content={message.content} />
 				  		</div>
+							{message.attachments.length > 0 && (
+                <div className="mt-2">
+                  <Attachments items={message.attachments} />
+                </div>
+              )}
 				  		<p className="text-xs ml-auto w-[max-content] font-semibold text-zinc-500 mt-1">{moment(message.createdAt).fromNow()}</p>
 			  		</div>
 			  	))}
@@ -179,7 +187,7 @@ export default function MessageSend({ me, userId }) {
 			      type="text"
 			      boxClass="!bg-white !dark:bg-black !rounded-full themed-border"
 			      value={content}
-			      onChange={setContent}
+			      onChange={(e) => setContent(e.target.value)}
 			      icon={
 			      	<div className="flex items-center gap-2">
 			      		<div className="relative group">
