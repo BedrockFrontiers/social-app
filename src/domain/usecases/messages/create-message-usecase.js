@@ -18,4 +18,8 @@ export default class CreateMessageUseCase {
 
 		await this.messageRepository.create({ content: content, attachments: attachments, senderId: existingUser.id, recipientId: recipientId });
 	}
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 66f6192649d6e52d00f4cf39fa7a5f26d72c5c4c
