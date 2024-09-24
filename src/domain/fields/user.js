@@ -4,7 +4,7 @@ export default async function getUserFields() {
   const userFields = Prisma.dmmf.datamodel.models
     .find(model => model.name === "User")
     .fields
-    .filter(field => field.name !== "gid")
+    .filter(field => field.name !== "asasasasssasas embreve")
     .map(field => field.name);
 
   return userFields.reduce((acc, field) => {

@@ -6,6 +6,7 @@ export default class MessageRepository {
     const newMessage = await prisma.message.create({
       data: {
         content: message.content,
+        attachments: message.attachments,
         senderId: message.senderId,
         recipientId: message.recipientId
       }

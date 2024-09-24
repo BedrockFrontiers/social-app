@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react"
 import { BsFillSendFill } from "react-icons/bs";
 import { MdOutlineImage, MdClose, MdOutlineMovie } from "react-icons/md";
 import { useRouter } from "next/navigation";
@@ -8,6 +8,14 @@ import moment from "moment";
 import BuzzText from "@/presentation/components/UI/BuzzText";
 import MediaModal from "@/presentation/components/Media/MediaModal";
 import Input from "@/presentation/components/UI/Input";
+import Image from "next/image";
+import Attachments from "@/presentation/components/Media/Attachments";
+import { createClient } from "@supabase/supabase-js";
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 export default function MessageSend({ me, userId }) {
 	const router = useRouter();
@@ -16,11 +24,11 @@ export default function MessageSend({ me, userId }) {
 	const [messages, setMessages] = useState([]);
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState('');
+	const scrollAreaRef = useRef(null);
 
 	useEffect(() => {
 		async function fetchMessages() {
 			const messagePayload = JSON.stringify({
-				senderId: me.prisma.id,
 				recipientId: userId
 			});
 
@@ -38,23 +46,28 @@ export default function MessageSend({ me, userId }) {
 			}
 		}
 
+		setInterval(fetchMessages, 1500);
 		fetchMessages();
-		setInterval(fetchMessages, 1500)
-	}, []);
+	}, [userId]);
+
+	useEffect(() => {
+    if (scrollAreaRef.current) {
+      scrollAreaRef.current.scrollTop = scrollAreaRef.current.scrollHeight
+    }
+  }, [messages]);
 
   async function handleSendMessage() {
   	setLoading(true);
     setError('');
 
-    if (content.trim().length < 2) {
-    	setError("Post content must be atleast 2 characters length.");
+    if (content.trim().length < 1 && attachments.length === 0) {
+    	setError("Message must be a content.");
     	setLoading(false);
     	return;
     }
 
     const messagePayload = {
 	    content: content,
-	    senderId: me.prisma.id,
 	    recipientId: userId,
 	    attachments: attachments.map(attachment => attachment.file)
 	  };
@@ -66,16 +79,18 @@ export default function MessageSend({ me, userId }) {
 					"Authorization": `G-ID ${me.prisma.gid}`,
 					"Content-Type": "application/json"
 				},
-        body: JSON.stringify(postPayload),
+        body: JSON.stringify(messagePayload),
       });
 
-      const { data } = await response.json();
+      const data = await response.json();
       
       if (!response.ok)
         setError(data.error);
     } catch (err) {
       setError("An error occurred while sending message");
     } finally {
+    	setAttachments([]);
+    	setContent('');
       setLoading(false);
     }
   }
@@ -126,95 +141,104 @@ export default function MessageSend({ me, userId }) {
 	}
 
 	return (
-		<>
-			<div className="flex-grow overflow-y-auto">
-			  <div className="h-full flex flex-col gap-10 p-4">
-			  	{messages.map((message, index) => (
-			  		<div className={`m${message.senderId === userId ? 'r' : 'l'}-auto w-[max-content]`}>
-				  		<div className={`w-[max-content] max-w-[500px] ${message.senderId === userId ? "bg-zinc-500" : "bg-blue-500"} rounded-bl-full rounded-tl-full rounded-tr-full p-4 text-white text-sm`} key={index}>
-				  			<BuzzText content={message.content} />
-				  		</div>
-				  		<p className="text-xs ml-auto w-[max-content] font-semibold text-zinc-500 mt-1">{moment(message.createdAt).fromNow()}</p>
-			  		</div>
-			  	))}
-			  </div>
-			</div>
-			<div>
-				<div className="grid grid-cols-3 gap-2 p-4">
-          {attachments.map((attachment) => (
-            <div key={attachment.id} className="relative w-[250px] h-[250px]">
-              <MediaModal src={attachment.id} className="w-full aspect-square rounded-lg object-cover cursor-pointer" width={1000} height={1000} alt={`Preview ${attachment.id}`} />
-              <button onClick={() => handleRemoveMedia(attachment.id)} className="absolute top-2 right-2 text-white bg-black dark:text-black dark:bg-white bg-opacity-70 rounded-full p-1">
-                <MdClose size={20} />
-              </button>
-              <button className="absolute bottom-2 right-2 text-white bg-black dark:text-black dark:bg-white bg-opacity-70 rounded-full p-1">
-              	{attachment.type === "image" ? (
-              		<div>
-              			<MdOutlineImage size={20} />
-              			<input
-              			  type="file"
-              			  accept="image/*"
-              			  onChange={(e) => handleEditMedia(e, attachment.id)}
-              			  className="absolute inset-0 opacity-0 z-10"
-              			/>
-              		</div>
-              	) : (
-              		<div>
-              			<MdOutlineMovie size={20} />
-              			<input
-              			  type="file"
-              			  accept="video/mp4,video/ogg, video/webm"
-              			  onChange={(e) => handleEditMedia(e, attachment.id)}
-              			  className="absolute inset-0 opacity-0 z-10"
-              			/>
-              		</div>
-              	)}
-              </button>
+		<div className="flex flex-col h-screen">
+			<div className="overflow-y-auto flex-grow p-4" ref={scrollAreaRef}>
+				{messages.map((message, index) => (
+          <div key={index} className={`flex ${message.senderId === me.prisma.id ? "justify-end" : "justify-start"} mb-4`}>
+            <div className={`flex ${message.senderId === me.prisma.id ? "flex-row-reverse" : "flex-row"} items-end`}>
+            	<Image
+            	  className="rounded-full select-none w-8 h-8"
+            	  src={message.sender.avatarUrl}
+            	  width={40}
+            	  height={40}
+            	  quality={100}
+            	  alt="Profile Picture"
+            	/>
+              <div className={`mx-2 ${message.senderId === me.prisma.id ? "bg-blue-600" : "bg-gray-700"} rounded-xl p-3 max-w-xs`}>
+                <p className="text-sm text-white">{message.content}</p>
+                {message.attachments.length > 0 && (
+                  <Attachments items={message.attachments} />
+                )}
+                <p className="text-xs text-gray-400 font-semibold mt-1 select-none">{moment(message.createdAt).fromNow()} - {moment(message.createdAt).format("h:mm A")}</p>
+              </div>
             </div>
-          ))}
-        </div>
-			  <div className="p-4 max-lg:mb-20 lg:mb-4">
-			  	{attachments.length > 0 && <p className="-mt-5 text-xs text-zinc-600 mb-3">When uploading images/videos, please ensure that they adhere to our community guidelines. Avoid uploading any content that might be considered sensitive, explicit, or inappropriate.</p>}
-			  	<p className="text-xs text-red-500 font-semibold text-left select-none">{error}</p>
-			    <Input
-			      type="text"
-			      boxClass="!bg-white !dark:bg-black !rounded-full themed-border"
-			      value={content}
-			      onChange={setContent}
-			      icon={
-			      	<div className="flex items-center gap-2">
-			      		<div className="relative group">
-			      			<div className="cursor-pointer text-blue-500 transition duration-200 group-hover:bg-blue-300 group-hover:bg-opacity-70 rounded-full p-2">
-			      				<MdOutlineImage size={20} />
-			      			</div>
-			      			<input
-			      			  type="file"
-			      			  accept="image/*"
-			      			  onChange={handleMediaUpload}
-			      			  className="absolute inset-0 opacity-0 z-10"
-			      			/>
-			      		</div>
-			      		<div className="relative group">
-			      			<div className="cursor-pointer text-blue-500 transition duration-200 group-hover:bg-blue-300 group-hover:bg-opacity-70 rounded-full p-2">
-			      				<MdOutlineMovie size={20} />
-			      			</div>
-			      			<input
-			      			  type="file"
-			      			  accept="video/mp4,video/ogg, video/webm"
-			      			  onChange={handleMediaUpload}
-			      			  className="absolute inset-0 opacity-0 z-10"
-			      			/>
-			      		</div>
-				        <div disabled={loading} onClick={handleSendMessage} className="p-2 rounded-full transition duration-200 bg-blue-500 hover:bg-blue-600 cursor-pointer">
-				          <BsFillSendFill className="text-white" />
-				        </div>
-			        </div>
-			      }
-			      iconEnd={true}
-			      placeholder="Write a message"
-			    />
-			  </div>
+          </div>
+        ))}
 			</div>
-		</>
+			<div className="p-4 themed-border !border-b-0 !border-x-0">
+				{attachments.length > 0 && (
+          <div className="flex flex-wrap gap-2 mb-2">
+            {attachments.map((attachment) => (
+              <div key={attachment.id} className="relative">
+                <MediaModal src={attachment.id} className="w-[200px] h-[200px] aspect-square rounded-lg object-cover cursor-pointer" width={200} height={200} alt={`Preview ${attachment.id}`} />
+                <button onClick={() => handleRemoveMedia(attachment.id)} className="absolute top-2 right-2 text-white bg-black dark:text-black dark:bg-white bg-opacity-70 rounded-full p-1">
+                  <MdClose size={20} />
+                </button>
+                <button className="absolute bottom-2 right-2 text-white bg-black dark:text-black dark:bg-white bg-opacity-70 rounded-full p-1">
+                	{attachment.type === "image" ? (
+                		<div>
+                			<MdOutlineImage size={20} />
+                			<input
+                			  type="file"
+                			  accept="image/*"
+                			  onChange={(e) => handleEditMedia(e, attachment.id)}
+                			  className="absolute inset-0 opacity-0 z-10"
+                			/>
+                		</div>
+                	) : (
+                		<div>
+                			<MdOutlineMovie size={20} />
+                			<input
+                			  type="file"
+                			  accept="video/mp4,video/ogg, video/webm"
+                			  onChange={(e) => handleEditMedia(e, attachment.id)}
+                			  className="absolute inset-0 opacity-0 z-10"
+                			/>
+                		</div>
+                	)}
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
+        <p className="text-xs text-red-500 font-semibold text-left select-none">{error}</p>
+				<div className="flex items-center space-x-2">
+					<input
+						type="text"
+						value={content}
+						onChange={(e) => setContent(e.target.value)}
+						className="outline-none flex-grow py-2 px-4 themed-border rounded-lg text-sm"
+						placeholder="Type a message"
+					/>
+					<div className="flex space-x-2">
+						<button className="relative themed-border rounded-lg bg-white dark:bg-black transition duration-200 hover:bg-opacity-70 p-2">
+	      			<MdOutlineImage size={20} />
+	      			<input
+	      			  type="file"
+	      			  accept="image/*"
+	      			  onChange={handleMediaUpload}
+	      			  className="absolute inset-0 opacity-0"
+	      			/>
+	      		</button>
+					</div>
+					<div className="flex space-x-2">
+						<button className="relative themed-border rounded-lg bg-white dark:bg-black transition duration-200 hover:bg-opacity-70 p-2">
+	      			<MdOutlineMovie size={20} />
+	      			<input
+	      			  type="file"
+	      			  accept="video/mp4,video/ogg,video/webm"
+	      			  onChange={handleMediaUpload}
+	      			  className="absolute inset-0 opacity-0"
+	      			/>
+	      		</button>
+					</div>
+					<div className="flex space-x-2">
+						<button onClick={handleSendMessage} disabled={loading} className="relative themed-border rounded-lg bg-blue-600 transition duration-200 hover:bg-blue-700 p-2">
+	      			<BsFillSendFill className="text-white" />
+	      		</button>
+					</div>
+				</div>
+			</div>
+		</div>
 	);
 }
