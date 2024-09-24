@@ -87,6 +87,7 @@ export default function MessageSend({ me, userId }) {
     } finally {
     	setAttachments([]);
     	setContent('');
+    	router.refresh();
       setLoading(false);
     }
   }
@@ -151,7 +152,9 @@ export default function MessageSend({ me, userId }) {
             	  alt="Profile Picture"
             	/>
               <div className={`mx-2 ${message.senderId === me.prisma.id ? "bg-blue-600" : "bg-gray-700"} rounded-xl p-3 max-w-xs`}>
-                <p className="text-sm text-white">{message.content}</p>
+                <div className="text-sm text-white">
+                	<BuzzText content={message.content} />
+                </div>
                 {message.attachments.length > 0 && (
                   <Attachments items={message.attachments} />
                 )}
