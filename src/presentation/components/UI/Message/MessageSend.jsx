@@ -50,7 +50,7 @@ export default function MessageSend({ me, userId }) {
       scrollAreaRef.current.scrollTop = scrollAreaRef.current.scrollHeight;
       setScrolledOnce(true);
     }
-  }, [messages]);
+  }, [messages, scrolledOnce]);
 
   async function handleSendMessage() {
   	setLoading(true);
