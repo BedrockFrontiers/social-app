@@ -19,6 +19,7 @@ export default function MessageSend({ me, userId }) {
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState('');
 	const scrollAreaRef = useRef(null);
+	const [scrolledOnce, setScrolledOnce] = useState(false);
 
 	useEffect(() => {
 		async function fetchMessages() {
@@ -45,8 +46,9 @@ export default function MessageSend({ me, userId }) {
 	}, [userId]);
 
 	useEffect(() => {
-    if (scrollAreaRef.current) {
-      scrollAreaRef.current.scrollTop = scrollAreaRef.current.scrollHeight
+    if (scrollAreaRef.current && !scrolledOnce) {
+      scrollAreaRef.current.scrollTop = scrollAreaRef.current.scrollHeight;
+      setScrolledOnce(true);
     }
   }, [messages]);
 
